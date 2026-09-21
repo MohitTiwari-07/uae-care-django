@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>
+        {% if blog.meta_title %}
+            {{ blog.meta_title }}
+        {% else %}
+            {{ blog.title }} | UAE Care
+        {% endif %}
+    </title>
+
+    <meta name="description"
+          content="{% if blog.meta_description %}{{ blog.meta_description }}{% else %}{{ blog.excerpt }}{% endif %}">
+
+    <link rel="canonical"
+          href="{{ request.build_absolute_uri }}">
+
+    <meta property="og:title"
+          content="{% if blog.meta_title %}{{ blog.meta_title }}{% else %}{{ blog.title }} | UAE Care{% endif %}">
+
+    <meta property="og:description"
+          content="{% if blog.meta_description %}{{ blog.meta_description }}{% else %}{{ blog.excerpt }}{% endif %}">
+
+    <meta property="og:type" content="article">
+    <meta property="og:url"
+      content="{{ request.build_absolute_uri }}">
+
+<meta property="og:site_name"
+      content="UAE Care">
+
+    {% if blog.image %}
+    <meta property="og:image" content="{{ blog.image }}">
+    {% endif %}
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css"
+          rel="stylesheet">
+</head>
+
+<body>
+
+<!-- NAVBAR -->
+<nav class="navbar navbar-dark"
+     style="background:#111827;">
+
+    <div class="container">
+
+        <a class="navbar-brand fw-bold" href="/">
+            UAE CARE
+        </a>
+
+        <div>
+            <a href="/" class="btn btn-outline-light me-2">
+                Home
+            </a>
+
+            {% if settings %}
+            <a href="tel:{{ settings.phone }}"
+               class="btn btn-warning">
+                Call Now
+            </a>
+            {% endif %}
+        </div>
+
+    </div>
+</nav>
+
+
+<!-- BLOG CONTENT -->
+<section class="py-5">
+
+    <div class="container">
+
+        <div class="row justify-content-center">
+
+            <div class="col-lg-9">
+
+                <!-- Breadcrumb -->
+                <div class="mb-4">
+
+                    <a href="/" class="text-decoration-none">
+                        Home
+                    </a>
+
+                    <span class="text-muted">
+                        / Blog
+                    </span>
+
+                </div>
+
+
+                <!-- Blog Title -->
+                <h1 class="fw-bold mb-3">
+                    {{ blog.title }}
+                </h1>
+
+
+                <!-- Date -->
+                <p class="text-muted mb-4">
+                    Published on {{ blog.created_at|date:"d M Y" }}
+                </p>
+
+
+                <!-- Blog Image -->
+                {% if blog.image %}
+
+                <img src="{{ blog.image }}"
+                     class="img-fluid rounded shadow-sm mb-4"
+                     alt="{{ blog.title }}"
+                     style="width:100%; max-height:500px; object-fit:cover;">
+
+                {% endif %}
+
+
+                <!-- Excerpt -->
+                <div class="p-4 bg-light rounded mb-4">
+
+                    <p class="mb-0 fw-semibold">
+                        {{ blog.excerpt }}
+                    </p>
+
+                </div>
+
+
+                <!-- Blog Content -->
+                <div class="blog-content">
+
+                    {{ blog.content|linebreaks }}
+
+                </div>
+
+
+                <!-- CTA -->
+                <div class="mt-5 p-4 rounded"
+                     style="background:#111827;">
+
+                    <h3 class="text-white fw-bold">
+                        Need Home Maintenance Service?
+                    </h3>
+
+                    <p class="text-light">
+                        Contact our professional team for reliable
+                        home maintenance and technical services.
+                    </p>
+
+                    {% if settings %}
+
+                    <a href="tel:{{ settings.phone }}"
+                       class="btn btn-warning me-2">
+                        Call Now
+                    </a>
+
+                    <a href="https://wa.me/{{ settings.whatsapp }}"
+                       class="btn btn-success">
+                        WhatsApp
+                    </a>
+
+                    {% endif %}
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- FOOTER -->
+<footer class="py-4"
+        style="background:#111827;">
+
+    <div class="container text-center">
+
+        <p class="text-light mb-0">
+            © 2026 UAE Care. All Rights Reserved.
+        </p>
+
+    </div>
+
+</footer>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "{{ blog.title|escapejs }}",
+  "description": "{{ blog.excerpt|escapejs }}",
+  "datePublished": "{{ blog.created_at|date:'c' }}"
+}
+</script>
+
+</body>
+</html>

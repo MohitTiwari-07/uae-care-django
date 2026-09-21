@@ -1,0 +1,431 @@
+/* =========================
+   GLOBAL
+========================= */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    color: #1b1b1b;
+    background: #ffffff;
+    line-height: 1.6;
+}
+
+a {
+    text-decoration: none;
+}
+
+img {
+    max-width: 100%;
+    display: block;
+}
+
+
+/* =========================
+   NAVBAR
+========================= */
+
+.custom-navbar {
+    background: #111827;
+    padding: 16px 0;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    box-shadow: 0 2px 15px rgba(0, 0, 0, 0.12);
+}
+
+.navbar-brand {
+    color: #ffffff !important;
+    font-size: 25px;
+    font-weight: 700;
+}
+
+.navbar-brand span {
+    color: #f59e0b;
+}
+
+.nav-link {
+    color: #ffffff !important;
+    font-weight: 500;
+    margin-left: 18px;
+    transition: 0.3s;
+}
+
+.nav-link:hover {
+    color: #f59e0b !important;
+}
+
+
+/* =========================
+   HERO
+========================= */
+
+.hero {
+    min-height: 680px;
+    display: flex;
+    align-items: center;
+    position: relative;
+
+    background:
+        linear-gradient(
+            rgba(0, 0, 0, 0.62),
+            rgba(0, 0, 0, 0.62)
+        ),
+        url("https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?auto=format&fit=crop&w=2000&q=80");
+
+    background-size: cover;
+    background-position: center;
+}
+
+.hero-content {
+    max-width: 750px;
+    color: #ffffff;
+}
+
+.hero-tag {
+    display: inline-block;
+    background: #f59e0b;
+    color: #111827;
+    padding: 8px 18px;
+    border-radius: 30px;
+    font-weight: 700;
+    margin-bottom: 20px;
+}
+
+.hero h1 {
+    font-size: 58px;
+    line-height: 1.12;
+    font-weight: 800;
+    margin-bottom: 22px;
+}
+
+.hero p {
+    font-size: 19px;
+    color: #eeeeee;
+    margin-bottom: 30px;
+}
+
+.hero-buttons {
+    display: flex;
+    gap: 15px;
+    flex-wrap: wrap;
+}
+
+
+/* =========================
+   BUTTONS
+========================= */
+
+.btn-main {
+    background: #f59e0b;
+    color: #111827;
+    padding: 13px 28px;
+    border-radius: 7px;
+    font-weight: 700;
+    border: 2px solid #f59e0b;
+    transition: 0.3s;
+}
+
+.btn-main:hover {
+    background: #d97706;
+    border-color: #d97706;
+    color: #ffffff;
+}
+
+.btn-outline-light-custom {
+    color: #ffffff;
+    padding: 13px 28px;
+    border: 2px solid #ffffff;
+    border-radius: 7px;
+    font-weight: 700;
+    transition: 0.3s;
+}
+
+.btn-outline-light-custom:hover {
+    background: #ffffff;
+    color: #111827;
+}
+
+
+/* =========================
+   SECTION COMMON
+========================= */
+
+.section {
+    padding: 90px 0;
+}
+
+.section-light {
+    background: #f8fafc;
+}
+
+.section-title {
+    text-align: center;
+    margin-bottom: 55px;
+}
+
+.section-title span {
+    color: #f59e0b;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.section-title h2 {
+    font-size: 40px;
+    font-weight: 800;
+    color: #111827;
+    margin-top: 8px;
+}
+
+.section-title p {
+    max-width: 650px;
+    margin: 15px auto 0;
+    color: #6b7280;
+}
+
+
+/* =========================
+   SERVICE CARDS
+========================= */
+
+.service-card {
+    background: #ffffff;
+    border-radius: 12px;
+    overflow: hidden;
+    border: 1px solid #e5e7eb;
+    height: 100%;
+    transition: 0.3s ease;
+}
+
+.service-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.10);
+}
+
+.service-card img {
+    width: 100%;
+    height: 220px;
+    object-fit: cover;
+}
+
+.service-card-body {
+    padding: 25px;
+}
+
+.service-card h3 {
+    font-size: 22px;
+    font-weight: 700;
+    color: #111827;
+    margin-bottom: 10px;
+}
+
+.service-card p {
+    color: #6b7280;
+    margin-bottom: 18px;
+}
+
+.service-link {
+    color: #d97706;
+    font-weight: 700;
+}
+
+
+/* =========================
+   WHY CHOOSE US
+========================= */
+
+.feature-box {
+    padding: 30px;
+    background: #ffffff;
+    border-radius: 12px;
+    border: 1px solid #e5e7eb;
+    height: 100%;
+    transition: 0.3s;
+}
+
+.feature-box:hover {
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.08);
+}
+
+.feature-icon {
+    width: 60px;
+    height: 60px;
+    background: #fff7ed;
+    color: #f59e0b;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 27px;
+    margin-bottom: 20px;
+}
+
+.feature-box h3 {
+    font-size: 21px;
+    font-weight: 700;
+    margin-bottom: 10px;
+}
+
+.feature-box p {
+    color: #6b7280;
+}
+
+
+/* =========================
+   CTA
+========================= */
+
+.cta-section {
+    padding: 80px 0;
+    background: #111827;
+    color: #ffffff;
+    text-align: center;
+}
+
+.cta-section h2 {
+    font-size: 42px;
+    font-weight: 800;
+    margin-bottom: 15px;
+}
+
+.cta-section p {
+    color: #d1d5db;
+    max-width: 650px;
+    margin: 0 auto 30px;
+}
+
+
+/* =========================
+   FOOTER
+========================= */
+
+footer {
+    background: #0b1120;
+    color: #d1d5db;
+    padding: 60px 0 25px;
+}
+
+footer h4 {
+    color: #ffffff;
+    font-weight: 700;
+    margin-bottom: 20px;
+}
+
+footer p {
+    color: #9ca3af;
+}
+
+footer a {
+    color: #9ca3af;
+    display: block;
+    margin-bottom: 8px;
+    transition: 0.3s;
+}
+
+footer a:hover {
+    color: #f59e0b;
+}
+
+.footer-bottom {
+    border-top: 1px solid #273244;
+    margin-top: 40px;
+    padding-top: 20px;
+    text-align: center;
+    color: #9ca3af;
+}
+
+
+/* =========================
+   MOBILE STICKY BUTTONS
+========================= */
+
+.mobile-actions {
+    display: none;
+}
+
+
+/* =========================
+   RESPONSIVE
+========================= */
+
+@media (max-width: 991px) {
+
+    .hero {
+        min-height: 600px;
+    }
+
+    .hero h1 {
+        font-size: 45px;
+    }
+
+    .section-title h2 {
+        font-size: 34px;
+    }
+}
+
+
+@media (max-width: 767px) {
+
+    .hero {
+        min-height: 620px;
+    }
+
+    .hero h1 {
+        font-size: 38px;
+    }
+
+    .hero p {
+        font-size: 16px;
+    }
+
+    .section {
+        padding: 65px 0;
+    }
+
+    .section-title {
+        margin-bottom: 35px;
+    }
+
+    .section-title h2 {
+        font-size: 30px;
+    }
+
+    .hero-buttons {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .mobile-actions {
+        display: flex;
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        z-index: 2000;
+    }
+
+    .mobile-actions a {
+        flex: 1;
+        text-align: center;
+        padding: 14px 5px;
+        color: #ffffff;
+        font-weight: 700;
+    }
+
+    .call-btn {
+        background: #111827;
+    }
+
+    .whatsapp-btn {
+        background: #16a34a;
+    }
+}

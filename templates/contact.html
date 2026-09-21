@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Us | UAE Care</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+
+<body>
+
+<nav class="navbar navbar-dark bg-dark">
+    <div class="container">
+        <a class="navbar-brand fw-bold" href="/">UAE Care</a>
+    </div>
+</nav>
+
+<section class="py-5">
+    <div class="container">
+
+        <div class="text-center mb-5">
+            <h1 class="fw-bold">Contact Us</h1>
+            <p class="text-muted">
+                Get in touch with our team for professional maintenance services.
+            </p>
+        </div>
+
+        <div class="row g-4">
+
+            <div class="col-md-4">
+                <div class="card border-0 shadow-sm h-100 p-4">
+                    <h4>Phone</h4>
+                    <p class="text-muted">{{ settings.phone|default:"Not available" }}</p>
+                </div>
+            </div>
+
+            <div class="col-md-4">
+                <div class="card border-0 shadow-sm h-100 p-4">
+                    <h4>WhatsApp</h4>
+                    <p class="text-muted">{{ settings.whatsapp|default:"Not available" }}</p>
+                </div>
+            </div>
+
+            <div class="col-md-4">
+                <div class="card border-0 shadow-sm h-100 p-4">
+                    <h4>Email</h4>
+                    <p class="text-muted">{{ settings.email|default:"Not available" }}</p>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="card border-0 shadow-sm mt-4 p-4">
+            <h4>Address</h4>
+            <p class="text-muted">{{ settings.address|default:"Not available" }}</p>
+
+            <h4>Opening Hours</h4>
+            <p class="text-muted">{{ settings.opening_hours|default:"Not available" }}</p>
+        </div>
+
+    </div>
+</section>
+
+</body>
+</html>
