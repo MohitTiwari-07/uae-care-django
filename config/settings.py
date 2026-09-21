@@ -31,9 +31,9 @@ SECRET_KEY = 'django-insecure-4xkwd7l!_^homtc@j3n5d#iom!#kgtu)rka&12%kiqkw54!u%g
 DEBUG = os.getenv('DEBUG', 'True') == 'True'
 
 ALLOWED_HOSTS = [
-    '127.0.0.1',
-    'localhost',
-    'uae-care-django.onrender.com',
+    "uae-care-django.onrender.com",
+    "localhost",
+    "127.0.0.1",
 ]
 
 
@@ -153,3 +153,12 @@ EMAIL_HOST_USER = os.getenv('EMAIL_HOST_USER')
 EMAIL_HOST_PASSWORD = os.getenv('EMAIL_HOST_PASSWORD')
 
 DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
+
+CSRF_TRUSTED_ORIGINS = [
+    "https://uae-care-django.onrender.com",
+]
+
+SECURE_PROXY_SSL_HEADER = (
+    "HTTP_X_FORWARDED_PROTO",
+    "https",
+)

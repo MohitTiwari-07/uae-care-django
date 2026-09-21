@@ -28,3 +28,4 @@ urlpatterns = [
     path('admin/', uae_admin_site.urls),
     path('', include('core.urls')),
 ]
+handler404 = 'core.views.custom_404'

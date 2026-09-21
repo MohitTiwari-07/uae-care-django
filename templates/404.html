@@ -1,0 +1,92 @@
+{% extends "base.html" %}
+
+{% block title %}
+Page Not Found | UAE CARE
+{% endblock %}
+
+{% block meta_description %}
+The page you are looking for could not be found. Explore UAE CARE home maintenance services in Dubai.
+{% endblock %}
+
+{% block content %}
+
+<section style="
+    min-height:70vh;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    text-align:center;
+    padding:60px 20px;
+    background:#f6f7f8;
+">
+
+    <div style="max-width:700px;">
+
+        <div style="
+            font-size:110px;
+            line-height:1;
+            font-weight:800;
+            color:#d4af37;
+            margin-bottom:15px;
+        ">
+            404
+        </div>
+
+        <h1 style="
+            font-size:42px;
+            color:#101820;
+            margin:0 0 15px;
+        ">
+            Page Not Found
+        </h1>
+
+        <p style="
+            color:#68727d;
+            font-size:18px;
+            line-height:1.7;
+            margin-bottom:30px;
+        ">
+            Sorry, the page you are looking for doesn't exist or may have
+            been moved. Let's get you back to UAE CARE.
+        </p>
+
+        <div style="
+            display:flex;
+            justify-content:center;
+            gap:12px;
+            flex-wrap:wrap;
+        ">
+
+            <a href="{% url 'home' %}"
+               style="
+                    display:inline-block;
+                    padding:14px 25px;
+                    background:#d4af37;
+                    color:#101820;
+                    text-decoration:none;
+                    border-radius:8px;
+                    font-weight:800;
+               ">
+                Back to Home
+            </a>
+
+            <a href="{% url 'services' %}"
+               style="
+                    display:inline-block;
+                    padding:14px 25px;
+                    background:#101820;
+                    color:#fff;
+                    text-decoration:none;
+                    border-radius:8px;
+                    font-weight:800;
+               ">
+                View Services
+            </a>
+
+        </div>
+
+    </div>
+
+</section>
+
+{% endblock %}

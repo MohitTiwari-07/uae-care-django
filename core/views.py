@@ -303,3 +303,5 @@ def google_verification(request):
         content = file.read()
 
     return HttpResponse(content, content_type="text/html")
+def custom_404(request, exception):
+    return render(request, '404.html', status=404)
