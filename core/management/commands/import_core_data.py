@@ -8,14 +8,21 @@ class Command(BaseCommand):
 
     def handle(self, *args, **options):
 
-        # Data already exists, so don't import again
+        self.stdout.write("IMPORT COMMAND STARTED")
+
+        self.stdout.write(
+            f"Services currently in database: {Service.objects.count()}"
+        )
+
         if Service.objects.exists():
             self.stdout.write(
                 self.style.WARNING("Core data already exists. Skipping import.")
             )
             return
 
-        call_command("loaddata", "core_data.json")
+        self.stdout.write("Loading core_data.json...")
+
+        call_command("loaddata", "core_data.json", verbosity=2)
 
         self.stdout.write(
             self.style.SUCCESS("Core data imported successfully.")
