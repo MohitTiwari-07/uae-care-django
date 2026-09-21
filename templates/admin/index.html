@@ -1,694 +1,1985 @@
 {% extends "admin/base_site.html" %}
 
-{% block content_title %}{% endblock %}
+{% block title %}UAE CARE Admin CMS{% endblock %}
+
+{% block nav-sidebar %}{% endblock %}
+{% block coltype %}colM{% endblock %}
+{% block bodyclass %}{{ block.super }} dashboard{% endblock %}
 
 {% block content %}
 
 <style>
 
-/* =========================
-   UAE CARE ADMIN DASHBOARD
-========================= */
+/* =========================================================
+   RESET
+========================================================= */
 
-.admin-dashboard {
+.uc-admin * {
+    box-sizing: border-box;
+}
+
+.uc-admin {
     width: 100%;
+    min-height: 100vh;
+    background: #f5f7fb;
+    color: #101828;
 }
 
-/* HEADER */
 
-.dashboard-welcome {
+/* =========================================================
+   TOP BLACK BAR
+========================================================= */
+
+.uc-topbar {
+    height: 36px;
+    background: #050b18;
+    color: white;
+
     display: flex;
-    justify-content: space-between;
     align-items: center;
-    margin-bottom: 25px;
+    justify-content: space-between;
+
+    padding: 0 38px;
+    font-size: 11px;
 }
 
-.dashboard-welcome h1 {
-    margin: 0;
-    font-size: 28px;
-    font-weight: 800;
-    color: #172033;
-}
-
-.dashboard-welcome p {
-    margin: 7px 0 0;
-    color: #64748b;
-    font-size: 14px;
-}
-
-.live-status {
-    background: #dcfce7;
-    color: #15803d;
-    padding: 8px 13px;
-    border-radius: 30px;
-    font-size: 12px;
-    font-weight: 700;
-}
-
-/* =========================
-   STAT CARDS
-========================= */
-
-.stats-grid {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 18px;
-    margin-bottom: 25px;
-}
-
-.stat-card {
-    background: #ffffff;
-    border: 1px solid #e5eaf0;
-    border-radius: 15px;
-    padding: 22px;
-    box-shadow: 0 4px 15px rgba(15, 23, 42, 0.04);
-}
-
-.stat-top {
+.uc-top-left,
+.uc-top-right {
     display: flex;
-    justify-content: space-between;
     align-items: center;
+    gap: 15px;
 }
 
-.stat-label {
-    color: #64748b;
-    font-size: 12px;
+.uc-live-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: #10b981;
+    display: inline-block;
+    box-shadow: 0 0 7px #10b981;
+}
+
+.uc-top-item {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    white-space: nowrap;
+}
+
+.uc-top-phone {
+    color: #fdb022;
     font-weight: 800;
-    text-transform: uppercase;
 }
 
-.stat-icon {
-    width: 38px;
-    height: 38px;
-    border-radius: 9px;
+.uc-admin-link {
+    color: white !important;
+    text-decoration: none !important;
+    border-left: 1px solid #344054;
+    padding-left: 15px;
+}
+
+
+/* =========================================================
+   MAIN WEBSITE NAV
+========================================================= */
+
+.uc-navbar {
+    height: 80px;
+    background: white;
+    border-bottom: 1px solid #e4e7ec;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    padding: 0 38px;
+    position: relative;
+    z-index: 100;
+}
+
+.uc-site-logo {
+    display: flex;
+    align-items: center;
+    gap: 11px;
+    flex-shrink: 0;
+}
+
+.uc-site-logo-icon {
+    width: 44px;
+    height: 44px;
+    border-radius: 13px;
+    background: #101828;
+    color: #fdb022;
+
     display: flex;
     align-items: center;
     justify-content: center;
-    background: #f1f5f9;
-    font-size: 18px;
+
+    font-size: 22px;
+    font-weight: 900;
 }
 
-.stat-card h2 {
-    margin: 15px 0 5px;
-    font-size: 30px;
-    color: #111827;
-    font-weight: 800;
+.uc-site-name {
+    font-size: 19px;
+    font-weight: 900;
+    color: #101828;
 }
 
-.stat-card p {
-    margin: 0;
-    font-size: 12px;
-    color: #10a875;
-    font-weight: 700;
+.uc-site-sub {
+    color: #667085;
+    font-size: 9px;
+    margin-top: 2px;
 }
 
-/* =========================
-   CMS NAVIGATION
-========================= */
-
-.cms-nav {
+.uc-nav {
+    height: 100%;
     display: flex;
-    gap: 8px;
-    flex-wrap: wrap;
-    background: #ffffff;
-    border: 1px solid #e5eaf0;
-    border-radius: 13px;
-    padding: 10px;
-    margin-bottom: 25px;
+    align-items: center;
+    gap: 26px;
 }
 
-.cms-nav a {
-    text-decoration: none;
-    color: #475569;
-    padding: 11px 15px;
-    border-radius: 8px;
+.uc-nav > a,
+.uc-nav > button {
+    border: 0;
+    background: transparent;
+
+    color: #344054 !important;
+    text-decoration: none !important;
+
     font-size: 13px;
     font-weight: 700;
+
+    cursor: pointer;
+    white-space: nowrap;
 }
 
-.cms-nav a:hover,
-.cms-nav a.active {
-    background: #111827;
-    color: #ffffff;
+.uc-nav > a:hover,
+.uc-nav > button:hover {
+    color: #2563eb !important;
 }
 
-/* =========================
-   MAIN GRID
-========================= */
-
-.dashboard-main {
-    display: grid;
-    grid-template-columns: 2fr 1fr;
-    gap: 22px;
-    margin-bottom: 25px;
+.uc-nav-services {
+    display: flex;
+    align-items: center;
+    gap: 5px;
 }
 
-.panel {
-    background: #ffffff;
-    border: 1px solid #e5eaf0;
-    border-radius: 15px;
-    overflow: hidden;
+.uc-save {
+    background: #fff7ed;
+    border: 1px solid #fed7aa;
+    color: #c2410c;
+    border-radius: 4px;
+    padding: 4px 6px;
+    font-size: 9px;
+    font-weight: 900;
 }
 
-.panel-header {
-    padding: 19px 22px;
-    border-bottom: 1px solid #edf0f4;
+.uc-wa {
+    background: #059669 !important;
+    color: white !important;
+
+    border-radius: 12px;
+    padding: 11px 17px;
+}
+
+
+/* =========================================================
+   SERVICES MEGA MENU
+========================================================= */
+
+.uc-services-menu {
+    position: absolute;
+
+    left: 50%;
+    top: 80px;
+
+    transform: translateX(-50%);
+
+    width: min(840px, calc(100vw - 30px));
+
+    background: white;
+    border: 1px solid #dfe5ec;
+    border-radius: 0 0 22px 22px;
+
+    box-shadow: 0 20px 50px rgba(16,24,40,.18);
+
+    padding: 18px;
+
+    display: none;
+}
+
+.uc-services-menu.show {
+    display: block;
+}
+
+.uc-menu-head {
     display: flex;
     justify-content: space-between;
     align-items: center;
+
+    border-bottom: 1px solid #eaecf0;
+
+    padding: 0 4px 15px;
 }
 
-.panel-header h2 {
-    margin: 0;
-    font-size: 17px;
-    font-weight: 800;
-    color: #172033;
-}
-
-.panel-header a {
-    color: #2563eb;
-    text-decoration: none;
+.uc-menu-title {
     font-size: 12px;
-    font-weight: 700;
+    font-weight: 900;
+    color: #1d2939;
 }
 
-.panel-body {
-    padding: 20px;
-}
+.uc-menu-book {
+    background: #ecfdf3;
+    color: #047857;
+    border: 1px solid #a7f3d0;
 
-/* =========================
-   LEADS
-========================= */
-
-.lead-item {
-    display: grid;
-    grid-template-columns: 1.2fr 1fr 1fr auto;
-    align-items: center;
-    gap: 15px;
-    padding: 15px 0;
-    border-bottom: 1px solid #edf0f4;
-}
-
-.lead-item:last-child {
-    border-bottom: none;
-}
-
-.lead-name {
-    font-weight: 700;
-    color: #172033;
-    font-size: 13px;
-}
-
-.lead-service {
-    color: #475569;
-    font-size: 12px;
-}
-
-.lead-phone {
-    color: #64748b;
-    font-size: 12px;
-}
-
-.lead-status {
-    background: #fff7ed;
-    color: #c2410c;
-    padding: 6px 9px;
+    padding: 6px 10px;
     border-radius: 20px;
+
+    font-size: 9px;
+    font-weight: 800;
+}
+
+.uc-menu-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+
+    margin-top: 14px;
+}
+
+.uc-menu-card {
+    border: 1px solid #e4e7ec;
+    border-radius: 13px;
+
+    padding: 13px;
+
+    display: flex;
+    gap: 12px;
+
+    text-decoration: none !important;
+}
+
+.uc-menu-card:hover {
+    border-color: #98a2b3;
+    background: #f9fafb;
+}
+
+.uc-menu-icon {
+    width: 38px;
+    height: 38px;
+    border-radius: 10px;
+
+    background: #eff6ff;
+    color: #2563eb;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    font-size: 18px;
+    flex-shrink: 0;
+}
+
+.uc-menu-card strong {
+    display: block;
+    color: #101828;
+    font-size: 12px;
+}
+
+.uc-menu-card span {
+    display: block;
+    color: #667085;
+    font-size: 9px;
+    margin-top: 4px;
+}
+
+.uc-menu-amc {
+    background: #111d3d;
+    border-radius: 14px;
+    color: white;
+
+    padding: 18px;
+}
+
+.uc-menu-amc small {
+    color: #fdb022;
+    font-weight: 900;
+}
+
+.uc-menu-amc strong {
+    display: block;
+    color: white;
+    margin-top: 10px;
+}
+
+.uc-menu-amc p {
+    color: #d0d5dd;
+    font-size: 10px;
+    line-height: 1.5;
+}
+
+.uc-menu-amc a {
+    color: #fdb022 !important;
+    font-size: 10px;
+    font-weight: 900;
+}
+
+
+/* =========================================================
+   ADMIN HEADER
+========================================================= */
+
+.uc-admin-header {
+    height: 60px;
+
+    background: white;
+    border-bottom: 1px solid #e4e7ec;
+
+    padding: 0 38px;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.uc-admin-header-left,
+.uc-admin-header-right {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.uc-back {
+    color: #344054 !important;
+    text-decoration: none !important;
+
+    border: 1px solid #d0d5dd;
+    border-radius: 8px;
+
+    padding: 8px 12px;
+    font-size: 11px;
+    font-weight: 700;
+}
+
+.uc-divider {
+    color: #d0d5dd;
+}
+
+.uc-admin-title {
+    font-size: 18px;
+    font-weight: 900;
+}
+
+.uc-control {
+    background: #ecfdf3;
+    color: #047857;
+
+    border: 1px solid #a7f3d0;
+    border-radius: 20px;
+
+    padding: 5px 9px;
+    font-size: 9px;
+    font-weight: 900;
+}
+
+.uc-master {
+    border: 1px solid #dfe5ec;
+    border-radius: 20px;
+
+    padding: 8px 12px;
+
+    font-size: 10px;
+    color: #475467;
+}
+
+.uc-sync {
+    border: 0;
+    border-radius: 8px;
+
+    background: #101828;
+    color: white;
+
+    padding: 9px 13px;
+
+    font-size: 10px;
+    font-weight: 800;
+
+    cursor: pointer;
+}
+
+.uc-logout {
+    color: #dc2626 !important;
+    text-decoration: none !important;
+
+    border: 1px solid #fecaca;
+    border-radius: 8px;
+
+    padding: 8px 12px;
+
     font-size: 10px;
     font-weight: 800;
 }
 
-/* =========================
-   QUICK ACTIONS
-========================= */
 
-.action-list {
+/* =========================================================
+   CONTENT
+========================================================= */
+
+.uc-content {
+    padding: 24px 38px 50px;
+}
+
+
+/* =========================================================
+   KPI
+========================================================= */
+
+.uc-kpis {
     display: grid;
-    gap: 10px;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 16px;
 }
 
-.action-list a {
+.uc-kpi {
+    background: white;
+
+    border: 1px solid #dfe5ec;
+    border-radius: 15px;
+
+    padding: 20px;
+
+    min-height: 137px;
+
+    box-shadow: 0 2px 4px rgba(16,24,40,.04);
+}
+
+.uc-kpi-head {
     display: flex;
+    justify-content: space-between;
     align-items: center;
-    gap: 12px;
-    padding: 13px;
-    border: 1px solid #e5eaf0;
-    border-radius: 9px;
-    text-decoration: none;
-    color: #172033;
-    font-size: 13px;
-    font-weight: 700;
 }
 
-.action-list a:hover {
-    border-color: #2563eb;
-    background: #f8fafc;
+.uc-kpi-label {
+    color: #475467;
+    font-size: 10px;
+    font-weight: 850;
+    text-transform: uppercase;
 }
 
-.action-icon {
+.uc-kpi-icon {
     width: 32px;
     height: 32px;
-    border-radius: 8px;
-    background: #f1f5f9;
+
+    border-radius: 9px;
+    background: #eff6ff;
+
     display: flex;
     align-items: center;
     justify-content: center;
 }
 
-/* =========================
-   EMERGENCY CTA
-========================= */
+.uc-kpi-number {
+    margin-top: 12px;
 
-.emergency-card {
-    background: #111827;
-    border-radius: 15px;
-    padding: 25px;
-    color: #ffffff;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    gap: 20px;
+    font-size: 28px;
+    font-weight: 900;
+    color: #101828;
 }
 
-.emergency-card h2 {
-    margin: 0 0 7px;
+.uc-kpi-number small {
     font-size: 20px;
 }
 
-.emergency-card p {
-    margin: 0;
-    color: #cbd5e1;
-    font-size: 13px;
+.uc-kpi-note {
+    margin-top: 4px;
+    color: #059669;
+    font-size: 10px;
 }
 
-.emergency-btn {
-    background: #10b981;
-    color: #ffffff !important;
-    text-decoration: none;
-    padding: 12px 20px;
-    border-radius: 8px;
-    font-size: 13px;
+
+/* =========================================================
+   TABS
+========================================================= */
+
+.uc-tabs {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 7px;
+
+    margin: 24px 0 15px;
+}
+
+.uc-tab {
+    background: white;
+
+    border: 1px solid #dfe5ec;
+    border-radius: 10px;
+
+    padding: 10px 13px;
+
+    color: #344054 !important;
+    text-decoration: none !important;
+
+    font-size: 11px;
+    font-weight: 750;
+}
+
+.uc-tab:hover,
+.uc-tab.active {
+    background: #2563eb;
+    color: white !important;
+    border-color: #2563eb;
+}
+
+
+/* =========================================================
+   PANEL
+========================================================= */
+
+.uc-panel {
+    background: white;
+
+    border: 1px solid #dfe5ec;
+    border-radius: 15px;
+
+    overflow: hidden;
+
+    box-shadow: 0 2px 5px rgba(16,24,40,.035);
+}
+
+.uc-panel-head {
+    min-height: 70px;
+
+    padding: 16px 20px;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    border-bottom: 1px solid #eaecf0;
+}
+
+.uc-panel-title {
+    font-size: 15px;
+    font-weight: 900;
+}
+
+.uc-panel-sub {
+    margin-top: 3px;
+    font-size: 10px;
+    color: #667085;
+}
+
+.uc-status {
+    border: 1px solid #dfe5ec;
+    border-radius: 9px;
+    padding: 9px 12px;
+    background: white;
+    font-size: 11px;
+}
+
+
+/* =========================================================
+   TABLE
+========================================================= */
+
+.uc-table-wrap {
+    overflow-x: auto;
+}
+
+.uc-table {
+    width: 100%;
+    min-width: 850px;
+    border-collapse: collapse;
+}
+
+.uc-table th {
+    background: #f9fafb;
+    padding: 12px 18px;
+
+    text-align: left;
+
+    color: #667085;
+    font-size: 9px;
+    font-weight: 850;
+    text-transform: uppercase;
+}
+
+.uc-table td {
+    padding: 15px 18px;
+
+    border-top: 1px solid #f0f2f5;
+
+    color: #344054;
+    font-size: 11px;
+}
+
+.uc-customer {
     font-weight: 800;
-    white-space: nowrap;
+    color: #101828;
 }
 
-/* =========================
-   DJANGO MODULES
-========================= */
-
-#content-main > .module {
-    margin-top: 25px;
-    border-radius: 15px !important;
-    border: 1px solid #e5eaf0 !important;
-    box-shadow: none !important;
+.uc-email {
+    color: #98a2b3;
+    font-size: 9px;
+    margin-top: 3px;
 }
 
-/* =========================
-   MOBILE
-========================= */
+.uc-empty {
+    text-align: center !important;
+    color: #98a2b3 !important;
+    padding: 35px !important;
+}
 
-@media (max-width: 1000px) {
 
-    .stats-grid {
+/* =========================================================
+   LOWER
+========================================================= */
+
+.uc-lower {
+    display: grid;
+    grid-template-columns: 1.45fr .8fr;
+    gap: 18px;
+
+    margin-top: 18px;
+}
+
+
+/* =========================================================
+   MANAGEMENT
+========================================================= */
+
+.uc-management {
+    padding: 16px;
+
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 8px;
+}
+
+.uc-manage {
+    border: 1px solid #eaecf0;
+    border-radius: 9px;
+
+    padding: 13px;
+
+    color: #344054 !important;
+    text-decoration: none !important;
+
+    font-size: 11px;
+    font-weight: 700;
+}
+
+.uc-manage:hover {
+    background: #f9fafb;
+}
+
+
+/* =========================================================
+   URGENT
+========================================================= */
+
+.uc-urgent {
+    border: 1px solid #fecaca;
+    background: white;
+    border-radius: 15px;
+    padding: 20px;
+}
+
+.uc-urgent-head {
+    display: flex;
+    align-items: center;
+    gap: 9px;
+
+    font-size: 13px;
+    font-weight: 900;
+}
+
+.uc-alert-icon {
+    width: 34px;
+    height: 34px;
+
+    border-radius: 10px;
+    background: #fee2e2;
+    color: #dc2626;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.uc-urgent p {
+    color: #667085;
+    font-size: 10px;
+    line-height: 1.5;
+}
+
+.uc-urgent-buttons {
+    display: flex;
+    gap: 8px;
+}
+
+.uc-call,
+.uc-whatsapp {
+    flex: 1;
+
+    text-align: center;
+
+    padding: 11px;
+
+    border-radius: 8px;
+
+    color: white !important;
+    text-decoration: none !important;
+
+    font-size: 10px;
+    font-weight: 800;
+}
+
+.uc-call {
+    background: #dc2626;
+}
+
+.uc-whatsapp {
+    background: #059669;
+}
+
+
+/* =========================================================
+   FOOTER
+========================================================= */
+
+.uc-footer {
+    margin-top: 30px;
+
+    background: #0b1428;
+    color: white;
+
+    padding: 28px 38px;
+
+    display: grid;
+    grid-template-columns: 1.5fr 1fr 1fr 1fr;
+    gap: 35px;
+}
+
+.uc-footer h3 {
+    margin: 0 0 10px;
+    font-size: 14px;
+}
+
+.uc-footer p,
+.uc-footer a {
+    color: #b8c2d3 !important;
+    font-size: 10px;
+    line-height: 1.7;
+    text-decoration: none !important;
+}
+
+.uc-footer-links {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+}
+
+.uc-footer-bottom {
+    background: #0b1428;
+    color: #667085;
+
+    border-top: 1px solid #1d2939;
+
+    padding: 12px 38px;
+
+    font-size: 9px;
+}
+
+
+/* =========================================================
+   FLOATING URGENT
+========================================================= */
+
+.uc-floating-urgent {
+    position: fixed;
+
+    left: 24px;
+    bottom: 25px;
+
+    width: 360px;
+
+    background: white;
+
+    border: 2px solid #ff3b30;
+
+    border-radius: 15px;
+
+    padding: 13px;
+
+    box-shadow: 0 15px 40px rgba(16,24,40,.18);
+
+    z-index: 9999;
+}
+
+.uc-floating-title {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.uc-floating-icon {
+    width: 34px;
+    height: 34px;
+
+    border-radius: 9px;
+
+    background: #fee2e2;
+    color: #dc2626;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.uc-floating-title strong {
+    font-size: 12px;
+}
+
+.uc-floating-title small {
+    display: block;
+    color: #667085;
+    font-size: 9px;
+    margin-top: 2px;
+}
+
+.uc-floating-actions {
+    display: flex;
+    gap: 8px;
+    margin-top: 10px;
+}
+
+.uc-floating-actions a {
+    flex: 1;
+
+    text-align: center;
+
+    padding: 10px;
+
+    border-radius: 8px;
+
+    color: white !important;
+    text-decoration: none !important;
+
+    font-size: 11px;
+    font-weight: 800;
+}
+
+.uc-floating-call {
+    background: #dc2626;
+}
+
+.uc-floating-wa {
+    background: #059669;
+}
+
+
+/* =========================================================
+   TELEMETRY
+========================================================= */
+
+.uc-telemetry {
+    position: fixed;
+
+    right: 28px;
+    bottom: 25px;
+
+    background: white;
+
+    border: 1px solid #dfe5ec;
+    border-radius: 18px;
+
+    padding: 12px 18px;
+
+    box-shadow: 0 5px 20px rgba(16,24,40,.12);
+
+    font-size: 11px;
+    font-weight: 800;
+
+    z-index: 9998;
+}
+
+.uc-telemetry-dot {
+    width: 8px;
+    height: 8px;
+
+    background: #10b981;
+
+    border-radius: 50%;
+
+    display: inline-block;
+
+    margin-right: 7px;
+}
+
+
+/* =========================================================
+   RESPONSIVE
+========================================================= */
+
+@media(max-width:1200px) {
+
+    .uc-nav {
+        gap: 13px;
+    }
+
+    .uc-nav > a:nth-child(n+6) {
+        display: none;
+    }
+
+    .uc-kpis {
         grid-template-columns: repeat(2, 1fr);
     }
+}
 
-    .dashboard-main {
+
+@media(max-width:900px) {
+
+    .uc-top-left .uc-top-item:nth-child(n+2),
+    .uc-top-left .uc-top-item:nth-child(n+4),
+    .uc-top-left > span {
+        display: none;
+    }
+
+    .uc-navbar {
+        padding: 0 18px;
+    }
+
+    .uc-nav {
+        display: none;
+    }
+
+    .uc-admin-header {
+        height: auto;
+        padding: 12px 18px;
+
+        flex-wrap: wrap;
+        gap: 10px;
+    }
+
+    .uc-content {
+        padding: 18px;
+    }
+
+    .uc-lower {
         grid-template-columns: 1fr;
+    }
+
+    .uc-footer {
+        grid-template-columns: 1fr 1fr;
+        padding: 25px 18px;
     }
 }
 
-@media (max-width: 650px) {
 
-    .stats-grid {
+@media(max-width:600px) {
+
+    .uc-topbar {
+        padding: 0 15px;
+    }
+
+    .uc-top-left {
+        font-size: 9px;
+    }
+
+    .uc-top-right {
+        display: none;
+    }
+
+    .uc-kpis {
         grid-template-columns: 1fr;
     }
 
-    .dashboard-welcome {
-        align-items: flex-start;
-        flex-direction: column;
-        gap: 12px;
-    }
-
-    .lead-item {
+    .uc-menu-grid {
         grid-template-columns: 1fr;
-        gap: 6px;
     }
 
-    .emergency-card {
-        flex-direction: column;
-        align-items: flex-start;
+    .uc-management {
+        grid-template-columns: 1fr;
     }
 
-    .emergency-btn {
-        width: 100%;
-        text-align: center;
+    .uc-floating-urgent {
+        left: 12px;
+        right: 12px;
+        bottom: 12px;
+        width: auto;
     }
 
+    .uc-telemetry {
+        display: none;
+    }
+
+    .uc-footer {
+        grid-template-columns: 1fr;
+    }
 }
 
 </style>
 
 
-<div class="admin-dashboard">
+<div class="uc-admin">
 
 
-    <!-- WELCOME -->
+<!-- ======================================================
+     TOP BAR
+====================================================== -->
 
-    <div class="dashboard-welcome">
+<div class="uc-topbar">
+
+    <div class="uc-top-left">
+
+        <div class="uc-top-item">
+            <span class="uc-live-dot"></span>
+            <strong>24/7 Rapid Emergency Dispatch Active</strong>
+        </div>
+
+        <div class="uc-top-item">
+            🕐 Avg Arrival: 25 Mins (Dubai & Abu Dhabi)
+        </div>
+
+        <div class="uc-top-item">
+            🛡 DEWA Licensed • DED Commercial License
+        </div>
+
+    </div>
+
+    <div class="uc-top-right">
+
+        {% if settings %}
+        <div class="uc-top-phone">
+            ☎ {{ settings.phone }}
+        </div>
+        {% endif %}
+
+        <a class="uc-admin-link" href="/admin/logout/">
+            🔒 Admin CMS
+        </a>
+
+    </div>
+
+</div>
+
+
+<!-- ======================================================
+     NAVBAR
+====================================================== -->
+
+<div class="uc-navbar">
+
+    <div class="uc-site-logo">
+
+        <div class="uc-site-logo-icon">
+            U
+        </div>
 
         <div>
-
-            <h1>
-                Welcome to UAE Care Admin
-            </h1>
-
-            <p>
-                Manage your services, customers, content and website operations.
-            </p>
-
-        </div>
-
-        <div class="live-status">
-            ● SYSTEM ACTIVE
+            <div class="uc-site-name">UAE CARE</div>
+            <div class="uc-site-sub">
+                Technical Services & Facility Care
+            </div>
         </div>
 
     </div>
 
 
-    <!-- STATISTICS -->
+    <div class="uc-nav">
 
-    <div class="stats-grid">
-
-        <div class="stat-card">
-
-            <div class="stat-top">
-
-                <span class="stat-label">
-                    Leads
-                </span>
-
-                <div class="stat-icon">
-                    👥
-                </div>
-
-            </div>
-
-            <h2>
-                {{ quote_count|default:"0" }}
-            </h2>
-
-            <p>
-                Customer enquiries
-            </p>
-
-        </div>
+        <a href="/" target="_blank">Home</a>
 
 
-        <div class="stat-card">
-
-            <div class="stat-top">
-
-                <span class="stat-label">
-                    Services
-                </span>
-
-                <div class="stat-icon">
-                    🔧
-                </div>
-
-            </div>
-
-            <h2>
-                {{ service_count|default:"0" }}
-            </h2>
-
-            <p>
-                Active services
-            </p>
-
-        </div>
+        <button
+            type="button"
+            class="uc-nav-services"
+            onclick="toggleServicesMenu()"
+        >
+            Services
+            <span id="serviceArrow">⌄</span>
+        </button>
 
 
-        <div class="stat-card">
-
-            <div class="stat-top">
-
-                <span class="stat-label">
-                    Projects
-                </span>
-
-                <div class="stat-icon">
-                    🏗️
-                </div>
-
-            </div>
-
-            <h2>
-                {{ project_count|default:"0" }}
-            </h2>
-
-            <p>
-                Portfolio projects
-            </p>
-
-        </div>
-
-
-        <div class="stat-card">
-
-            <div class="stat-top">
-
-                <span class="stat-label">
-                    Blogs
-                </span>
-
-                <div class="stat-icon">
-                    📝
-                </div>
-
-            </div>
-
-            <h2>
-                {{ blog_count|default:"0" }}
-            </h2>
-
-            <p>
-                Published guides
-            </p>
-
-        </div>
-
-    </div>
-
-
-    <!-- CMS NAVIGATION -->
-
-    <div class="cms-nav">
-
-        <a href="/admin/core/quoterequest/" class="active">
-            👥 Leads
+        <a href="/maintenance-packages/" target="_blank">
+            AMC Packages
         </a>
 
-        <a href="/admin/core/service/">
-            🔧 Services & Pricing
+        <span class="uc-save">Save 15%</span>
+
+        <a href="/projects/" target="_blank">
+            Projects
         </a>
 
-        <a href="/admin/core/project/">
-            🏗 Projects
+        <a href="/service-areas/" target="_blank">
+            Service Areas
         </a>
 
-        <a href="/admin/core/servicearea/">
-            ◉ Service Areas
+        <a href="/reviews/" target="_blank">
+            Reviews
         </a>
 
-        <a href="/admin/core/maintenancepackage/">
-            ⚙ AMC Packages
+        <a href="/blog/" target="_blank">
+            Blog
         </a>
 
-        <a href="/admin/core/testimonial/">
-            ★ Reviews
+        <a href="/contact/" target="_blank">
+            Contact
         </a>
 
-        <a href="/admin/core/faq/">
-            ? FAQs
-        </a>
-
-        <a href="/admin/core/blog/">
-            📝 Blog
-        </a>
-
-    </div>
-
-
-    <!-- MAIN -->
-
-    <div class="dashboard-main">
-
-
-        <!-- LEADS -->
-
-        <div class="panel">
-
-            <div class="panel-header">
-
-                <h2>
-                    Recent Quote Requests
-                </h2>
-
-                <a href="/admin/core/quoterequest/">
-                    View All →
-                </a>
-
-            </div>
-
-            <div class="panel-body">
-
-                {% if recent_quotes %}
-
-                    {% for quote in recent_quotes %}
-
-                    <div class="lead-item">
-
-                        <div>
-                            <div class="lead-name">
-                                {{ quote.name }}
-                            </div>
-                        </div>
-
-                        <div class="lead-service">
-                            {{ quote.service }}
-                        </div>
-
-                        <div class="lead-phone">
-                            {{ quote.phone }}
-                        </div>
-
-                        <div class="lead-status">
-                            NEW
-                        </div>
-
-                    </div>
-
-                    {% endfor %}
-
-                {% else %}
-
-                    <p style="color:#64748b; margin:0;">
-                        No quote requests yet.
-                    </p>
-
-                {% endif %}
-
-            </div>
-
-        </div>
-
-
-        <!-- QUICK ACTIONS -->
-
-        <div class="panel">
-
-            <div class="panel-header">
-
-                <h2>
-                    Quick Actions
-                </h2>
-
-            </div>
-
-            <div class="panel-body">
-
-                <div class="action-list">
-
-                    <a href="/admin/core/service/add/">
-
-                        <span class="action-icon">
-                            🔧
-                        </span>
-
-                        Add New Service
-
-                    </a>
-
-
-                    <a href="/admin/core/project/add/">
-
-                        <span class="action-icon">
-                            🏗️
-                        </span>
-
-                        Add Project
-
-                    </a>
-
-
-                    <a href="/admin/core/blog/add/">
-
-                        <span class="action-icon">
-                            📝
-                        </span>
-
-                        Publish Blog
-
-                    </a>
-
-
-                    <a href="/admin/core/faq/add/">
-
-                        <span class="action-icon">
-                            ❓
-                        </span>
-
-                        Add FAQ
-
-                    </a>
-
-                </div>
-
-            </div>
-
-        </div>
-
-    </div>
-
-
-    <!-- EMERGENCY CTA -->
-
-    <div class="emergency-card">
-
-        <div>
-
-            <h2>
-                Need immediate assistance?
-            </h2>
-
-            <p>
-                Manage customer support through Call and WhatsApp.
-            </p>
-
-        </div>
-
+        {% if settings %}
         <a
-            href="https://wa.me/{{ settings.whatsapp|default:'' }}"
-            class="emergency-btn"
+            class="uc-wa"
+            href="https://wa.me/{{ settings.whatsapp }}"
             target="_blank"
         >
-            💬 Open WhatsApp
+            💬 WhatsApp Direct
         </a>
+        {% endif %}
 
     </div>
 
 
-    <!-- DEFAULT DJANGO MODULES -->
+    <!-- SERVICES MENU -->
 
-    <div style="margin-top:25px;">
+    <div id="servicesMenu" class="uc-services-menu">
 
-        {{ block.super }}
+        <div class="uc-menu-head">
+
+            <div class="uc-menu-title">
+                🔵 TECHNICAL SERVICES CATALOG
+                ({{ service_count }}+ SPECIALIZATIONS)
+            </div>
+
+            <div class="uc-menu-book">
+                ⚡ Instant Booking & 25-Min Dispatch
+            </div>
+
+        </div>
+
+
+        <div class="uc-menu-grid">
+
+
+            <a
+                class="uc-menu-card"
+                href="/services/"
+                target="_blank"
+            >
+                <div class="uc-menu-icon">❄</div>
+
+                <div>
+                    <strong>AC Services</strong>
+                    <span>AC Repair • Coil Cleaning • Duct Cleaning</span>
+                </div>
+            </a>
+
+
+            <a
+                class="uc-menu-card"
+                href="/services/"
+                target="_blank"
+            >
+                <div class="uc-menu-icon">💧</div>
+
+                <div>
+                    <strong>Plumbing Services</strong>
+                    <span>Leak Detection • Water Heater • Repairs</span>
+                </div>
+            </a>
+
+
+            <a
+                class="uc-menu-card"
+                href="/services/"
+                target="_blank"
+            >
+                <div class="uc-menu-icon">⚡</div>
+
+                <div>
+                    <strong>Electrical Services</strong>
+                    <span>DB Tripping • Wiring • Breaker Repairs</span>
+                </div>
+            </a>
+
+
+            <a
+                class="uc-menu-card"
+                href="/services/"
+                target="_blank"
+            >
+                <div class="uc-menu-icon">🔨</div>
+
+                <div>
+                    <strong>Handyman & Carpentry</strong>
+                    <span>Furniture Assembly • TV Mounting</span>
+                </div>
+            </a>
+
+
+            <a
+                class="uc-menu-card"
+                href="/services/"
+                target="_blank"
+            >
+                <div class="uc-menu-icon">🖌</div>
+
+                <div>
+                    <strong>Painting & Waterproofing</strong>
+                    <span>Villa Exterior • Interior • Roof Work</span>
+                </div>
+            </a>
+
+
+            <a
+                class="uc-menu-card"
+                href="/services/"
+                target="_blank"
+            >
+                <div class="uc-menu-icon">▱</div>
+
+                <div>
+                    <strong>Renovation & Fit-Out</strong>
+                    <span>Kitchen • Bathroom • Flooring</span>
+                </div>
+            </a>
+
+
+            <a
+                class="uc-menu-card"
+                href="/maintenance-packages/"
+                target="_blank"
+            >
+                <div class="uc-menu-icon">🛡</div>
+
+                <div>
+                    <strong>AMC & Property Maintenance</strong>
+                    <span>365-Day Villa & Apartment Care</span>
+                </div>
+            </a>
+
+
+            <a
+                class="uc-menu-card"
+                href="/services/"
+                target="_blank"
+            >
+                <div class="uc-menu-icon">✦</div>
+
+                <div>
+                    <strong>Cleaning & Specialized Services</strong>
+                    <span>Deep Sanitization • Property Care</span>
+                </div>
+            </a>
+
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- ======================================================
+     ADMIN CONTROL
+====================================================== -->
+
+<div class="uc-admin-header">
+
+    <div class="uc-admin-header-left">
+
+        <a
+            class="uc-back"
+            href="/"
+            target="_blank"
+        >
+            ← Back to Website
+        </a>
+
+        <span class="uc-divider">|</span>
+
+        <div class="uc-admin-title">
+            UAE CARE Admin CMS
+        </div>
+
+        <div class="uc-control">
+            OPERATIONS CONTROL ROOM
+        </div>
+
+    </div>
+
+
+    <div class="uc-admin-header-right">
+
+        <div class="uc-master">
+            🟢 Master Operations Admin
+        </div>
+
+        <button
+            class="uc-sync"
+            onclick="location.reload()"
+        >
+            ⟳ Sync & Refresh Data
+        </button>
+
+        <a
+            class="uc-logout"
+            href="/admin/logout/"
+        >
+            ↪ Logout
+        </a>
+
+    </div>
+
+</div>
+
+
+<!-- ======================================================
+     MAIN
+====================================================== -->
+
+<div class="uc-content">
+
+
+<!-- KPI -->
+
+<div class="uc-kpis">
+
+
+    <div class="uc-kpi">
+
+        <div class="uc-kpi-head">
+
+            <div class="uc-kpi-label">
+                Total Leads
+            </div>
+
+            <div class="uc-kpi-icon">
+                👥
+            </div>
+
+        </div>
+
+        <div class="uc-kpi-number">
+            {{ quote_count }}
+        </div>
+
+        <div class="uc-kpi-note">
+            ↗ Customer enquiries
+        </div>
+
+    </div>
+
+
+    <div class="uc-kpi">
+
+        <div class="uc-kpi-head">
+
+            <div class="uc-kpi-label">
+                Pipeline Value
+            </div>
+
+            <div class="uc-kpi-icon">
+                $
+            </div>
+
+        </div>
+
+        <div class="uc-kpi-number">
+            <small>AED</small> 0
+        </div>
+
+        <div class="uc-kpi-note">
+            Avg job estimate: AED 0
+        </div>
+
+    </div>
+
+
+    <div class="uc-kpi">
+
+        <div class="uc-kpi-head">
+
+            <div class="uc-kpi-label">
+                Active Dispatches
+            </div>
+
+            <div class="uc-kpi-icon">
+                ⚡
+            </div>
+
+        </div>
+
+        <div class="uc-kpi-number">
+            0 <small>Technicians</small>
+        </div>
+
+        <div class="uc-kpi-note">
+            On-site in &lt; 25 mins
+        </div>
+
+    </div>
+
+
+    <div class="uc-kpi">
+
+        <div class="uc-kpi-head">
+
+            <div class="uc-kpi-label">
+                Emergency 24/7 Calls
+            </div>
+
+            <div class="uc-kpi-icon">
+                ◷
+            </div>
+
+        </div>
+
+        <div class="uc-kpi-number">
+            0 <small>Callouts</small>
+        </div>
+
+        <div class="uc-kpi-note">
+            High-priority urgent breakdown
+        </div>
 
     </div>
 
 
 </div>
+
+
+<!-- ======================================================
+     CMS TABS
+====================================================== -->
+
+<div class="uc-tabs">
+
+    <a
+        class="uc-tab active"
+        href="/admin/core/quoterequest/"
+    >
+        👥 Leads CRM ({{ quote_count }})
+    </a>
+
+    <a
+        class="uc-tab"
+        href="/admin/core/service/"
+    >
+        $ Services & Pricing ({{ service_count }})
+    </a>
+
+    <a
+        class="uc-tab"
+        href="/admin/core/servicearea/"
+    >
+        ◈ Location Hubs
+    </a>
+
+    <a
+        class="uc-tab"
+        href="/admin/core/blog/"
+    >
+        ▤ Blog & Guides ({{ blog_count }})
+    </a>
+
+    <a
+        class="uc-tab"
+        href="/admin/core/testimonial/"
+    >
+        ☆ Testimonials
+    </a>
+
+    <a
+        class="uc-tab"
+        href="/admin/core/sitesettings/"
+    >
+        ⚙ Business Hotlines & Licenses
+    </a>
+
+    <a
+        class="uc-tab"
+        href="/admin/core/faq/"
+    >
+        ◉ SEO & Schema Inspector
+    </a>
+
+</div>
+
+
+<!-- ======================================================
+     LEAD OPERATIONS
+====================================================== -->
+
+<div class="uc-panel">
+
+    <div class="uc-panel-head">
+
+        <div>
+
+            <div class="uc-panel-title">
+                Lead Operations
+            </div>
+
+            <div class="uc-panel-sub">
+                CRM pipeline • customer enquiries • service requests
+            </div>
+
+        </div>
+
+        <select class="uc-status">
+
+            <option>
+                Status: All Statuses ({{ quote_count }})
+            </option>
+
+            <option>New</option>
+            <option>Contacted</option>
+            <option>In Progress</option>
+            <option>Completed</option>
+
+        </select>
+
+    </div>
+
+
+    <div class="uc-table-wrap">
+
+        <table class="uc-table">
+
+            <thead>
+
+                <tr>
+                    <th>Customer</th>
+                    <th>Service</th>
+                    <th>Property</th>
+                    <th>Phone</th>
+                    <th>Urgency & Estimated AED</th>
+                    <th>Dispatch Status</th>
+                    <th>Date</th>
+                </tr>
+
+            </thead>
+
+
+            <tbody>
+
+            {% for quote in recent_quotes %}
+
+                <tr>
+
+                    <td>
+
+                        <div class="uc-customer">
+                            {{ quote.name }}
+                        </div>
+
+                        <div class="uc-email">
+                            {{ quote.email }}
+                        </div>
+
+                    </td>
+
+                    <td>
+                        {{ quote.service }}
+                    </td>
+
+                    <td>
+                        UAE
+                    </td>
+
+                    <td>
+                        {{ quote.phone }}
+                    </td>
+
+                    <td>
+                        AED —
+                    </td>
+
+                    <td>
+                        🟢 New
+                    </td>
+
+                    <td>
+                        {{ quote.created_at|date:"d M Y" }}
+                    </td>
+
+                </tr>
+
+            {% empty %}
+
+                <tr>
+                    <td
+                        colspan="7"
+                        class="uc-empty"
+                    >
+                        No customer leads yet.
+                    </td>
+                </tr>
+
+            {% endfor %}
+
+            </tbody>
+
+        </table>
+
+    </div>
+
+</div>
+
+
+<!-- ======================================================
+     LOWER MANAGEMENT
+====================================================== -->
+
+<div class="uc-lower">
+
+
+    <div class="uc-panel">
+
+        <div class="uc-panel-head">
+
+            <div>
+
+                <div class="uc-panel-title">
+                    CMS Management
+                </div>
+
+                <div class="uc-panel-sub">
+                    Manage website content directly from Django Admin
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <div class="uc-management">
+
+            <a
+                class="uc-manage"
+                href="/admin/core/service/"
+            >
+                🔧 Services & Pricing
+            </a>
+
+            <a
+                class="uc-manage"
+                href="/admin/core/servicearea/"
+            >
+                📍 Location Hubs
+            </a>
+
+            <a
+                class="uc-manage"
+                href="/admin/core/project/"
+            >
+                🏗 Projects
+            </a>
+
+            <a
+                class="uc-manage"
+                href="/admin/core/testimonial/"
+            >
+                ⭐ Testimonials
+            </a>
+
+            <a
+                class="uc-manage"
+                href="/admin/core/maintenancepackage/"
+            >
+                📦 AMC Packages
+            </a>
+
+            <a
+                class="uc-manage"
+                href="/admin/core/faq/"
+            >
+                ❓ FAQs
+            </a>
+
+            <a
+                class="uc-manage"
+                href="/admin/core/blog/"
+            >
+                📝 Blog & Guides
+            </a>
+
+            <a
+                class="uc-manage"
+                href="/admin/core/sitesettings/"
+            >
+                ⚙ Business Settings
+            </a>
+
+        </div>
+
+    </div>
+
+
+    <div class="uc-urgent">
+
+        <div class="uc-urgent-head">
+
+            <div class="uc-alert-icon">
+                ⚡
+            </div>
+
+            24/7 URGENT BREAKDOWN?
+
+        </div>
+
+        <p>
+            Rapid technical assistance for UAE CARE customers.
+            Get connected with the operations team immediately.
+        </p>
+
+
+        {% if settings %}
+
+        <div class="uc-urgent-buttons">
+
+            <a
+                class="uc-call"
+                href="tel:{{ settings.phone }}"
+            >
+                ☎ Call Hotline
+            </a>
+
+            <a
+                class="uc-whatsapp"
+                href="https://wa.me/{{ settings.whatsapp }}"
+                target="_blank"
+            >
+                💬 WhatsApp Now
+            </a>
+
+        </div>
+
+        {% endif %}
+
+    </div>
+
+</div>
+
+
+</div>
+
+
+<!-- ======================================================
+     FOOTER
+====================================================== -->
+
+<div class="uc-footer">
+
+    <div>
+
+        <h3>UAE CARE</h3>
+
+        <p>
+            Professional technical services and facility care
+            for homes, villas, apartments and commercial properties
+            across the UAE.
+        </p>
+
+        {% if settings %}
+        <p>
+            📍 {{ settings.address }}<br>
+            ☎ {{ settings.phone }}
+        </p>
+        {% endif %}
+
+    </div>
+
+
+    <div>
+
+        <h3>Technical Services</h3>
+
+        <div class="uc-footer-links">
+
+            <a href="/services/">Air Conditioning</a>
+            <a href="/services/">Plumbing</a>
+            <a href="/services/">Electrical</a>
+            <a href="/services/">Handyman</a>
+            <a href="/services/">Painting</a>
+            <a href="/services/">Renovation</a>
+
+        </div>
+
+    </div>
+
+
+    <div>
+
+        <h3>Service Areas</h3>
+
+        <div class="uc-footer-links">
+
+            <a href="/service-areas/">Dubai</a>
+            <a href="/service-areas/">Dubai Marina</a>
+            <a href="/service-areas/">Jumeirah</a>
+            <a href="/service-areas/">Business Bay</a>
+            <a href="/service-areas/">JVC</a>
+            <a href="/service-areas/">Dubai Hills</a>
+
+        </div>
+
+    </div>
+
+
+    <div>
+
+        <h3>Quick Links</h3>
+
+        <div class="uc-footer-links">
+
+            <a href="/maintenance-packages/">AMC Packages</a>
+            <a href="/projects/">Projects</a>
+            <a href="/reviews/">Reviews</a>
+            <a href="/blog/">Blog & Guides</a>
+            <a href="/about/">About UAE CARE</a>
+            <a href="/contact/">Contact</a>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<div class="uc-footer-bottom">
+
+    © {% now "Y" %} UAE CARE Technical Services. All rights reserved.
+
+</div>
+
+
+<!-- ======================================================
+     FLOATING URGENT
+====================================================== -->
+
+{% if settings %}
+
+<div class="uc-floating-urgent">
+
+    <div class="uc-floating-title">
+
+        <div class="uc-floating-icon">
+            ⚡
+        </div>
+
+        <div>
+
+            <strong>
+                24/7 URGENT BREAKDOWN?
+            </strong>
+
+            <small>
+                Rapid technical arrival in &lt;30 mins across UAE
+            </small>
+
+        </div>
+
+    </div>
+
+
+    <div class="uc-floating-actions">
+
+        <a
+            class="uc-floating-call"
+            href="tel:{{ settings.phone }}"
+        >
+            ☎ Call Hotline
+        </a>
+
+        <a
+            class="uc-floating-wa"
+            href="https://wa.me/{{ settings.whatsapp }}"
+            target="_blank"
+        >
+            💬 WhatsApp Now
+        </a>
+
+    </div>
+
+</div>
+
+{% endif %}
+
+
+<!-- ======================================================
+     TELEMETRY
+====================================================== -->
+
+<div class="uc-telemetry">
+
+    <span class="uc-telemetry-dot"></span>
+
+    Analytics Telemetry Hub
+
+    <span style="
+        background:#eff6ff;
+        color:#2563eb;
+        padding:2px 5px;
+        border-radius:5px;
+        margin-left:5px;
+        font-size:8px;
+    ">
+        0
+    </span>
+
+</div>
+
+
+</div>
+
+
+<script>
+
+function toggleServicesMenu() {
+
+    const menu = document.getElementById("servicesMenu");
+
+    const arrow = document.getElementById("serviceArrow");
+
+    menu.classList.toggle("show");
+
+    if (menu.classList.contains("show")) {
+        arrow.innerHTML = "⌃";
+    } else {
+        arrow.innerHTML = "⌄";
+    }
+}
+
+
+document.addEventListener("click", function(event) {
+
+    const menu = document.getElementById("servicesMenu");
+
+    const button = document.querySelector(".uc-nav-services");
+
+    if (
+        menu &&
+        !menu.contains(event.target) &&
+        button &&
+        !button.contains(event.target)
+    ) {
+        menu.classList.remove("show");
+
+        const arrow =
+            document.getElementById("serviceArrow");
+
+        if (arrow) {
+            arrow.innerHTML = "⌄";
+        }
+    }
+
+});
+
+</script>
 
 {% endblock %}

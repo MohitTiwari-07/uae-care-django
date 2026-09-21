@@ -1,279 +1,95 @@
 {% extends "admin/base.html" %}
 
-{% block title %}UAE Care Admin CMS{% endblock %}
+{% block title %}UAE CARE Admin CMS{% endblock %}
+
+{% block branding %}
+<div class="uc-branding">
+    <div class="uc-brand-icon">U</div>
+    <div>
+        <div class="uc-brand-name">UAE CARE</div>
+        <div class="uc-brand-sub">Technical Services & Facility Care</div>
+    </div>
+</div>
+{% endblock %}
+
+{% block nav-global %}{% endblock %}
+{% block nav-sidebar %}{% endblock %}
+{% block nav-breadcrumbs %}{% endblock %}
 
 {% block extrastyle %}
+{{ block.super }}
+
 <style>
 * {
     box-sizing: border-box;
 }
 
+html,
 body {
-    margin: 0;
-    background: #f5f7fb !important;
-    font-family: Arial, Helvetica, sans-serif;
-    color: #172033;
-}
-
-/* TOP BAR */
-#header {
-    background: #071225 !important;
+    margin: 0 !important;
     padding: 0 !important;
-    min-height: 42px;
+    min-width: 0 !important;
+    width: 100% !important;
+    background: #f5f7fb !important;
+    font-family: Arial, Helvetica, sans-serif !important;
 }
 
-#branding {
-    display: none;
-}
-
-#user-tools {
+#header,
+#nav-sidebar,
+#toggle-nav-sidebar,
+.breadcrumbs,
+#footer {
     display: none !important;
 }
 
-/* CUSTOM TOP BAR */
-.uae-topbar {
-    height: 42px;
-    background: #071225;
-    color: #fff;
+#main,
+#content-start,
+#content,
+#content-main {
+    width: 100% !important;
+    max-width: none !important;
+    min-width: 0 !important;
+    margin: 0 !important;
+    padding: 0 !important;
+}
+
+#main {
+    display: block !important;
+}
+
+#content {
+    background: #f5f7fb !important;
+}
+
+.uc-branding {
     display: flex;
     align-items: center;
-    justify-content: space-between;
-    padding: 0 5%;
-    font-size: 12px;
+    gap: 10px;
 }
 
-.uae-top-left,
-.uae-top-right {
-    display: flex;
-    gap: 25px;
-    align-items: center;
-}
-
-.uae-green {
-    color: #10b981;
-    font-weight: 700;
-}
-
-.uae-yellow {
-    color: #f59e0b;
-}
-
-/* WEBSITE NAV */
-.uae-navbar {
-    background: #fff;
-    height: 82px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 0 5%;
-    border-bottom: 1px solid #e5e7eb;
-}
-
-.uae-logo {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    text-decoration: none !important;
-}
-
-.uae-logo-icon {
-    width: 44px;
-    height: 44px;
-    background: #111c35;
-    color: #f59e0b;
-    border-radius: 12px;
+.uc-brand-icon {
+    width: 40px;
+    height: 40px;
+    border-radius: 11px;
+    background: #101828;
+    color: #fdb022;
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 22px;
+    font-size: 20px;
+    font-weight: 900;
 }
 
-.uae-logo-text {
-    font-size: 21px;
-    font-weight: 800;
-    color: #172033;
+.uc-brand-name {
+    font-size: 17px;
+    font-weight: 900;
+    color: #101828;
 }
 
-.uae-logo-text span {
-    color: #f59e0b;
-}
-
-.uae-logo small {
-    display: block;
-    font-size: 10px;
-    color: #718096;
-    font-weight: 500;
-}
-
-.uae-nav {
-    display: flex;
-    gap: 28px;
-    align-items: center;
-}
-
-.uae-nav a {
-    text-decoration: none;
-    color: #354052;
-    font-weight: 600;
-    font-size: 14px;
-}
-
-.uae-nav a:hover {
-    color: #2563eb;
-}
-
-.uae-whatsapp {
-    background: #059669 !important;
-    color: #fff !important;
-    padding: 11px 18px;
-    border-radius: 9px;
-}
-
-/* CONTENT */
-#content {
-    max-width: 1400px !important;
-    margin: auto !important;
-    padding: 0 5% 50px !important;
-}
-
-.breadcrumbs {
-    display: none !important;
-}
-
-/* BUTTONS */
-.button,
-input[type="submit"],
-.submit-row input {
-    background: #111827 !important;
-    border-radius: 8px !important;
-    border: none !important;
-}
-
-.button:hover,
-input[type="submit"]:hover {
-    background: #f59e0b !important;
-    color: #111827 !important;
-}
-
-/* TABLE */
-#result_list thead th {
-    background: #111827 !important;
-    color: white !important;
-}
-
-#result_list tbody tr:hover {
-    background: #fff8eb !important;
-}
-
-/* MOBILE */
-@media(max-width: 900px) {
-    .uae-top-left {
-        display: none;
-    }
-
-    .uae-navbar {
-        height: auto;
-        padding: 15px 5%;
-    }
-
-    .uae-nav {
-        display: none;
-    }
-}
-
-/* REMOVE DEFAULT DJANGO ADMIN SIDEBAR */
-
-#nav-sidebar {
-    display: none !important;
-}
-
-#toggle-nav-sidebar {
-    display: none !important;
-}
-
-.main {
-    margin-left: 0 !important;
-}
-
-#container {
-    min-width: 0 !important;
-}
-
-#content {
-    margin-left: 0 !important;
-    width: 100% !important;
-    max-width: 1400px !important;
+.uc-brand-sub {
+    font-size: 9px;
+    color: #667085;
+    margin-top: 2px;
 }
 </style>
 {% endblock %}
-
-{% block bodyclass %}uae-admin-body{% endblock %}
-
-{% block header %}
-
-<div class="uae-topbar">
-
-    <div class="uae-top-left">
-        <span class="uae-green">● 24/7 Rapid Service Active</span>
-        <span>◷ Fast Response</span>
-        <span>✓ Professional Technical Services</span>
-    </div>
-
-    <div class="uae-top-right">
-        <span class="uae-yellow">☎ UAE Care</span>
-        <span>🔒 Admin CMS</span>
-    </div>
-
-</div>
-
-
-<nav class="uae-navbar">
-
-    <a href="/" class="uae-logo">
-
-        <div class="uae-logo-icon">
-            🔧
-        </div>
-
-        <div>
-            <div class="uae-logo-text">
-                UAE<span>CARE</span>
-            </div>
-
-            <small>
-                Technical Services & Home Maintenance
-            </small>
-        </div>
-
-    </a>
-
-
-    <div class="uae-nav">
-
-        <a href="/">Home</a>
-
-        <a href="/#services">Services</a>
-
-        <a href="/maintenance-packages/">AMC Packages</a>
-
-        <a href="/projects/">Projects</a>
-
-        <a href="/reviews/">Reviews</a>
-
-        <a href="/blog/">Blog</a>
-
-        <a href="/contact/">Contact</a>
-
-        <a href="/request-quote/" class="uae-quote">
-            Get a Free Quote
-        </a>
-
-    </div>
-
-</nav>
-
-{% endblock %}
-
-
-
-{% block content_title %}{% endblock %}
