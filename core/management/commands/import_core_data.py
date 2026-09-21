@@ -1,5 +1,8 @@
+import json
+from pathlib import Path
+
 from django.core.management.base import BaseCommand
-from django.core.management import call_command
+from django.core.serializers import deserialize
 from core.models import Service
 
 
@@ -10,20 +13,37 @@ class Command(BaseCommand):
 
         self.stdout.write("IMPORT COMMAND STARTED")
 
+        service_count = Service.objects.count()
         self.stdout.write(
-            f"Services currently in database: {Service.objects.count()}"
+            f"Services currently in database: {service_count}"
         )
 
         if Service.objects.exists():
             self.stdout.write(
-                self.style.WARNING("Core data already exists. Skipping import.")
+                self.style.WARNING(
+                    "Core data already exists. Skipping import."
+                )
             )
             return
 
-        self.stdout.write("Loading core_data.json...")
-
-        call_command("loaddata", "core_data.json", verbosity=2)
+        fixture_path = Path("core_data.json")
 
         self.stdout.write(
-            self.style.SUCCESS("Core data imported successfully.")
+            f"Reading fixture: {fixture_path.resolve()}"
+        )
+
+        with open(fixture_path, "r", encoding="utf-8-sig") as file:
+            data = json.load(file)
+
+        self.stdout.write(
+            f"Found {len(data)} objects in fixture."
+        )
+
+        for obj in deserialize("json", json.dumps(data)):
+            obj.save()
+
+        self.stdout.write(
+            self.style.SUCCESS(
+                "Core data imported successfully."
+            )
         )
