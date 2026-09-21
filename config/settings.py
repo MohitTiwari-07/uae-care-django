@@ -36,7 +36,7 @@ ALLOWED_HOSTS = [
     'uae-care-django.onrender.com',
 ]
 
-ALLOWED_HOSTS = []
+
 
 
 # Application definition
