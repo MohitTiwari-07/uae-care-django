@@ -1,64 +1,576 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <meta name="viewport"
-          content="width=device-width, initial-scale=1.0">
-
-    <title>FAQs | Home Maintenance Services</title>
+    <title>FAQs | UAE CARE Home Maintenance Dubai</title>
 
     <meta name="description"
-          content="Frequently asked questions about our home maintenance services.">
+          content="Find answers to common questions about UAE CARE home maintenance, AC repair, plumbing, electrical, handyman and property maintenance services in Dubai.">
+
+    <link rel="canonical"
+          href="{{ request.scheme }}://{{ request.get_host }}{{ request.path }}">
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css"
           rel="stylesheet">
 
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+          rel="stylesheet">
+
+    <style>
+
+        :root {
+            --navy: #071a33;
+            --blue: #0877c9;
+            --amber: #f5a623;
+            --green: #19a463;
+            --light: #f5f8fc;
+            --text: #172337;
+            --muted: #667085;
+            --border: #e3e9f0;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: "Inter", sans-serif;
+            color: var(--text);
+            background: #fff;
+        }
+
+        a {
+            text-decoration: none;
+        }
+
+        /* TOP BAR */
+
+        .top-bar {
+            background: var(--navy);
+            color: #d9e6f2;
+            font-size: 13px;
+            padding: 9px 0;
+        }
+
+        .top-bar a {
+            color: #fff;
+        }
+
+        /* NAVBAR */
+
+        .main-navbar {
+            background: #fff;
+            border-bottom: 1px solid #edf0f4;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .brand {
+            color: var(--navy);
+            font-size: 25px;
+            font-weight: 800;
+            letter-spacing: -.8px;
+        }
+
+        .brand span {
+            color: var(--amber);
+        }
+
+        .nav-link {
+            color: #26384d !important;
+            font-size: 14px;
+            font-weight: 600;
+            margin: 0 4px;
+        }
+
+        .nav-link:hover {
+            color: var(--blue) !important;
+        }
+
+        .nav-quote {
+            background: var(--amber);
+            color: #111 !important;
+            border-radius: 8px;
+            padding: 10px 17px !important;
+            font-weight: 800 !important;
+        }
+
+        /* HERO */
+
+        .faq-hero {
+            min-height: 410px;
+            display: flex;
+            align-items: center;
+
+            background:
+                linear-gradient(
+                    90deg,
+                    rgba(4,19,39,.96),
+                    rgba(7,35,62,.78),
+                    rgba(7,35,62,.40)
+                ),
+                url("https://images.unsplash.com/photo-1484154218962-a197022b5858?auto=format&fit=crop&w=1800&q=85")
+                center/cover;
+        }
+
+        .hero-content {
+            max-width: 800px;
+            color: #fff;
+        }
+
+        .hero-badge {
+            display: inline-block;
+            background: rgba(245,166,35,.15);
+            border: 1px solid rgba(245,166,35,.45);
+            color: #ffd77e;
+            padding: 8px 14px;
+            border-radius: 30px;
+            font-size: 12px;
+            font-weight: 800;
+            margin-bottom: 18px;
+        }
+
+        .faq-hero h1 {
+            font-size: clamp(38px, 5vw, 58px);
+            line-height: 1.05;
+            font-weight: 800;
+            letter-spacing: -2px;
+            margin-bottom: 18px;
+        }
+
+        .faq-hero h1 span {
+            color: var(--amber);
+        }
+
+        .faq-hero p {
+            color: #d4e1ed;
+            font-size: 17px;
+            line-height: 1.8;
+            max-width: 700px;
+        }
+
+        /* COMMON */
+
+        .section {
+            padding: 80px 0;
+        }
+
+        .section-light {
+            background: var(--light);
+        }
+
+        .section-label {
+            color: var(--blue);
+            text-transform: uppercase;
+            letter-spacing: 1.7px;
+            font-size: 12px;
+            font-weight: 800;
+            margin-bottom: 8px;
+        }
+
+        .section-title {
+            color: var(--navy);
+            font-size: clamp(30px, 4vw, 44px);
+            font-weight: 800;
+            letter-spacing: -1px;
+            margin-bottom: 15px;
+        }
+
+        .section-text {
+            color: var(--muted);
+            font-size: 15px;
+            line-height: 1.9;
+        }
+
+        /* SEARCH */
+
+        .faq-search-wrap {
+            max-width: 700px;
+            margin: 0 auto 55px;
+        }
+
+        .faq-search {
+            width: 100%;
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 17px 20px;
+            font-size: 14px;
+            outline: none;
+            box-shadow: 0 8px 30px rgba(7,26,51,.06);
+        }
+
+        .faq-search:focus {
+            border-color: var(--blue);
+            box-shadow: 0 0 0 3px rgba(8,119,201,.1);
+        }
+
+        /* FAQ */
+
+        .faq-box {
+            background: #fff;
+            border: 1px solid var(--border);
+            border-radius: 13px;
+            margin-bottom: 13px;
+            overflow: hidden;
+        }
+
+        .faq-question {
+            width: 100%;
+            background: #fff;
+            border: 0;
+            padding: 21px 24px;
+            text-align: left;
+            color: var(--navy);
+            font-size: 15px;
+            font-weight: 800;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .faq-question:hover {
+            color: var(--blue);
+        }
+
+        .faq-icon {
+            color: var(--blue);
+            font-size: 21px;
+            font-weight: 400;
+            transition: .2s;
+        }
+
+        .faq-answer {
+            color: var(--muted);
+            font-size: 14px;
+            line-height: 1.8;
+            padding: 0 24px 22px;
+        }
+
+        .faq-service {
+            display: inline-block;
+            margin: 0 0 15px 24px;
+            padding: 5px 10px;
+            background: #edf7ff;
+            color: var(--blue);
+            border-radius: 20px;
+            font-size: 10px;
+            font-weight: 800;
+            text-transform: uppercase;
+        }
+
+        .no-results {
+            display: none;
+            text-align: center;
+            color: var(--muted);
+            padding: 30px;
+        }
+
+        /* INFO CARDS */
+
+        .info-card {
+            background: #fff;
+            border: 1px solid var(--border);
+            border-radius: 17px;
+            padding: 28px;
+            height: 100%;
+        }
+
+        .info-icon {
+            width: 54px;
+            height: 54px;
+            border-radius: 13px;
+            background: #eaf5ff;
+            color: var(--blue);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 23px;
+            margin-bottom: 17px;
+        }
+
+        .info-card h3 {
+            color: var(--navy);
+            font-size: 18px;
+            font-weight: 800;
+        }
+
+        .info-card p {
+            color: var(--muted);
+            font-size: 13px;
+            line-height: 1.75;
+        }
+
+        /* CTA */
+
+        .cta {
+            background:
+                linear-gradient(
+                    120deg,
+                    rgba(5,22,43,.98),
+                    rgba(8,58,94,.95)
+                );
+            color: #fff;
+            padding: 75px 0;
+            text-align: center;
+        }
+
+        .cta h2 {
+            font-size: clamp(30px, 4vw, 45px);
+            font-weight: 800;
+            margin-bottom: 14px;
+        }
+
+        .cta p {
+            color: #cbd9e7;
+            max-width: 650px;
+            margin: 0 auto 25px;
+            line-height: 1.7;
+        }
+
+        .btn-amber {
+            background: var(--amber);
+            color: #111;
+            padding: 13px 22px;
+            border-radius: 8px;
+            font-weight: 800;
+        }
+
+        .btn-green {
+            background: var(--green);
+            color: #fff;
+            padding: 13px 22px;
+            border-radius: 8px;
+            font-weight: 800;
+        }
+
+        /* FOOTER */
+
+        footer {
+            background: #041326;
+            color: #9fb1c5;
+            padding: 55px 0 25px;
+        }
+
+        footer h5 {
+            color: #fff;
+            font-weight: 800;
+            margin-bottom: 18px;
+        }
+
+        footer p,
+        footer a {
+            color: #9fb1c5;
+            font-size: 14px;
+            line-height: 1.8;
+        }
+
+        footer a:hover {
+            color: #fff;
+        }
+
+        .footer-brand {
+            color: #fff;
+            font-size: 25px;
+            font-weight: 800;
+        }
+
+        .footer-brand span {
+            color: var(--amber);
+        }
+
+        .footer-bottom {
+            border-top: 1px solid rgba(255,255,255,.08);
+            margin-top: 35px;
+            padding-top: 20px;
+            font-size: 13px;
+        }
+
+        /* MOBILE */
+
+        .mobile-cta {
+            display: none;
+        }
+
+        @media (max-width: 767px) {
+
+            .top-bar {
+                display: none;
+            }
+
+            .faq-hero {
+                min-height: 440px;
+            }
+
+            .faq-hero h1 {
+                letter-spacing: -1px;
+            }
+
+            .section {
+                padding: 55px 0;
+            }
+
+            .mobile-cta {
+                display: flex;
+                position: fixed;
+                bottom: 0;
+                left: 0;
+                right: 0;
+                z-index: 9999;
+                background: #fff;
+                padding: 8px;
+                gap: 7px;
+                box-shadow: 0 -5px 25px rgba(0,0,0,.12);
+            }
+
+            .mobile-cta a {
+                flex: 1;
+                text-align: center;
+                padding: 11px 4px;
+                border-radius: 7px;
+                font-size: 12px;
+                font-weight: 800;
+            }
+
+            .mobile-call {
+                background: var(--navy);
+                color: #fff;
+            }
+
+            .mobile-whatsapp {
+                background: var(--green);
+                color: #fff;
+            }
+
+            .mobile-quote {
+                background: var(--amber);
+                color: #111;
+            }
+        }
+
+    </style>
 </head>
 
 <body>
 
-<nav class="navbar navbar-dark bg-dark navbar-expand-lg">
+
+<!-- TOP BAR -->
+
+<div class="top-bar">
+
+    <div class="container d-flex justify-content-between">
+
+        <div>
+            Professional Home & Property Maintenance Across Dubai
+        </div>
+
+        {% if settings %}
+
+        <div>
+            <a href="tel:{{ settings.phone }}">
+                Call: {{ settings.phone }}
+            </a>
+        </div>
+
+        {% endif %}
+
+    </div>
+
+</div>
+
+
+<!-- NAVBAR -->
+
+<nav class="navbar navbar-expand-lg main-navbar">
 
     <div class="container">
 
-        <a class="navbar-brand fw-bold" href="/">
-            Home Maintenance
+        <a class="navbar-brand brand"
+           href="{% url 'home' %}">
+            UAE <span>CARE</span>
         </a>
 
         <button class="navbar-toggler"
                 type="button"
                 data-bs-toggle="collapse"
-                data-bs-target="#navbarNav">
+                data-bs-target="#mainNav">
 
             <span class="navbar-toggler-icon"></span>
 
         </button>
 
-        <div class="collapse navbar-collapse" id="navbarNav">
+        <div class="collapse navbar-collapse"
+             id="mainNav">
 
-            <ul class="navbar-nav ms-auto">
+            <ul class="navbar-nav ms-auto align-items-lg-center">
 
                 <li class="nav-item">
-                    <a class="nav-link" href="/">Home</a>
+                    <a class="nav-link"
+                       href="{% url 'home' %}">
+                        Home
+                    </a>
                 </li>
 
                 <li class="nav-item">
-                    <a class="nav-link" href="/about/">About</a>
+                    <a class="nav-link"
+                       href="{% url 'about' %}">
+                        About
+                    </a>
                 </li>
 
                 <li class="nav-item">
-                    <a class="nav-link" href="/projects/">Projects</a>
+                    <a class="nav-link"
+                       href="{% url 'services' %}">
+                        Services
+                    </a>
                 </li>
 
                 <li class="nav-item">
-                    <a class="nav-link active" href="/faqs/">FAQs</a>
+                    <a class="nav-link"
+                       href="{% url 'projects' %}">
+                        Projects
+                    </a>
                 </li>
 
                 <li class="nav-item">
-                    <a class="nav-link" href="/contact/">Contact</a>
+                    <a class="nav-link"
+                       href="{% url 'reviews' %}">
+                        Reviews
+                    </a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link"
+                       href="{% url 'maintenance_packages' %}">
+                        AMC
+                    </a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link"
+                       href="{% url 'blog' %}">
+                        Blog
+                    </a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link"
+                       href="{% url 'contact' %}">
+                        Contact
+                    </a>
+                </li>
+
+                <li class="nav-item ms-lg-2">
+                    <a class="nav-link nav-quote"
+                       href="{% url 'request_quote' %}">
+                        Get Free Quote
+                    </a>
                 </li>
 
             </ul>
@@ -70,68 +582,28 @@
 </nav>
 
 
-<section class="bg-dark text-white text-center py-5">
+<!-- HERO -->
+
+<section class="faq-hero">
 
     <div class="container">
 
-        <h1 class="display-5 fw-bold">
-            Frequently Asked Questions
-        </h1>
+        <div class="hero-content">
 
-        <p class="lead">
-            Find answers to common questions about our services.
-        </p>
-
-    </div>
-
-</section>
-
-
-<section class="py-5">
-
-    <div class="container">
-
-        <div class="accordion" id="faqAccordion">
-
-            {% for faq in faqs %}
-
-            <div class="accordion-item">
-
-                <h2 class="accordion-header"
-                    id="heading{{ forloop.counter }}">
-
-                    <button class="accordion-button collapsed"
-                            type="button"
-                            data-bs-toggle="collapse"
-                            data-bs-target="#collapse{{ forloop.counter }}">
-
-                        {{ faq.question }}
-
-                    </button>
-
-                </h2>
-
-                <div id="collapse{{ forloop.counter }}"
-                     class="accordion-collapse collapse"
-                     data-bs-parent="#faqAccordion">
-
-                    <div class="accordion-body">
-
-                        {{ faq.answer }}
-
-                    </div>
-
-                </div>
-
+            <div class="hero-badge">
+                UAE CARE Support
             </div>
 
-            {% empty %}
+            <h1>
+                Frequently Asked
+                <span>Questions</span>
+            </h1>
 
-            <p class="text-center text-muted">
-                FAQs will be added soon.
+            <p>
+                Find quick answers about our home maintenance,
+                technical repair, installation and property
+                maintenance services across Dubai.
             </p>
-
-            {% endfor %}
 
         </div>
 
@@ -140,50 +612,534 @@
 </section>
 
 
-<footer class="bg-dark text-white py-4">
+<!-- FAQ SECTION -->
 
-    <div class="container text-center">
+<section class="section">
 
-        {% if settings %}
+    <div class="container">
 
-        <p class="mb-1">
-            {{ settings.address }}
+        <div class="text-center">
+
+            <div class="section-label">
+                FAQ
+            </div>
+
+            <h2 class="section-title">
+                How Can We Help?
+            </h2>
+
+            <p class="section-text">
+                Browse the questions below or search for
+                a specific service or topic.
+            </p>
+
+        </div>
+
+
+        <!-- SEARCH -->
+
+        <div class="faq-search-wrap">
+
+            <input
+                type="text"
+                id="faqSearch"
+                class="faq-search"
+                placeholder="Search your question...">
+
+        </div>
+
+
+        <!-- QUESTIONS -->
+
+        <div class="row justify-content-center">
+
+            <div class="col-lg-9">
+
+                <div id="faqList">
+
+                    {% for faq in faqs %}
+
+                    <div class="faq-box"
+                         data-question="{{ faq.question|lower }}"
+                         data-answer="{{ faq.answer|lower }}">
+
+                        <button class="faq-question"
+                                type="button"
+                                data-bs-toggle="collapse"
+                                data-bs-target="#faq{{ forloop.counter }}">
+
+                            <span>
+                                {{ faq.question }}
+                            </span>
+
+                            <span class="faq-icon">
+                                +
+                            </span>
+
+                        </button>
+
+
+                        <div id="faq{{ forloop.counter }}"
+                             class="collapse">
+
+                            {% if faq.service %}
+
+                            <div class="faq-service">
+                                {{ faq.service.name }}
+                            </div>
+
+                            {% endif %}
+
+                            <div class="faq-answer">
+                                {{ faq.answer|linebreaksbr }}
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                    {% empty %}
+
+                    <div class="text-center py-5">
+
+                        <h4>
+                            FAQs coming soon
+                        </h4>
+
+                        <p class="section-text">
+                            Our frequently asked questions
+                            will be available here.
+                        </p>
+
+                    </div>
+
+                    {% endfor %}
+
+                </div>
+
+
+                <div id="noResults"
+                     class="no-results">
+
+                    No matching questions found.
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- SUPPORT -->
+
+<section class="section section-light">
+
+    <div class="container">
+
+        <div class="text-center mb-5">
+
+            <div class="section-label">
+                Need More Help?
+            </div>
+
+            <h2 class="section-title">
+                Talk to UAE CARE
+            </h2>
+
+        </div>
+
+
+        <div class="row g-4">
+
+            <div class="col-lg-4">
+
+                <div class="info-card">
+
+                    <div class="info-icon">
+                        📞
+                    </div>
+
+                    <h3>
+                        Call Us
+                    </h3>
+
+                    <p>
+                        Speak directly with our team
+                        about your maintenance requirement.
+                    </p>
+
+                    {% if settings %}
+
+                    <a href="tel:{{ settings.phone }}"
+                       class="fw-bold">
+                        {{ settings.phone }} →
+                    </a>
+
+                    {% endif %}
+
+                </div>
+
+            </div>
+
+
+            <div class="col-lg-4">
+
+                <div class="info-card">
+
+                    <div class="info-icon">
+                        💬
+                    </div>
+
+                    <h3>
+                        WhatsApp
+                    </h3>
+
+                    <p>
+                        Send us your requirement and
+                        get quick assistance through WhatsApp.
+                    </p>
+
+                    {% if settings %}
+
+                    <a href="https://wa.me/{{ settings.whatsapp }}"
+                       target="_blank"
+                       class="fw-bold">
+                        Chat on WhatsApp →
+                    </a>
+
+                    {% endif %}
+
+                </div>
+
+            </div>
+
+
+            <div class="col-lg-4">
+
+                <div class="info-card">
+
+                    <div class="info-icon">
+                        📝
+                    </div>
+
+                    <h3>
+                        Request a Quote
+                    </h3>
+
+                    <p>
+                        Submit your requirements online
+                        and request a service quotation.
+                    </p>
+
+                    <a href="{% url 'request_quote' %}"
+                       class="fw-bold">
+                        Get Free Quote →
+                    </a>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- CTA -->
+
+<section class="cta">
+
+    <div class="container">
+
+        <h2>
+            Still Have a Question?
+        </h2>
+
+        <p>
+            Our team is ready to help with your
+            home maintenance or property service requirement.
         </p>
 
-        <p class="mb-1">
-            Call: {{ settings.phone }}
-        </p>
+        <div class="d-flex justify-content-center flex-wrap gap-3">
 
-        <p class="mb-0">
-            {{ settings.email }}
-        </p>
+            <a href="{% url 'request_quote' %}"
+               class="btn-amber">
+                Request Free Quote
+            </a>
 
-        {% endif %}
+            {% if settings %}
+
+            <a href="https://wa.me/{{ settings.whatsapp }}"
+               target="_blank"
+               class="btn-green">
+                💬 WhatsApp Us
+            </a>
+
+            {% endif %}
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- FOOTER -->
+
+<footer>
+
+    <div class="container">
+
+        <div class="row g-4">
+
+            <div class="col-lg-5">
+
+                <div class="footer-brand">
+                    UAE <span>CARE</span>
+                </div>
+
+                <p class="mt-3">
+                    Professional home maintenance,
+                    technical services and property
+                    solutions across Dubai.
+                </p>
+
+                {% if settings %}
+
+                <p>
+                    📍 {{ settings.address }}
+                </p>
+
+                {% endif %}
+
+            </div>
+
+
+            <div class="col-6 col-lg-2">
+
+                <h5>Company</h5>
+
+                <p>
+
+                    <a href="{% url 'about' %}">
+                        About Us
+                    </a><br>
+
+                    <a href="{% url 'projects' %}">
+                        Projects
+                    </a><br>
+
+                    <a href="{% url 'reviews' %}">
+                        Reviews
+                    </a><br>
+
+                    <a href="{% url 'blog' %}">
+                        Blog
+                    </a>
+
+                </p>
+
+            </div>
+
+
+            <div class="col-6 col-lg-2">
+
+                <h5>Services</h5>
+
+                <p>
+
+                    <a href="{% url 'services' %}">
+                        All Services
+                    </a><br>
+
+                    <a href="{% url 'maintenance_packages' %}">
+                        AMC Packages
+                    </a><br>
+
+                    <a href="{% url 'faqs' %}">
+                        FAQs
+                    </a><br>
+
+                    <a href="{% url 'request_quote' %}">
+                        Request Quote
+                    </a>
+
+                </p>
+
+            </div>
+
+
+            <div class="col-lg-3">
+
+                <h5>Contact</h5>
+
+                {% if settings %}
+
+                <p>
+                    📞
+                    <a href="tel:{{ settings.phone }}">
+                        {{ settings.phone }}
+                    </a>
+                </p>
+
+                <p>
+                    ✉️
+                    <a href="mailto:{{ settings.email }}">
+                        {{ settings.email }}
+                    </a>
+                </p>
+
+                <p>
+                    🕒 {{ settings.opening_hours }}
+                </p>
+
+                {% endif %}
+
+            </div>
+
+        </div>
+
+
+        <div class="footer-bottom text-center">
+
+            © {% now "Y" %} UAE CARE.
+            All rights reserved.
+
+        </div>
 
     </div>
 
 </footer>
 
 
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js">
+<!-- MOBILE CTA -->
+
+{% if settings %}
+
+<div class="mobile-cta">
+
+    <a href="tel:{{ settings.phone }}"
+       class="mobile-call">
+        📞 Call
+    </a>
+
+    <a href="https://wa.me/{{ settings.whatsapp }}"
+       target="_blank"
+       class="mobile-whatsapp">
+        💬 WhatsApp
+    </a>
+
+    <a href="{% url 'request_quote' %}"
+       class="mobile-quote">
+        📝 Quote
+    </a>
+
+</div>
+
+{% endif %}
+
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
+
+
+<script>
+
+    const searchInput = document.getElementById("faqSearch");
+    const faqBoxes = document.querySelectorAll(".faq-box");
+    const noResults = document.getElementById("noResults");
+
+    searchInput.addEventListener("input", function () {
+
+        const searchValue = this.value.toLowerCase().trim();
+
+        let visibleCount = 0;
+
+        faqBoxes.forEach(function (faq) {
+
+            const question =
+                faq.dataset.question || "";
+
+            const answer =
+                faq.dataset.answer || "";
+
+            if (
+                question.includes(searchValue) ||
+                answer.includes(searchValue)
+            ) {
+
+                faq.style.display = "block";
+                visibleCount++;
+
+            } else {
+
+                faq.style.display = "none";
+
+            }
+
+        });
+
+        if (visibleCount === 0 && searchValue !== "") {
+
+            noResults.style.display = "block";
+
+        } else {
+
+            noResults.style.display = "none";
+
+        }
+
+    });
+
+
+    /* Change + to − when accordion opens */
+
+    document.querySelectorAll(".faq-question").forEach(function(button) {
+
+        const target =
+            document.querySelector(button.dataset.bsTarget);
+
+        const icon =
+            button.querySelector(".faq-icon");
+
+        if (!target) return;
+
+        target.addEventListener("show.bs.collapse", function () {
+            icon.textContent = "−";
+        });
+
+        target.addEventListener("hide.bs.collapse", function () {
+            icon.textContent = "+";
+        });
+
+    });
+
 </script>
+
+
+<!-- FAQ SCHEMA -->
 
 <script type="application/ld+json">
 {
-  "@context": "https://schema.org",
-  "@type": "FAQPage",
-  "mainEntity": [
-    {% for faq in faqs %}
-    {
-      "@type": "Question",
-      "name": "{{ faq.question|escapejs }}",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "{{ faq.answer|escapejs }}"
-      }
-    }{% if not forloop.last %},{% endif %}
-    {% endfor %}
-  ]
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+        {% for faq in faqs %}
+        {
+            "@type": "Question",
+            "name": "{{ faq.question|escapejs }}",
+            "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "{{ faq.answer|striptags|escapejs }}"
+            }
+        }{% if not forloop.last %},{% endif %}
+        {% endfor %}
+    ]
 }
 </script>
 

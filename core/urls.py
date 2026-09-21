@@ -2,7 +2,18 @@ from django.urls import path
 from django.contrib.sitemaps.views import sitemap
 
 from . import views
-from .sitemaps import ServiceSitemap, BlogSitemap
+
+from .sitemaps import (
+    ServiceSitemap,
+    BlogSitemap,
+    ServiceAreaSitemap,
+)
+
+sitemaps = {
+    'services': ServiceSitemap,
+    'blogs': BlogSitemap,
+    'service_areas': ServiceAreaSitemap,
+}
 
 
 sitemaps = {
@@ -21,6 +32,7 @@ path('reviews/', views.reviews, name='reviews'),
 path('maintenance-packages/', views.maintenance_packages, name='maintenance_packages'),
 path('blog/', views.blog, name='blog'),
 path('faqs/', views.faqs, name='faqs'),
+path('services/', views.services, name='services'),
 
    path(
     'services/<slug:slug>/',
@@ -37,7 +49,13 @@ path(
         views.blog_detail,
         name='blog_detail'
     ),
-    path('robots.txt', views.robots_txt, name='robots_txt'),    
+    path('robots.txt', views.robots_txt, name='robots_txt'), 
+
+    path(
+    'googleb71cd020e600215b.html',
+    views.google_verification,
+    name='google_verification'
+),   
 
     path(
         'sitemap.xml',
@@ -45,9 +63,11 @@ path(
         {'sitemaps': sitemaps},
         name='django-sitemap'
     ),
+    path('service-areas/', views.service_areas, name='service_areas'),
     path(
     'service-areas/<slug:slug>/',
     views.service_area_detail,
     name='service_area_detail'
 ),
+
 ]

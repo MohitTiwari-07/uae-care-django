@@ -1,5 +1,7 @@
 from django.contrib import admin
 
+from .admin_site import uae_admin_site
+
 from .models import (
     Service,
     QuoteRequest,
@@ -9,19 +11,65 @@ from .models import (
     MaintenancePackage,
     ServiceArea,
     FAQ,
-    Blog
+    Blog,
 )
 
 
-@admin.register(Service)
 class ServiceAdmin(admin.ModelAdmin):
     prepopulated_fields = {'slug': ('name',)}
-    list_display = ('name', 'slug', 'price', 'is_active')
-    list_filter = ('is_active',)
-    search_fields = ('name', 'description')
 
+    list_display = (
+        'name',
+        'price',
+        'is_active',
+    )
 
-@admin.register(QuoteRequest)
+    list_filter = (
+        'is_active',
+    )
+
+    search_fields = (
+        'name',
+        'description',
+        'meta_title',
+        'meta_description',
+    )
+
+    list_editable = (
+        'price',
+        'is_active',
+    )
+
+    ordering = (
+        'name',
+    )
+
+    fieldsets = (
+        (
+            'Service Information',
+            {
+                'fields': (
+                    'name',
+                    'slug',
+                    'description',
+                    'price',
+                    'image',
+                    'is_active',
+                )
+            }
+        ),
+        (
+            'SEO Settings',
+            {
+                'fields': (
+                    'meta_title',
+                    'meta_description',
+                ),
+                'classes': ('collapse',),
+            }
+        ),
+    )
+
 class QuoteRequestAdmin(admin.ModelAdmin):
     list_display = ('name', 'phone', 'email', 'service', 'created_at')
     list_filter = ('created_at', 'service')
@@ -29,33 +77,28 @@ class QuoteRequestAdmin(admin.ModelAdmin):
     readonly_fields = ('created_at',)
 
 
-@admin.register(SiteSettings)
 class SiteSettingsAdmin(admin.ModelAdmin):
     list_display = ('phone', 'whatsapp', 'email', 'address')
 
 
-@admin.register(Project)
 class ProjectAdmin(admin.ModelAdmin):
     list_display = ('title', 'category', 'is_active')
     list_filter = ('category', 'is_active')
     search_fields = ('title', 'description', 'category')
 
 
-@admin.register(Testimonial)
 class TestimonialAdmin(admin.ModelAdmin):
     list_display = ('name', 'rating', 'is_active')
     list_filter = ('rating', 'is_active')
     search_fields = ('name', 'review')
 
 
-@admin.register(MaintenancePackage)
 class MaintenancePackageAdmin(admin.ModelAdmin):
     list_display = ('name', 'price', 'is_active')
     list_filter = ('is_active',)
     search_fields = ('name', 'description')
 
 
-@admin.register(ServiceArea)
 class ServiceAreaAdmin(admin.ModelAdmin):
     prepopulated_fields = {'slug': ('name',)}
     list_display = ('name', 'slug', 'is_active')
@@ -63,16 +106,26 @@ class ServiceAreaAdmin(admin.ModelAdmin):
     search_fields = ('name', 'description')
 
 
-@admin.register(FAQ)
 class FAQAdmin(admin.ModelAdmin):
     list_display = ('question', 'service', 'is_active')
     list_filter = ('service', 'is_active')
     search_fields = ('question', 'answer')
 
 
-@admin.register(Blog)
 class BlogAdmin(admin.ModelAdmin):
     prepopulated_fields = {'slug': ('title',)}
     list_display = ('title', 'created_at', 'is_active')
     list_filter = ('is_active', 'created_at')
     search_fields = ('title', 'excerpt', 'content')
+
+
+# Register models with UAE Care custom admin site
+uae_admin_site.register(Service, ServiceAdmin)
+uae_admin_site.register(QuoteRequest, QuoteRequestAdmin)
+uae_admin_site.register(SiteSettings, SiteSettingsAdmin)
+uae_admin_site.register(Project, ProjectAdmin)
+uae_admin_site.register(Testimonial, TestimonialAdmin)
+uae_admin_site.register(MaintenancePackage, MaintenancePackageAdmin)
+uae_admin_site.register(ServiceArea, ServiceAreaAdmin)
+uae_admin_site.register(FAQ, FAQAdmin)
+uae_admin_site.register(Blog, BlogAdmin)

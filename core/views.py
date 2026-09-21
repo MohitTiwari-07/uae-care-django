@@ -1,4 +1,6 @@
 from django.shortcuts import render, redirect
+from django.conf import settings
+from django.shortcuts import render, get_object_or_404
 from django.contrib import messages
 from django.core.mail import send_mail
 from .models import (
@@ -75,6 +77,15 @@ Message:
         'service_areas': service_areas,
         'faqs': faqs,
         'blogs': blogs
+    })
+
+def services(request):
+    services = Service.objects.filter(is_active=True).order_by('name')
+    settings = SiteSettings.objects.first()
+
+    return render(request, 'services.html', {
+        'services': services,
+        'settings': settings,
     })
 
 def projects(request):
@@ -207,34 +218,65 @@ def blog_detail(request, slug):
         'settings': settings
     })
 
+
+
 from django.http import HttpResponse
 
 
 def robots_txt(request):
-    sitemap_url = request.build_absolute_uri('/sitemap.xml')
-
-    content = f"""User-agent: *
+    content = """User-agent: *
 Allow: /
 
-Sitemap: {sitemap_url}
+Sitemap: https://uae-care-django.onrender.com/sitemap.xml
 """
+    return HttpResponse(content, content_type="text/plain")
 
-    return HttpResponse(
-        content,
-        content_type="text/plain"
+def service_areas(request):
+    areas = ServiceArea.objects.filter(
+        is_active=True
+    ).order_by('name')
+
+    settings = SiteSettings.objects.first()
+
+    return render(
+        request,
+        'service_areas.html',
+        {
+            'areas': areas,
+            'settings': settings,
+        }
     )
 
+
 def service_area_detail(request, slug):
-    area = ServiceArea.objects.get(slug=slug)
+    area = get_object_or_404(
+        ServiceArea,
+        slug=slug,
+        is_active=True
+    )
+
     settings = SiteSettings.objects.first()
-    services = Service.objects.filter(is_active=True)
 
-    return render(request, 'service_area_detail.html', {
-        'area': area,
-        'settings': settings,
-        'services': services
-    })
+    services = Service.objects.filter(
+        is_active=True
+    ).order_by('name')
 
+    other_areas = ServiceArea.objects.filter(
+        is_active=True
+    ).exclude(
+        id=area.id
+    ).order_by('name')
+
+    return render(
+        request,
+        'service_area_detail.html',
+        {
+            'area': area,
+            'settings': settings,
+            'services': services,
+            'other_areas': other_areas,
+        }
+    )
 def blog(request):
     settings = SiteSettings.objects.first()
     blogs = Blog.objects.filter(is_active=True)
@@ -253,3 +295,11 @@ def faqs(request):
         'settings': settings,
         'faqs': faq_list
     })
+
+def google_verification(request):
+    file_path = settings.BASE_DIR / "googleb71cd020e600215b.html"
+
+    with open(file_path, "r", encoding="utf-8") as file:
+        content = file.read()
+
+    return HttpResponse(content, content_type="text/html")

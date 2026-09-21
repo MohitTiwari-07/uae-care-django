@@ -1,10 +1,10 @@
 from django.contrib.sitemaps import Sitemap
-from .models import Service, Blog
+from .models import Service, Blog, ServiceArea
 
 
 class ServiceSitemap(Sitemap):
     changefreq = "weekly"
-    priority = 0.8
+    priority = 0.9
 
     def items(self):
         return Service.objects.filter(is_active=True)
@@ -22,3 +22,14 @@ class BlogSitemap(Sitemap):
 
     def location(self, obj):
         return f"/blog/{obj.slug}/"
+
+
+class ServiceAreaSitemap(Sitemap):
+    changefreq = "weekly"
+    priority = 0.8
+
+    def items(self):
+        return ServiceArea.objects.filter(is_active=True)
+
+    def location(self, obj):
+        return f"/service-areas/{obj.slug}/"

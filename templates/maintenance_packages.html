@@ -1,106 +1,419 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
+{% extends "base.html" %}
+{% load static %}
 
-    <meta charset="UTF-8">
-    <meta name="viewport"
-          content="width=device-width, initial-scale=1.0">
+{% block title %}
+UAE CARE | AMC & Maintenance Packages Dubai
+{% endblock %}
 
-    <title>Maintenance Packages | AMC Services</title>
+{% block meta_description %}
+Explore UAE CARE annual maintenance and property maintenance packages for homes, villas, apartments and offices across Dubai.
+{% endblock %}
 
-    <meta name="description"
-          content="Explore our annual maintenance and property maintenance packages.">
+{% block extra_head %}
+<style>
+.amc-hero {
+    min-height: 430px;
+    display: flex;
+    align-items: center;
+    background:
+        linear-gradient(90deg, rgba(5,12,20,.9), rgba(5,12,20,.5)),
+        url("https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?auto=format&fit=crop&w=1800&q=85")
+        center/cover no-repeat;
+}
 
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css"
-          rel="stylesheet">
+.amc-hero h1 {
+    color: #fff;
+    font-size: clamp(40px,5vw,64px);
+    font-weight: 800;
+    line-height: 1.05;
+}
 
-</head>
+.amc-hero p {
+    color: rgba(255,255,255,.85);
+    max-width: 700px;
+    font-size: 18px;
+    line-height: 1.7;
+}
 
-<body>
+.section-label {
+    color: #c99a45;
+    font-size: 13px;
+    font-weight: 800;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+}
+
+.section-title {
+    color: #101820;
+    font-size: clamp(30px,4vw,46px);
+    font-weight: 800;
+}
+
+.package-card {
+    height: 100%;
+    background: #fff;
+    border: 1px solid #e8e8e8;
+    border-radius: 20px;
+    padding: 35px;
+    position: relative;
+    box-shadow: 0 8px 28px rgba(0,0,0,.06);
+    transition: .3s;
+}
+
+.package-card:hover {
+    transform: translateY(-7px);
+    box-shadow: 0 20px 45px rgba(0,0,0,.12);
+}
+
+.package-card.popular {
+    border: 2px solid #c99a45;
+}
+
+.popular-badge {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    background: #c99a45;
+    color: #fff;
+    font-size: 11px;
+    font-weight: 800;
+    padding: 7px 12px;
+    border-radius: 20px;
+    letter-spacing: 1px;
+}
+
+.package-card h3 {
+    font-size: 25px;
+    font-weight: 800;
+    color: #101820;
+}
+
+.package-description {
+    color: #666;
+    line-height: 1.7;
+}
+
+.package-price {
+    font-size: 34px;
+    font-weight: 800;
+    color: #c99a45;
+    margin: 22px 0;
+}
+
+.package-price span {
+    font-size: 14px;
+    color: #777;
+    font-weight: 500;
+}
+
+.package-features {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.package-features li {
+    padding: 10px 0;
+    color: #555;
+    border-bottom: 1px solid #f1f1f1;
+}
+
+.package-features li::before {
+    content: "✓";
+    color: #c99a45;
+    font-weight: 800;
+    margin-right: 10px;
+}
+
+.package-btn {
+    display: block;
+    text-align: center;
+    margin-top: 25px;
+    background: #101820;
+    color: #fff;
+    padding: 13px 20px;
+    border-radius: 8px;
+    text-decoration: none;
+    font-weight: 700;
+}
+
+.package-btn:hover {
+    background: #c99a45;
+    color: #fff;
+}
+
+.benefit-card {
+    height: 100%;
+    background: #fff;
+    border: 1px solid #eee;
+    border-radius: 18px;
+    padding: 28px;
+}
+
+.benefit-icon {
+    width: 52px;
+    height: 52px;
+    border-radius: 14px;
+    background: #f7f1e7;
+    color: #c99a45;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 800;
+    font-size: 21px;
+    margin-bottom: 18px;
+}
+
+.benefit-card h3 {
+    font-size: 20px;
+    font-weight: 750;
+}
+
+.benefit-card p {
+    color: #666;
+    line-height: 1.7;
+    margin-bottom: 0;
+}
+
+.amc-cta {
+    background: #101820;
+    color: #fff;
+    border-radius: 25px;
+    padding: 55px;
+}
+
+.amc-cta h2 {
+    font-size: clamp(28px,4vw,42px);
+    font-weight: 800;
+}
+
+.amc-cta p {
+    color: rgba(255,255,255,.75);
+    line-height: 1.7;
+}
+
+.btn-main {
+    background: #c99a45;
+    color: #fff;
+    padding: 14px 25px;
+    border-radius: 8px;
+    font-weight: 700;
+    text-decoration: none;
+    display: inline-block;
+}
+
+.btn-main:hover {
+    background: #b48638;
+    color: #fff;
+}
+
+.btn-outline-light-custom {
+    border: 1px solid rgba(255,255,255,.5);
+    color: #fff;
+    padding: 13px 24px;
+    border-radius: 8px;
+    font-weight: 700;
+    text-decoration: none;
+    display: inline-block;
+}
+
+.btn-outline-light-custom:hover {
+    background: #fff;
+    color: #101820;
+}
+
+.empty-packages {
+    text-align: center;
+    padding: 60px 20px;
+}
+
+@media (max-width:768px) {
+
+    .amc-hero {
+        min-height: 380px;
+    }
+
+    .amc-hero h1 {
+        font-size: 42px;
+    }
+
+    .package-card {
+        padding: 28px;
+    }
+
+    .amc-cta {
+        padding: 35px 25px;
+    }
+}
+</style>
+{% endblock %}
 
 
-<nav class="navbar navbar-dark bg-dark navbar-expand-lg">
+{% block content %}
 
+<!-- HERO -->
+<section class="amc-hero">
     <div class="container">
 
-        <a class="navbar-brand fw-bold" href="/">
-            Home Maintenance
-        </a>
+        <div class="section-label mb-3">
+            AMC & PROPERTY CARE
+        </div>
 
-        <button class="navbar-toggler"
-                type="button"
-                data-bs-toggle="collapse"
-                data-bs-target="#navbarNav">
+        <h1>
+            Maintenance Packages<br>
+            Built for Your Property
+        </h1>
 
-            <span class="navbar-toggler-icon"></span>
+        <p class="mt-3">
+            Keep your home, villa, apartment or office maintained
+            with convenient property maintenance packages from UAE CARE.
+        </p>
 
-        </button>
+    </div>
+</section>
 
 
-        <div class="collapse navbar-collapse" id="navbarNav">
+<!-- BENEFITS -->
+<section class="py-5">
 
-            <ul class="navbar-nav ms-auto">
+    <div class="container py-5">
 
-                <li class="nav-item">
-                    <a class="nav-link" href="/">
-                        Home
-                    </a>
-                </li>
+        <div class="text-center mb-5">
 
-                <li class="nav-item">
-                    <a class="nav-link" href="/about/">
-                        About
-                    </a>
-                </li>
+            <div class="section-label mb-2">
+                WHY AMC
+            </div>
 
-                <li class="nav-item">
-                    <a class="nav-link" href="/projects/">
-                        Projects
-                    </a>
-                </li>
+            <h2 class="section-title">
+                One Plan. Less Maintenance Stress.
+            </h2>
 
-                <li class="nav-item">
-                    <a class="nav-link active"
-                       href="/maintenance-packages/">
-                        AMC Packages
-                    </a>
-                </li>
-
-                <li class="nav-item">
-                    <a class="nav-link" href="/contact/">
-                        Contact
-                    </a>
-                </li>
-
-            </ul>
+            <p class="text-muted mx-auto" style="max-width:700px;">
+                Regular maintenance helps identify property issues
+                earlier and keeps essential systems working properly.
+            </p>
 
         </div>
 
-    </div>
 
-</nav>
+        <div class="row g-4">
+
+            <div class="col-md-6 col-lg-3">
+
+                <div class="benefit-card">
+
+                    <div class="benefit-icon">
+                        ✓
+                    </div>
+
+                    <h3>
+                        Regular Maintenance
+                    </h3>
+
+                    <p>
+                        Keep important property systems checked
+                        and maintained regularly.
+                    </p>
+
+                </div>
+
+            </div>
 
 
-<section class="bg-dark text-white text-center py-5">
+            <div class="col-md-6 col-lg-3">
 
-    <div class="container">
+                <div class="benefit-card">
 
-        <h1 class="display-5 fw-bold">
-            Maintenance Packages
-        </h1>
+                    <div class="benefit-icon">
+                        24
+                    </div>
 
-        <p class="lead">
-            Reliable maintenance plans for homes and properties.
-        </p>
+                    <h3>
+                        Convenient Support
+                    </h3>
+
+                    <p>
+                        Get a single maintenance partner for
+                        multiple property service requirements.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div class="col-md-6 col-lg-3">
+
+                <div class="benefit-card">
+
+                    <div class="benefit-icon">
+                        ₹
+                    </div>
+
+                    <h3>
+                        Better Planning
+                    </h3>
+
+                    <p>
+                        Plan recurring maintenance instead of
+                        waiting for every issue to become urgent.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div class="col-md-6 col-lg-3">
+
+                <div class="benefit-card">
+
+                    <div class="benefit-icon">
+                        ★
+                    </div>
+
+                    <h3>
+                        Property Care
+                    </h3>
+
+                    <p>
+                        A maintenance plan designed around
+                        your property's ongoing needs.
+                    </p>
+
+                </div>
+
+            </div>
+
+        </div>
 
     </div>
 
 </section>
 
 
-<section class="py-5">
+<!-- PACKAGES -->
+<section class="py-5 bg-light">
 
-    <div class="container">
+    <div class="container py-5">
+
+        <div class="text-center mb-5">
+
+            <div class="section-label mb-2">
+                OUR PACKAGES
+            </div>
+
+            <h2 class="section-title">
+                Choose Your Maintenance Plan
+            </h2>
+
+            <p class="text-muted mx-auto" style="max-width:700px;">
+                Package names, descriptions, prices and features
+                can be managed directly from the UAE CARE admin panel.
+            </p>
+
+        </div>
+
 
         <div class="row g-4 justify-content-center">
 
@@ -108,62 +421,93 @@
 
             <div class="col-md-6 col-lg-4">
 
-                <div class="card h-100 shadow-sm border-0">
+                <div
+                    class="package-card {% if forloop.counter == 2 %}popular{% endif %}"
+                >
 
-                    <div class="card-body p-4">
-
-                        <h3 class="fw-bold">
-                            {{ package.name }}
-                        </h3>
-
-                        <p class="text-muted">
-                            {{ package.description }}
-                        </p>
+                    {% if forloop.counter == 2 %}
+                    <div class="popular-badge">
+                        POPULAR
+                    </div>
+                    {% endif %}
 
 
-                        {% if package.price %}
+                    <h3>
+                        {{ package.name }}
+                    </h3>
 
-                        <h2 class="fw-bold mb-4">
-                            AED {{ package.price }}
-                        </h2>
 
-                        {% else %}
+                    <p class="package-description">
+                        {{ package.description }}
+                    </p>
 
-                        <h5 class="mb-4">
-                            Contact us for pricing
-                        </h5>
 
+                    {% if package.price %}
+
+                    <div class="package-price">
+                        AED {{ package.price }}
+                        <span>/ package</span>
+                    </div>
+
+                    {% else %}
+
+                    <div class="package-price">
+                        Custom
+                        <span>pricing</span>
+                    </div>
+
+                    {% endif %}
+
+
+                    <ul class="package-features">
+
+                        {% for feature in package.features.splitlines %}
+
+                        {% if feature %}
+                        <li>
+                            {{ feature }}
+                        </li>
                         {% endif %}
 
-<h6 class="fw-bold">
-    Package Includes:
-</h6>
+                        {% endfor %}
 
-<div class="mb-4">
-    {{ package.features|linebreaks }}
-</div>
+                    </ul>
 
-<a href="{% url 'request_quote' %}"
-   class="btn btn-dark w-100">
 
-    Request AMC
-
-</a>
-
-                    </div>
+                    <a
+                        href="{% url 'request_quote' %}"
+                        class="package-btn"
+                    >
+                        Request This Package
+                    </a>
 
                 </div>
 
             </div>
 
-
             {% empty %}
 
-            <div class="col-12 text-center">
+            <div class="col-12">
 
-                <p class="text-muted">
-                    Maintenance packages will be added soon.
-                </p>
+                <div class="empty-packages">
+
+                    <h4>
+                        Maintenance packages coming soon
+                    </h4>
+
+                    <p class="text-muted">
+                        Packages will appear here once added
+                        through the admin panel.
+                    </p>
+
+                    <a
+                        href="{% url 'request_quote' %}"
+                        class="btn-main mt-3"
+                    >
+                        Request Custom AMC
+                    </a>
+
+                </div>
 
             </div>
 
@@ -176,30 +520,127 @@
 </section>
 
 
-<footer class="bg-dark text-white py-4">
+<!-- CUSTOM AMC -->
+<section class="py-5">
 
-    <div class="container text-center">
+    <div class="container py-5">
 
-        {% if settings %}
+        <div class="row align-items-center g-5">
 
-        <p class="mb-1">
-            {{ settings.address }}
-        </p>
+            <div class="col-lg-6">
 
-        <p class="mb-1">
-            Call: {{ settings.phone }}
-        </p>
+                <div class="section-label mb-2">
+                    CUSTOM AMC
+                </div>
 
-        <p class="mb-0">
-            {{ settings.email }}
-        </p>
+                <h2 class="section-title mb-4">
+                    Need a Plan for a Larger Property?
+                </h2>
 
-        {% endif %}
+                <p class="text-muted" style="line-height:1.8;">
+                    For villas, offices, apartment buildings, rental
+                    properties or larger facilities, UAE CARE can
+                    discuss a maintenance requirement based on the
+                    property's needs.
+                </p>
+
+                <a
+                    href="{% url 'request_quote' %}"
+                    class="btn-main mt-3"
+                >
+                    Discuss Your Requirement
+                </a>
+
+            </div>
+
+
+            <div class="col-lg-6">
+
+                <div class="benefit-card">
+
+                    <div class="benefit-icon">
+                        AMC
+                    </div>
+
+                    <h3>
+                        What Can Be Included?
+                    </h3>
+
+                    <p class="mt-3">
+                        AC maintenance, plumbing, electrical work,
+                        handyman services, cleaning, painting,
+                        carpentry and other property maintenance
+                        requirements can be discussed as part of
+                        a custom plan.
+                    </p>
+
+                </div>
+
+            </div>
+
+        </div>
 
     </div>
 
-</footer>
+</section>
 
 
-</body>
-</html>
+<!-- CTA -->
+<section class="pb-5">
+
+    <div class="container">
+
+        <div class="amc-cta">
+
+            <div class="row align-items-center">
+
+                <div class="col-lg-8">
+
+                    <div class="section-label mb-2">
+                        UAE CARE
+                    </div>
+
+                    <h2>
+                        Protect Your Property With Regular Maintenance
+                    </h2>
+
+                    <p class="mb-0">
+                        Talk to UAE CARE about the right maintenance
+                        solution for your property.
+                    </p>
+
+                </div>
+
+
+                <div class="col-lg-4 text-lg-end mt-4 mt-lg-0">
+
+                    <a
+                        href="{% url 'request_quote' %}"
+                        class="btn-main me-2"
+                    >
+                        Request AMC
+                    </a>
+
+                    {% if settings %}
+
+                    <a
+                        href="https://wa.me/{{ settings.whatsapp }}"
+                        target="_blank"
+                        class="btn-outline-light-custom"
+                    >
+                        WhatsApp
+                    </a>
+
+                    {% endif %}
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+{% endblock %}

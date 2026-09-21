@@ -1,92 +1,320 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+{% extends "base.html" %}
+{% load static %}
 
-    <title>Our Projects | Home Maintenance Services</title>
-    <meta name="description"
-          content="Explore our completed home maintenance, renovation, plumbing, electrical and AC service projects.">
+{% block title %}
+UAE CARE | Projects & Portfolio Dubai
+{% endblock %}
 
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css"
-          rel="stylesheet">
-</head>
+{% block meta_description %}
+Explore UAE CARE property maintenance, renovation, AC, plumbing, electrical and home improvement projects across Dubai.
+{% endblock %}
 
-<body>
+{% block extra_head %}
+<style>
+.projects-hero {
+    min-height: 430px;
+    display: flex;
+    align-items: center;
+    background:
+        linear-gradient(90deg, rgba(5,12,20,.88), rgba(5,12,20,.52)),
+        url("https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?auto=format&fit=crop&w=1800&q=85")
+        center/cover no-repeat;
+}
 
-<nav class="navbar navbar-dark bg-dark navbar-expand-lg">
+.projects-hero h1 {
+    color:#fff;
+    font-size:clamp(40px,5vw,64px);
+    font-weight:800;
+    line-height:1.05;
+}
+
+.projects-hero p {
+    color:rgba(255,255,255,.85);
+    max-width:700px;
+    font-size:18px;
+    line-height:1.7;
+}
+
+.section-label {
+    color:#c99a45;
+    font-size:13px;
+    font-weight:800;
+    letter-spacing:2px;
+    text-transform:uppercase;
+}
+
+.section-title {
+    color:#101820;
+    font-size:clamp(30px,4vw,46px);
+    font-weight:800;
+}
+
+.filter-btn {
+    border:1px solid #ddd;
+    background:#fff;
+    color:#222;
+    padding:10px 20px;
+    border-radius:30px;
+    font-weight:600;
+    transition:.25s;
+}
+
+.filter-btn:hover,
+.filter-btn.active {
+    background:#101820;
+    color:#fff;
+    border-color:#101820;
+}
+
+.project-card {
+    height:100%;
+    background:#fff;
+    border:1px solid #eee;
+    border-radius:18px;
+    overflow:hidden;
+    box-shadow:0 8px 25px rgba(0,0,0,.05);
+    transition:.3s;
+}
+
+.project-card:hover {
+    transform:translateY(-7px);
+    box-shadow:0 18px 40px rgba(0,0,0,.12);
+}
+
+.project-image {
+    height:240px;
+    overflow:hidden;
+    background:#eee;
+}
+
+.project-image img {
+    width:100%;
+    height:100%;
+    object-fit:cover;
+    transition:.4s;
+}
+
+.project-card:hover img {
+    transform:scale(1.06);
+}
+
+.project-content {
+    padding:25px;
+}
+
+.project-category {
+    color:#c99a45;
+    font-size:12px;
+    font-weight:800;
+    text-transform:uppercase;
+    letter-spacing:1.5px;
+}
+
+.project-content h3 {
+    font-size:22px;
+    font-weight:750;
+    margin:8px 0 12px;
+}
+
+.project-content p {
+    color:#666;
+    line-height:1.7;
+}
+
+.projects-cta {
+    background:#101820;
+    color:#fff;
+    border-radius:25px;
+    padding:55px;
+}
+
+.projects-cta h2 {
+    font-size:clamp(28px,4vw,42px);
+    font-weight:800;
+}
+
+.projects-cta p {
+    color:rgba(255,255,255,.75);
+    line-height:1.7;
+}
+
+.btn-main {
+    background:#c99a45;
+    color:#fff;
+    padding:14px 25px;
+    border-radius:8px;
+    font-weight:700;
+    text-decoration:none;
+    display:inline-block;
+}
+
+.btn-main:hover {
+    background:#b48638;
+    color:#fff;
+}
+
+.btn-outline-light-custom {
+    border:1px solid rgba(255,255,255,.5);
+    color:#fff;
+    padding:13px 24px;
+    border-radius:8px;
+    font-weight:700;
+    text-decoration:none;
+    display:inline-block;
+}
+
+.btn-outline-light-custom:hover {
+    background:#fff;
+    color:#101820;
+}
+
+.no-projects {
+    padding:60px 20px;
+    text-align:center;
+}
+
+@media(max-width:768px) {
+    .projects-hero {
+        min-height:380px;
+    }
+
+    .projects-hero h1 {
+        font-size:42px;
+    }
+
+    .projects-cta {
+        padding:35px 25px;
+    }
+
+    .project-image {
+        height:210px;
+    }
+}
+</style>
+{% endblock %}
+
+
+{% block content %}
+
+<!-- HERO -->
+<section class="projects-hero">
     <div class="container">
-        <a class="navbar-brand fw-bold" href="/">Home Maintenance</a>
 
-        <button class="navbar-toggler" type="button"
-                data-bs-toggle="collapse"
-                data-bs-target="#navbarNav">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-
-        <div class="collapse navbar-collapse" id="navbarNav">
-            <ul class="navbar-nav ms-auto">
-                <li class="nav-item">
-                    <a class="nav-link" href="/">Home</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="/about/">About</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link active" href="/projects/">Projects</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="/reviews/">Reviews</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="/contact/">Contact</a>
-                </li>
-            </ul>
+        <div class="section-label mb-3">
+            OUR WORK
         </div>
-    </div>
-</nav>
 
+        <h1>
+            Projects & Portfolio
+        </h1>
 
-<section class="bg-dark text-white text-center py-5">
-    <div class="container">
-        <h1 class="display-5 fw-bold">Our Projects</h1>
-        <p class="lead">
-            Quality maintenance and renovation work delivered with care.
+        <p class="mt-3">
+            Discover examples of property maintenance, renovation,
+            repair and improvement work delivered by UAE CARE.
         </p>
+
     </div>
 </section>
 
 
+<!-- PROJECTS -->
 <section class="py-5">
-    <div class="container">
 
-        <div class="row g-4">
+    <div class="container py-5">
+
+        <div class="text-center mb-4">
+
+            <div class="section-label mb-2">
+                UAE CARE PROJECTS
+            </div>
+
+            <h2 class="section-title">
+                Work We Are Proud Of
+            </h2>
+
+            <p class="text-muted mx-auto" style="max-width:700px;">
+                From individual maintenance jobs to larger property
+                improvement projects, explore our work.
+            </p>
+
+        </div>
+
+
+        <!-- FILTERS -->
+
+        {% regroup projects by category as project_categories %}
+
+        <div class="d-flex flex-wrap justify-content-center gap-2 mb-5">
+
+            <button
+                class="filter-btn active"
+                data-filter="all"
+            >
+                All Projects
+            </button>
+
+            {% for category in project_categories %}
+
+            <button
+                class="filter-btn"
+                data-filter="{{ category.grouper|slugify }}"
+            >
+                {{ category.grouper }}
+            </button>
+
+            {% endfor %}
+
+        </div>
+
+
+        <!-- PROJECT GRID -->
+
+        <div class="row g-4" id="projectGrid">
 
             {% for project in projects %}
 
-            <div class="col-md-6 col-lg-4">
+            <div
+                class="col-md-6 col-lg-4 project-item"
+                data-category="{{ project.category|slugify }}"
+            >
 
-                <div class="card h-100 shadow-sm border-0">
+                <div class="project-card">
 
-                    {% if project.image %}
-                    <img src="{{ project.image }}"
-                         class="card-img-top"
-                         alt="{{ project.title }}"
-                         style="height:230px; object-fit:cover;">
-                    {% endif %}
+                    <div class="project-image">
 
-                    <div class="card-body">
+                        {% if project.image %}
 
-                        <span class="badge bg-secondary mb-2">
+                        <img
+                            src="{{ project.image }}"
+                            alt="{{ project.title }}"
+                            loading="lazy"
+                        >
+
+                        {% else %}
+
+                        <img
+                            src="https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?auto=format&fit=crop&w=900&q=80"
+                            alt="{{ project.title }}"
+                            loading="lazy"
+                        >
+
+                        {% endif %}
+
+                    </div>
+
+
+                    <div class="project-content">
+
+                        <div class="project-category">
                             {{ project.category }}
-                        </span>
+                        </div>
 
-                        <h3 class="h5 fw-bold">
+                        <h3>
                             {{ project.title }}
                         </h3>
 
-                        <p class="text-muted">
-                            {{ project.description }}
+                        <p>
+                            {{ project.description|truncatewords:30 }}
                         </p>
 
                     </div>
@@ -97,10 +325,16 @@
 
             {% empty %}
 
-            <div class="col-12 text-center">
+            <div class="col-12 no-projects">
+
+                <h4>
+                    Projects coming soon
+                </h4>
+
                 <p class="text-muted">
-                    Projects will be added soon.
+                    Our project portfolio will be updated soon.
                 </p>
+
             </div>
 
             {% endfor %}
@@ -108,33 +342,115 @@
         </div>
 
     </div>
+
 </section>
 
 
-<section class="bg-light py-5 text-center">
+<!-- CTA -->
+
+<section class="pb-5">
+
     <div class="container">
-        <h2 class="fw-bold">Need Similar Work?</h2>
-        <p>Request a free quote for your property.</p>
 
-        <a href="{% url 'request_quote' %}"
-           class="btn btn-dark px-4">
-            Request a Quote
-        </a>
+        <div class="projects-cta">
+
+            <div class="row align-items-center">
+
+                <div class="col-lg-8">
+
+                    <div class="section-label mb-2">
+                        START YOUR PROJECT
+                    </div>
+
+                    <h2>
+                        Have a Property Maintenance Project?
+                    </h2>
+
+                    <p class="mb-0">
+                        Tell UAE CARE what you need and our team can
+                        help you plan the right maintenance solution.
+                    </p>
+
+                </div>
+
+
+                <div class="col-lg-4 text-lg-end mt-4 mt-lg-0">
+
+                    <a
+                        href="{% url 'request_quote' %}"
+                        class="btn-main me-2"
+                    >
+                        Request a Quote
+                    </a>
+
+                    {% if settings %}
+
+                    <a
+                        href="https://wa.me/{{ settings.whatsapp }}"
+                        target="_blank"
+                        class="btn-outline-light-custom"
+                    >
+                        WhatsApp
+                    </a>
+
+                    {% endif %}
+
+                </div>
+
+            </div>
+
+        </div>
+
     </div>
+
 </section>
 
+{% endblock %}
 
-<footer class="bg-dark text-white py-4">
-    <div class="container text-center">
 
-        {% if settings %}
-        <p class="mb-1">{{ settings.address }}</p>
-        <p class="mb-1">Call: {{ settings.phone }}</p>
-        <p class="mb-0">{{ settings.email }}</p>
-        {% endif %}
+{% block extra_js %}
 
-    </div>
-</footer>
+<script>
 
-</body>
-</html>
+const filterButtons =
+    document.querySelectorAll(".filter-btn");
+
+const projectItems =
+    document.querySelectorAll(".project-item");
+
+
+filterButtons.forEach(button => {
+
+    button.addEventListener("click", function() {
+
+        filterButtons.forEach(btn => {
+            btn.classList.remove("active");
+        });
+
+        this.classList.add("active");
+
+        const filter = this.dataset.filter;
+
+        projectItems.forEach(item => {
+
+            const category =
+                item.dataset.category;
+
+            if (
+                filter === "all" ||
+                category === filter
+            ) {
+                item.style.display = "";
+            } else {
+                item.style.display = "none";
+            }
+
+        });
+
+    });
+
+});
+
+</script>
+
+{% endblock %}

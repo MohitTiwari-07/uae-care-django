@@ -1,0 +1,694 @@
+{% extends "admin/base_site.html" %}
+
+{% block content_title %}{% endblock %}
+
+{% block content %}
+
+<style>
+
+/* =========================
+   UAE CARE ADMIN DASHBOARD
+========================= */
+
+.admin-dashboard {
+    width: 100%;
+}
+
+/* HEADER */
+
+.dashboard-welcome {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 25px;
+}
+
+.dashboard-welcome h1 {
+    margin: 0;
+    font-size: 28px;
+    font-weight: 800;
+    color: #172033;
+}
+
+.dashboard-welcome p {
+    margin: 7px 0 0;
+    color: #64748b;
+    font-size: 14px;
+}
+
+.live-status {
+    background: #dcfce7;
+    color: #15803d;
+    padding: 8px 13px;
+    border-radius: 30px;
+    font-size: 12px;
+    font-weight: 700;
+}
+
+/* =========================
+   STAT CARDS
+========================= */
+
+.stats-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 18px;
+    margin-bottom: 25px;
+}
+
+.stat-card {
+    background: #ffffff;
+    border: 1px solid #e5eaf0;
+    border-radius: 15px;
+    padding: 22px;
+    box-shadow: 0 4px 15px rgba(15, 23, 42, 0.04);
+}
+
+.stat-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.stat-label {
+    color: #64748b;
+    font-size: 12px;
+    font-weight: 800;
+    text-transform: uppercase;
+}
+
+.stat-icon {
+    width: 38px;
+    height: 38px;
+    border-radius: 9px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #f1f5f9;
+    font-size: 18px;
+}
+
+.stat-card h2 {
+    margin: 15px 0 5px;
+    font-size: 30px;
+    color: #111827;
+    font-weight: 800;
+}
+
+.stat-card p {
+    margin: 0;
+    font-size: 12px;
+    color: #10a875;
+    font-weight: 700;
+}
+
+/* =========================
+   CMS NAVIGATION
+========================= */
+
+.cms-nav {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+    background: #ffffff;
+    border: 1px solid #e5eaf0;
+    border-radius: 13px;
+    padding: 10px;
+    margin-bottom: 25px;
+}
+
+.cms-nav a {
+    text-decoration: none;
+    color: #475569;
+    padding: 11px 15px;
+    border-radius: 8px;
+    font-size: 13px;
+    font-weight: 700;
+}
+
+.cms-nav a:hover,
+.cms-nav a.active {
+    background: #111827;
+    color: #ffffff;
+}
+
+/* =========================
+   MAIN GRID
+========================= */
+
+.dashboard-main {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 22px;
+    margin-bottom: 25px;
+}
+
+.panel {
+    background: #ffffff;
+    border: 1px solid #e5eaf0;
+    border-radius: 15px;
+    overflow: hidden;
+}
+
+.panel-header {
+    padding: 19px 22px;
+    border-bottom: 1px solid #edf0f4;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.panel-header h2 {
+    margin: 0;
+    font-size: 17px;
+    font-weight: 800;
+    color: #172033;
+}
+
+.panel-header a {
+    color: #2563eb;
+    text-decoration: none;
+    font-size: 12px;
+    font-weight: 700;
+}
+
+.panel-body {
+    padding: 20px;
+}
+
+/* =========================
+   LEADS
+========================= */
+
+.lead-item {
+    display: grid;
+    grid-template-columns: 1.2fr 1fr 1fr auto;
+    align-items: center;
+    gap: 15px;
+    padding: 15px 0;
+    border-bottom: 1px solid #edf0f4;
+}
+
+.lead-item:last-child {
+    border-bottom: none;
+}
+
+.lead-name {
+    font-weight: 700;
+    color: #172033;
+    font-size: 13px;
+}
+
+.lead-service {
+    color: #475569;
+    font-size: 12px;
+}
+
+.lead-phone {
+    color: #64748b;
+    font-size: 12px;
+}
+
+.lead-status {
+    background: #fff7ed;
+    color: #c2410c;
+    padding: 6px 9px;
+    border-radius: 20px;
+    font-size: 10px;
+    font-weight: 800;
+}
+
+/* =========================
+   QUICK ACTIONS
+========================= */
+
+.action-list {
+    display: grid;
+    gap: 10px;
+}
+
+.action-list a {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 13px;
+    border: 1px solid #e5eaf0;
+    border-radius: 9px;
+    text-decoration: none;
+    color: #172033;
+    font-size: 13px;
+    font-weight: 700;
+}
+
+.action-list a:hover {
+    border-color: #2563eb;
+    background: #f8fafc;
+}
+
+.action-icon {
+    width: 32px;
+    height: 32px;
+    border-radius: 8px;
+    background: #f1f5f9;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* =========================
+   EMERGENCY CTA
+========================= */
+
+.emergency-card {
+    background: #111827;
+    border-radius: 15px;
+    padding: 25px;
+    color: #ffffff;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 20px;
+}
+
+.emergency-card h2 {
+    margin: 0 0 7px;
+    font-size: 20px;
+}
+
+.emergency-card p {
+    margin: 0;
+    color: #cbd5e1;
+    font-size: 13px;
+}
+
+.emergency-btn {
+    background: #10b981;
+    color: #ffffff !important;
+    text-decoration: none;
+    padding: 12px 20px;
+    border-radius: 8px;
+    font-size: 13px;
+    font-weight: 800;
+    white-space: nowrap;
+}
+
+/* =========================
+   DJANGO MODULES
+========================= */
+
+#content-main > .module {
+    margin-top: 25px;
+    border-radius: 15px !important;
+    border: 1px solid #e5eaf0 !important;
+    box-shadow: none !important;
+}
+
+/* =========================
+   MOBILE
+========================= */
+
+@media (max-width: 1000px) {
+
+    .stats-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .dashboard-main {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 650px) {
+
+    .stats-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .dashboard-welcome {
+        align-items: flex-start;
+        flex-direction: column;
+        gap: 12px;
+    }
+
+    .lead-item {
+        grid-template-columns: 1fr;
+        gap: 6px;
+    }
+
+    .emergency-card {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .emergency-btn {
+        width: 100%;
+        text-align: center;
+    }
+
+}
+
+</style>
+
+
+<div class="admin-dashboard">
+
+
+    <!-- WELCOME -->
+
+    <div class="dashboard-welcome">
+
+        <div>
+
+            <h1>
+                Welcome to UAE Care Admin
+            </h1>
+
+            <p>
+                Manage your services, customers, content and website operations.
+            </p>
+
+        </div>
+
+        <div class="live-status">
+            ● SYSTEM ACTIVE
+        </div>
+
+    </div>
+
+
+    <!-- STATISTICS -->
+
+    <div class="stats-grid">
+
+        <div class="stat-card">
+
+            <div class="stat-top">
+
+                <span class="stat-label">
+                    Leads
+                </span>
+
+                <div class="stat-icon">
+                    👥
+                </div>
+
+            </div>
+
+            <h2>
+                {{ quote_count|default:"0" }}
+            </h2>
+
+            <p>
+                Customer enquiries
+            </p>
+
+        </div>
+
+
+        <div class="stat-card">
+
+            <div class="stat-top">
+
+                <span class="stat-label">
+                    Services
+                </span>
+
+                <div class="stat-icon">
+                    🔧
+                </div>
+
+            </div>
+
+            <h2>
+                {{ service_count|default:"0" }}
+            </h2>
+
+            <p>
+                Active services
+            </p>
+
+        </div>
+
+
+        <div class="stat-card">
+
+            <div class="stat-top">
+
+                <span class="stat-label">
+                    Projects
+                </span>
+
+                <div class="stat-icon">
+                    🏗️
+                </div>
+
+            </div>
+
+            <h2>
+                {{ project_count|default:"0" }}
+            </h2>
+
+            <p>
+                Portfolio projects
+            </p>
+
+        </div>
+
+
+        <div class="stat-card">
+
+            <div class="stat-top">
+
+                <span class="stat-label">
+                    Blogs
+                </span>
+
+                <div class="stat-icon">
+                    📝
+                </div>
+
+            </div>
+
+            <h2>
+                {{ blog_count|default:"0" }}
+            </h2>
+
+            <p>
+                Published guides
+            </p>
+
+        </div>
+
+    </div>
+
+
+    <!-- CMS NAVIGATION -->
+
+    <div class="cms-nav">
+
+        <a href="/admin/core/quoterequest/" class="active">
+            👥 Leads
+        </a>
+
+        <a href="/admin/core/service/">
+            🔧 Services & Pricing
+        </a>
+
+        <a href="/admin/core/project/">
+            🏗 Projects
+        </a>
+
+        <a href="/admin/core/servicearea/">
+            ◉ Service Areas
+        </a>
+
+        <a href="/admin/core/maintenancepackage/">
+            ⚙ AMC Packages
+        </a>
+
+        <a href="/admin/core/testimonial/">
+            ★ Reviews
+        </a>
+
+        <a href="/admin/core/faq/">
+            ? FAQs
+        </a>
+
+        <a href="/admin/core/blog/">
+            📝 Blog
+        </a>
+
+    </div>
+
+
+    <!-- MAIN -->
+
+    <div class="dashboard-main">
+
+
+        <!-- LEADS -->
+
+        <div class="panel">
+
+            <div class="panel-header">
+
+                <h2>
+                    Recent Quote Requests
+                </h2>
+
+                <a href="/admin/core/quoterequest/">
+                    View All →
+                </a>
+
+            </div>
+
+            <div class="panel-body">
+
+                {% if recent_quotes %}
+
+                    {% for quote in recent_quotes %}
+
+                    <div class="lead-item">
+
+                        <div>
+                            <div class="lead-name">
+                                {{ quote.name }}
+                            </div>
+                        </div>
+
+                        <div class="lead-service">
+                            {{ quote.service }}
+                        </div>
+
+                        <div class="lead-phone">
+                            {{ quote.phone }}
+                        </div>
+
+                        <div class="lead-status">
+                            NEW
+                        </div>
+
+                    </div>
+
+                    {% endfor %}
+
+                {% else %}
+
+                    <p style="color:#64748b; margin:0;">
+                        No quote requests yet.
+                    </p>
+
+                {% endif %}
+
+            </div>
+
+        </div>
+
+
+        <!-- QUICK ACTIONS -->
+
+        <div class="panel">
+
+            <div class="panel-header">
+
+                <h2>
+                    Quick Actions
+                </h2>
+
+            </div>
+
+            <div class="panel-body">
+
+                <div class="action-list">
+
+                    <a href="/admin/core/service/add/">
+
+                        <span class="action-icon">
+                            🔧
+                        </span>
+
+                        Add New Service
+
+                    </a>
+
+
+                    <a href="/admin/core/project/add/">
+
+                        <span class="action-icon">
+                            🏗️
+                        </span>
+
+                        Add Project
+
+                    </a>
+
+
+                    <a href="/admin/core/blog/add/">
+
+                        <span class="action-icon">
+                            📝
+                        </span>
+
+                        Publish Blog
+
+                    </a>
+
+
+                    <a href="/admin/core/faq/add/">
+
+                        <span class="action-icon">
+                            ❓
+                        </span>
+
+                        Add FAQ
+
+                    </a>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- EMERGENCY CTA -->
+
+    <div class="emergency-card">
+
+        <div>
+
+            <h2>
+                Need immediate assistance?
+            </h2>
+
+            <p>
+                Manage customer support through Call and WhatsApp.
+            </p>
+
+        </div>
+
+        <a
+            href="https://wa.me/{{ settings.whatsapp|default:'' }}"
+            class="emergency-btn"
+            target="_blank"
+        >
+            💬 Open WhatsApp
+        </a>
+
+    </div>
+
+
+    <!-- DEFAULT DJANGO MODULES -->
+
+    <div style="margin-top:25px;">
+
+        {{ block.super }}
+
+    </div>
+
+
+</div>
+
+{% endblock %}

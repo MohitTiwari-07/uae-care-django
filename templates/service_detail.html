@@ -1,470 +1,1196 @@
-<!DOCTYPE html>
-<html lang="en">
+{% extends "base.html" %}
+{% load static %}
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+{% block title %}
+{% if service.meta_title %}
+{{ service.meta_title }}
+{% else %}
+{{ service.name }} | UAE CARE Dubai
+{% endif %}
+{% endblock %}
 
-    <title>
-    {% if service.meta_title %}
-        {{ service.meta_title }}
-    {% else %}
-        {{ service.name }} | UAE Care
-    {% endif %}
-</title>
+{% block meta_description %}
+{% if service.meta_description %}
+{{ service.meta_description }}
+{% else %}
+Professional {{ service.name }} services in Dubai by UAE CARE. Get a free quote today.
+{% endif %}
+{% endblock %}
 
-<meta name="description"
-      content="{% if service.meta_description %}{{ service.meta_description }}{% else %}Professional {{ service.name }} services in Dubai and across the UAE. Get reliable service, quick support and a free quote from UAE Care.{% endif %}">
+{% block og_title %}
+{% if service.meta_title %}
+{{ service.meta_title }}
+{% else %}
+{{ service.name }} | UAE CARE Dubai
+{% endif %}
+{% endblock %}
 
-<link rel="canonical" href="{{ request.build_absolute_uri }}">
-<meta property="og:title"
-      content="{% if service.meta_title %}{{ service.meta_title }}{% else %}{{ service.name }} | UAE Care{% endif %}">
+{% block og_description %}
+{% if service.meta_description %}
+{{ service.meta_description }}
+{% else %}
+Professional {{ service.name }} services in Dubai by UAE CARE. Get a free quote today.
+{% endif %}
+{% endblock %}
 
-<meta property="og:description"
-      content="{% if service.meta_description %}{{ service.meta_description }}{% else %}Professional {{ service.name }} services in Dubai and across the UAE.{% endif %}">
 
-<meta property="og:type" content="website">
+{% block extra_head %}
 
-<meta property="og:url"
-      content="{{ request.build_absolute_uri }}">
+<style>
 
-<meta property="og:site_name"
-      content="UAE Care">
-      
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css"
-          rel="stylesheet">
-          <style>
-    .mobile-sticky-cta {
+    /* ==============================
+       SERVICE HERO
+    ============================== */
+
+    .service-hero {
+        position: relative;
+        min-height: 500px;
+        display: flex;
+        align-items: center;
+        background:
+            linear-gradient(
+                90deg,
+                rgba(8, 18, 32, 0.96),
+                rgba(8, 18, 32, 0.82),
+                rgba(8, 18, 32, 0.45)
+            ),
+            url("{% if service.image %}{{ service.image }}{% else %}{% static 'images/service-default.jpg' %}{% endif %}")
+            center/cover no-repeat;
+        color: #fff;
+    }
+
+    .service-hero-inner {
+        max-width: 1200px;
+        width: 100%;
+        margin: auto;
+        padding: 90px 24px;
+    }
+
+    .service-breadcrumb {
+        font-size: 14px;
+        margin-bottom: 22px;
+        color: rgba(255,255,255,.75);
+    }
+
+    .service-breadcrumb a {
+        color: #fff;
+        text-decoration: none;
+    }
+
+    .service-breadcrumb a:hover {
+        color: #d4af37;
+    }
+
+    .service-hero h1 {
+        font-size: clamp(38px, 5vw, 64px);
+        line-height: 1.08;
+        max-width: 850px;
+        margin: 0 0 22px;
+        font-weight: 800;
+        letter-spacing: -1px;
+    }
+
+    .service-hero p {
+        max-width: 760px;
+        font-size: 18px;
+        line-height: 1.8;
+        color: rgba(255,255,255,.88);
+        margin-bottom: 30px;
+    }
+
+    .service-actions {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 14px;
+    }
+
+    .service-btn {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        padding: 14px 24px;
+        border-radius: 8px;
+        text-decoration: none;
+        font-weight: 700;
+        transition: .25s ease;
+    }
+
+    .service-btn-primary {
+        background: #d4af37;
+        color: #111;
+    }
+
+    .service-btn-primary:hover {
+        background: #fff;
+        color: #111;
+        transform: translateY(-2px);
+    }
+
+    .service-btn-outline {
+        border: 1px solid rgba(255,255,255,.6);
+        color: #fff;
+    }
+
+    .service-btn-outline:hover {
+        background: #fff;
+        color: #111;
+    }
+
+
+    /* ==============================
+       MAIN CONTENT
+    ============================== */
+
+    .service-section {
+        padding: 85px 20px;
+        background: #fff;
+    }
+
+    .service-container {
+        max-width: 1200px;
+        margin: auto;
+    }
+
+    .service-grid {
+        display: grid;
+        grid-template-columns: minmax(0, 1.7fr) minmax(300px, .8fr);
+        gap: 50px;
+        align-items: start;
+    }
+
+    .service-content h2 {
+        font-size: 38px;
+        line-height: 1.2;
+        margin: 0 0 20px;
+        color: #101820;
+    }
+
+    .service-content h3 {
+        font-size: 25px;
+        margin: 35px 0 14px;
+        color: #101820;
+    }
+
+    .service-content p {
+        font-size: 17px;
+        line-height: 1.9;
+        color: #59636e;
+        margin-bottom: 18px;
+    }
+
+    .service-description {
+        white-space: pre-line;
+    }
+
+
+    /* ==============================
+       PRICE CARD
+    ============================== */
+
+    .service-side {
+        position: sticky;
+        top: 100px;
+    }
+
+    .price-card {
+        background: #101820;
+        color: #fff;
+        padding: 30px;
+        border-radius: 18px;
+        box-shadow: 0 18px 50px rgba(0,0,0,.12);
+    }
+
+    .price-card-label {
+        color: rgba(255,255,255,.65);
+        font-size: 14px;
+        margin-bottom: 8px;
+    }
+
+    .price-card h3 {
+        margin: 0 0 22px;
+        font-size: 28px;
+    }
+
+    .price {
+        font-size: 38px;
+        font-weight: 800;
+        color: #d4af37;
+        margin-bottom: 20px;
+    }
+
+    .price-note {
+        font-size: 13px;
+        color: rgba(255,255,255,.65);
+        margin-bottom: 25px;
+    }
+
+    .price-card .full-btn {
+        width: 100%;
+        display: flex;
+        box-sizing: border-box;
+    }
+
+
+    /* ==============================
+       TRUST CARDS
+    ============================== */
+
+    .trust-section {
+        background: #f6f7f8;
+        padding: 75px 20px;
+    }
+
+    .section-heading {
+        text-align: center;
+        max-width: 750px;
+        margin: 0 auto 45px;
+    }
+
+    .section-heading span {
+        display: inline-block;
+        color: #b8941f;
+        font-size: 13px;
+        font-weight: 800;
+        letter-spacing: 1.5px;
+        text-transform: uppercase;
+        margin-bottom: 10px;
+    }
+
+    .section-heading h2 {
+        margin: 0 0 12px;
+        color: #101820;
+        font-size: 38px;
+    }
+
+    .section-heading p {
+        margin: 0;
+        color: #69737e;
+        line-height: 1.7;
+    }
+
+    .trust-grid {
+        max-width: 1200px;
+        margin: auto;
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 22px;
+    }
+
+    .trust-card {
+        background: #fff;
+        padding: 30px;
+        border-radius: 16px;
+        border: 1px solid #e9ecef;
+        transition: .25s ease;
+    }
+
+    .trust-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 15px 35px rgba(0,0,0,.08);
+    }
+
+    .trust-icon {
+        width: 50px;
+        height: 50px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 12px;
+        background: #f4ead0;
+        color: #a17d15;
+        font-size: 22px;
+        margin-bottom: 18px;
+    }
+
+    .trust-card h3 {
+        margin: 0 0 10px;
+        font-size: 20px;
+        color: #101820;
+    }
+
+    .trust-card p {
+        margin: 0;
+        color: #68727d;
+        line-height: 1.7;
+    }
+
+
+    /* ==============================
+       FAQ
+    ============================== */
+
+    .faq-section {
+        padding: 85px 20px;
+        background: #fff;
+    }
+
+    .faq-list {
+        max-width: 900px;
+        margin: auto;
+    }
+
+    .faq-item {
+        border: 1px solid #e4e7ea;
+        border-radius: 12px;
+        margin-bottom: 14px;
+        overflow: hidden;
+        background: #fff;
+    }
+
+    .faq-question {
+        width: 100%;
+        padding: 20px 22px;
+        border: 0;
+        background: #fff;
+        color: #101820;
+        text-align: left;
+        font-size: 17px;
+        font-weight: 700;
+        cursor: pointer;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .faq-question:hover {
+        background: #fafafa;
+    }
+
+    .faq-answer {
         display: none;
+        padding: 0 22px 20px;
+        color: #68727d;
+        line-height: 1.8;
     }
 
-    @media (max-width: 768px) {
-        .mobile-sticky-cta {
-            display: flex;
-            position: fixed;
-            bottom: 0;
-            left: 0;
+    .faq-item.active .faq-answer {
+        display: block;
+    }
+
+    .faq-item.active .faq-icon {
+        transform: rotate(45deg);
+    }
+
+    .faq-icon {
+        font-size: 24px;
+        transition: .2s ease;
+        color: #b8941f;
+    }
+
+
+    /* ==============================
+       QUOTE CTA
+    ============================== */
+
+    .quote-section {
+        padding: 85px 20px;
+        background: #101820;
+        color: #fff;
+    }
+
+    .quote-container {
+        max-width: 1100px;
+        margin: auto;
+        display: grid;
+        grid-template-columns: .9fr 1.1fr;
+        gap: 50px;
+        align-items: center;
+    }
+
+    .quote-text h2 {
+        font-size: 40px;
+        line-height: 1.2;
+        margin: 0 0 18px;
+    }
+
+    .quote-text p {
+        color: rgba(255,255,255,.72);
+        line-height: 1.8;
+        font-size: 17px;
+    }
+
+    .quote-contact {
+        margin-top: 25px;
+    }
+
+    .quote-contact a {
+        color: #d4af37;
+        text-decoration: none;
+        font-weight: 700;
+    }
+
+    .quote-form {
+        background: #fff;
+        padding: 30px;
+        border-radius: 18px;
+    }
+
+    .quote-form h3 {
+        color: #101820;
+        margin: 0 0 22px;
+        font-size: 25px;
+    }
+
+    .form-group {
+        margin-bottom: 16px;
+    }
+
+    .form-group label {
+        display: block;
+        margin-bottom: 7px;
+        font-size: 14px;
+        font-weight: 700;
+        color: #343a40;
+    }
+
+    .form-group input,
+    .form-group textarea,
+    .form-group select {
+        width: 100%;
+        box-sizing: border-box;
+        padding: 13px 14px;
+        border: 1px solid #dce0e4;
+        border-radius: 8px;
+        font-size: 15px;
+        outline: none;
+        font-family: inherit;
+    }
+
+    .form-group input:focus,
+    .form-group textarea:focus,
+    .form-group select:focus {
+        border-color: #d4af37;
+        box-shadow: 0 0 0 3px rgba(212,175,55,.12);
+    }
+
+    .form-group textarea {
+        min-height: 110px;
+        resize: vertical;
+    }
+
+    .submit-btn {
+        width: 100%;
+        padding: 14px;
+        border: 0;
+        border-radius: 8px;
+        background: #d4af37;
+        color: #111;
+        font-size: 16px;
+        font-weight: 800;
+        cursor: pointer;
+        transition: .25s ease;
+    }
+
+    .submit-btn:hover {
+        background: #b8941f;
+    }
+
+
+    /* ==============================
+       RELATED SERVICES
+    ============================== */
+
+    .related-section {
+        padding: 85px 20px;
+        background: #f6f7f8;
+    }
+
+    .related-grid {
+        max-width: 1200px;
+        margin: auto;
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 22px;
+    }
+
+    .related-card {
+        background: #fff;
+        border-radius: 16px;
+        padding: 26px;
+        border: 1px solid #e7e9ec;
+        transition: .25s ease;
+    }
+
+    .related-card:hover {
+        transform: translateY(-4px);
+        box-shadow: 0 15px 35px rgba(0,0,0,.08);
+    }
+
+    .related-card h3 {
+        margin: 0 0 10px;
+        color: #101820;
+        font-size: 20px;
+    }
+
+    .related-card p {
+        color: #69737e;
+        line-height: 1.7;
+        margin-bottom: 18px;
+    }
+
+    .related-card a {
+        color: #a17d15;
+        font-weight: 800;
+        text-decoration: none;
+    }
+
+
+    /* ==============================
+       RESPONSIVE
+    ============================== */
+
+    @media (max-width: 900px) {
+
+        .service-grid,
+        .quote-container {
+            grid-template-columns: 1fr;
+        }
+
+        .service-side {
+            position: static;
+        }
+
+        .trust-grid,
+        .related-grid {
+            grid-template-columns: 1fr 1fr;
+        }
+
+    }
+
+
+    @media (max-width: 600px) {
+
+        .service-hero {
+            min-height: 560px;
+        }
+
+        .service-hero-inner {
+            padding: 75px 20px;
+        }
+
+        .service-hero h1 {
+            font-size: 38px;
+        }
+
+        .service-hero p {
+            font-size: 16px;
+        }
+
+        .service-actions {
+            flex-direction: column;
+        }
+
+        .service-btn {
             width: 100%;
-            z-index: 9999;
+            box-sizing: border-box;
         }
 
-        .mobile-sticky-cta a {
-            flex: 1;
-            text-align: center;
-            padding: 14px;
-            color: white;
-            text-decoration: none;
-            font-weight: 600;
+        .service-section,
+        .trust-section,
+        .faq-section,
+        .quote-section,
+        .related-section {
+            padding: 60px 18px;
         }
 
-        .call-btn {
-            background: #111827;
+        .service-content h2,
+        .section-heading h2,
+        .quote-text h2 {
+            font-size: 30px;
         }
 
-        .whatsapp-btn {
-            background: #198754;
+        .trust-grid,
+        .related-grid {
+            grid-template-columns: 1fr;
         }
+
+        .quote-form {
+            padding: 22px;
+        }
+
     }
+
 </style>
-</head>
 
-<body>
 
-<!-- NAVBAR -->
-<nav class="navbar navbar-dark bg-dark">
-    <div class="container">
+<!-- SERVICE SCHEMA -->
 
-        <a class="navbar-brand fw-bold" href="/">
-            UAE Care
-        </a>
+<script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "Service",
+    "name": "{{ service.name|escapejs }}",
+    "description": "{% if service.meta_description %}{{ service.meta_description|escapejs }}{% else %}Professional {{ service.name|escapejs }} services in Dubai by UAE CARE.{% endif %}",
+    "provider": {
+        "@type": "LocalBusiness",
+        "name": "UAE CARE",
+        "telephone": "{% if settings %}{{ settings.phone|escapejs }}{% endif %}",
+        "url": "{{ request.scheme }}://{{ request.get_host }}/"
+    },
+    "areaServed": {
+        "@type": "City",
+        "name": "Dubai"
+    },
+    "serviceType": "{{ service.name|escapejs }}"
+}
+</script>
 
-       <div class="d-flex gap-2">
-    <a href="tel:{{ settings.phone }}" class="btn btn-warning">
-        📞 Call
-    </a>
 
-    <a href="https://wa.me/{{ settings.whatsapp }}"
-       class="btn btn-success">
-        💬 WhatsApp
-    </a>
+<!-- FAQ SCHEMA -->
 
-    <a href="/" class="btn btn-light">
-        Home
-    </a>
-</div>
+{% if faqs %}
+<script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+        {% for faq in faqs %}
+        {
+            "@type": "Question",
+            "name": "{{ faq.question|escapejs }}",
+            "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "{{ faq.answer|escapejs }}"
+            }
+        }{% if not forloop.last %},{% endif %}
+        {% endfor %}
+    ]
+}
+</script>
+{% endif %}
+
+{% endblock %}
+
+
+{% block content %}
+
+<!-- ==============================
+     HERO
+============================== -->
+
+<section class="service-hero">
+
+    <div class="service-hero-inner">
+
+        <div class="service-breadcrumb">
+            <a href="{% url 'home' %}">Home</a>
+            <span> / </span>
+            <a href="{% url 'services' %}">Services</a>
+            <span> / </span>
+            <span>{{ service.name }}</span>
+        </div>
+
+        <h1>{{ service.name }}</h1>
+
+        <p>
+            {% if service.meta_description %}
+                {{ service.meta_description }}
+            {% else %}
+                Professional {{ service.name }} services in Dubai by UAE CARE.
+                Reliable technicians, transparent pricing and quality workmanship.
+            {% endif %}
+        </p>
+
+        <div class="service-actions">
+
+            {% if settings and settings.phone %}
+            <a href="tel:{{ settings.phone }}"
+               class="service-btn service-btn-primary">
+                Call Now
+            </a>
+            {% endif %}
+
+            {% if settings and settings.whatsapp %}
+            <a href="https://wa.me/{{ settings.whatsapp|cut:'+'|cut:' '|cut:'-' }}"
+               target="_blank"
+               rel="noopener"
+               class="service-btn service-btn-outline">
+                WhatsApp
+            </a>
+            {% endif %}
+
+            <a href="{% url 'request_quote' %}"
+               class="service-btn service-btn-outline">
+                Get Free Quote
+            </a>
+
+        </div>
 
     </div>
-</nav>
-<div class="container mt-4">
-    <nav aria-label="breadcrumb">
-        <ol class="breadcrumb">
-            <li class="breadcrumb-item">
-                <a href="/">Home</a>
-            </li>
-            <li class="breadcrumb-item active" aria-current="page">
-                {{ service.name }}
-            </li>
-        </ol>
-    </nav>
-</div>
+
+</section>
 
 
-<!-- SERVICE HERO -->
-<section class="py-5">
-    <div class="container">
+<!-- ==============================
+     SERVICE CONTENT
+============================== -->
 
-        <div class="row align-items-center g-5">
+<section class="service-section">
 
-            <!-- IMAGE -->
-            <div class="col-lg-6">
+    <div class="service-container">
 
-                {% if service.image %}
-                    <img src="{{ service.image }}"
-                         alt="{{ service.name }}"
-                         class="img-fluid rounded shadow"
-                         style="width:100%; height:400px; object-fit:cover;">
-                {% endif %}
+        <div class="service-grid">
+
+            <div class="service-content">
+
+                <h2>
+                    Professional {{ service.name }} in Dubai
+                </h2>
+
+                <div class="service-description">
+                    {{ service.description|linebreaks }}
+                </div>
+
+                <h3>
+                    Reliable Service From UAE CARE
+                </h3>
+
+                <p>
+                    UAE CARE provides professional property maintenance
+                    solutions designed for villas, apartments, offices,
+                    commercial properties and other spaces across Dubai.
+                </p>
+
+                <p>
+                    Our focus is on quality workmanship, responsive service,
+                    transparent communication and convenient booking.
+                </p>
 
             </div>
 
 
-            <!-- CONTENT -->
-            <div class="col-lg-6">
+            <aside class="service-side">
 
-                <span class="badge bg-warning text-dark mb-3">
-                    Professional Service
-                </span>
+                <div class="price-card">
 
-                <h1 class="fw-bold mb-3">
-                    {{ service.name }}
-                </h1>
+                    <div class="price-card-label">
+                        Starting Price
+                    </div>
 
-                <p class="text-muted fs-5">
-                    {{ service.description }}
-                </p>
+                    <h3>{{ service.name }}</h3>
 
-                {% if service.price %}
-                    <h3 class="fw-bold mb-4">
-                        AED {{ service.price }}
-                    </h3>
-                {% endif %}
+                    {% if service.price %}
+                        <div class="price">
+                            AED {{ service.price|floatformat:0 }}
+                        </div>
+                    {% else %}
+                        <div class="price">
+                            Get Quote
+                        </div>
+                    {% endif %}
 
+                    <div class="price-note">
+                        Final pricing may vary depending on the property,
+                        scope of work and required materials.
+                    </div>
 
-                <!-- BUTTONS -->
-                <div class="d-flex gap-2 flex-wrap">
-
-                    <a href="tel:{{ settings.phone }}"
-   class="btn btn-warning btn-lg">
-    📞 Book Service
-</a>
-
-                    <a href="https://wa.me/{{ settings.whatsapp }}"
-   class="btn btn-success btn-lg">
-    💬 WhatsApp
-</a>
-                    <a href="/#contact"
-                       class="btn btn-dark btn-lg">
-                        Request Quote
+                    <a href="{% url 'request_quote' %}"
+                       class="service-btn service-btn-primary full-btn">
+                        Request Free Quote
                     </a>
 
                 </div>
 
-            </div>
+            </aside>
 
         </div>
 
     </div>
+
 </section>
 
 
-<!-- SERVICE INFORMATION -->
-<section class="py-5 bg-light">
+<!-- ==============================
+     WHY UAE CARE
+============================== -->
 
+<section class="trust-section">
 
+    <div class="section-heading">
 
-    <div class="container">
+        <span>Why UAE CARE</span>
 
-        <h2 class="fw-bold mb-4">
-            About {{ service.name }}
+        <h2>
+            Professional service you can rely on
         </h2>
 
-        <p class="fs-5 text-muted">
-            {{ service.description }}
+        <p>
+            From quick repairs to complete maintenance requirements,
+            our service approach is built around quality and convenience.
         </p>
 
     </div>
 
-</section>
-<!-- WHY CHOOSE US -->
-<section class="py-5">
-    <div class="container">
 
-        <div class="text-center mb-5">
-            <span class="badge bg-warning text-dark px-3 py-2">
-                WHY CHOOSE US
-            </span>
+    <div class="trust-grid">
 
-            <h2 class="fw-bold mt-3">
-                Reliable {{ service.name }} Services
-            </h2>
+        <div class="trust-card">
 
-            <p class="text-muted">
-                Professional service, transparent pricing and dependable support
-                for homes and properties across the UAE.
+            <div class="trust-icon">
+                ✓
+            </div>
+
+            <h3>Experienced Technicians</h3>
+
+            <p>
+                Skilled professionals focused on delivering dependable
+                maintenance and repair solutions.
             </p>
+
         </div>
 
-        <div class="row g-4">
 
-            <div class="col-md-4">
-                <div class="p-4 border rounded h-100 text-center">
-                    <h4>✓ Professional Team</h4>
-                    <p class="text-muted mb-0">
-                        Experienced technicians focused on quality workmanship.
-                    </p>
-                </div>
+        <div class="trust-card">
+
+            <div class="trust-icon">
+                $
             </div>
 
-            <div class="col-md-4">
-                <div class="p-4 border rounded h-100 text-center">
-                    <h4>✓ Transparent Pricing</h4>
-                    <p class="text-muted mb-0">
-                        Clear service pricing with no unnecessary surprises.
-                    </p>
-                </div>
+            <h3>Transparent Pricing</h3>
+
+            <p>
+                Clear service information and straightforward communication
+                before work begins.
+            </p>
+
+        </div>
+
+
+        <div class="trust-card">
+
+            <div class="trust-icon">
+                ★
             </div>
 
-            <div class="col-md-4">
-                <div class="p-4 border rounded h-100 text-center">
-                    <h4>✓ Quick Support</h4>
-                    <p class="text-muted mb-0">
-                        Easy booking through phone, WhatsApp and quote requests.
-                    </p>
-                </div>
-            </div>
+            <h3>Quality Workmanship</h3>
+
+            <p>
+                We focus on proper execution, attention to detail and
+                customer satisfaction.
+            </p>
 
         </div>
 
     </div>
+
 </section>
-<!-- RELATED SERVICES -->
-<section class="py-5 bg-light">
-    <div class="container">
 
-        <div class="text-center mb-5">
-            <span class="badge bg-warning text-dark px-3 py-2">
-                OUR SERVICES
-            </span>
 
-            <h2 class="fw-bold mt-3">
-                Explore Our Other Services
-            </h2>
+<!-- ==============================
+     FAQ
+============================== -->
 
-            <p class="text-muted">
-                Discover more professional home maintenance and technical services.
-            </p>
-        </div>
+{% if faqs %}
 
-        <div class="row g-4">
+<section class="faq-section">
 
-            {% for other_service in services %}
-                {% if other_service.id != service.id %}
+    <div class="section-heading">
 
-                <div class="col-lg-4 col-md-6">
-                    <div class="card border-0 shadow-sm h-100">
+        <span>FAQs</span>
 
-                        {% if other_service.image %}
-                        <img src="{{ other_service.image }}"
-                             class="card-img-top"
-                             alt="{{ other_service.name }}"
-                             style="height:220px; object-fit:cover;">
-                        {% endif %}
+        <h2>
+            Frequently Asked Questions
+        </h2>
 
-                        <div class="card-body">
-                            <h5 class="fw-bold">
-                                {{ other_service.name }}
-                            </h5>
-
-                            <p class="text-muted">
-                                {{ other_service.description|truncatewords:18 }}
-                            </p>
-
-                            <a href="{% url 'service_detail' other_service.slug %}"
-                               class="btn btn-warning">
-                                View Service →
-                            </a>
-                        </div>
-
-                    </div>
-                </div>
-
-                {% endif %}
-            {% endfor %}
-
-        </div>
+        <p>
+            Common questions about {{ service.name }}.
+        </p>
 
     </div>
-</section>
-<!-- FAQ -->
-<section class="py-5">
-    <div class="container">
 
-        <div class="text-center mb-5">
-            <span class="badge bg-warning text-dark px-3 py-2">
-                FAQ
-            </span>
 
-            <h2 class="fw-bold mt-3">
-                Frequently Asked Questions
-            </h2>
-        </div>
+    <div class="faq-list">
 
-        <div class="accordion" id="faqAccordion">
+        {% for faq in faqs %}
 
-    {% for faq in faqs %}
+        <div class="faq-item">
 
-    <div class="accordion-item mb-3 border-0 shadow-sm">
-        <h2 class="accordion-header" id="heading{{ forloop.counter }}">
-            <button class="accordion-button collapsed fw-semibold"
-                    type="button"
-                    data-bs-toggle="collapse"
-                    data-bs-target="#collapse{{ forloop.counter }}"
-                    aria-expanded="false"
-                    aria-controls="collapse{{ forloop.counter }}">
-                {{ faq.question }}
+            <button type="button"
+                    class="faq-question">
+
+                <span>{{ faq.question }}</span>
+
+                <span class="faq-icon">+</span>
+
             </button>
-        </h2>
 
-        <div id="collapse{{ forloop.counter }}"
-             class="accordion-collapse collapse"
-             aria-labelledby="heading{{ forloop.counter }}"
-             data-bs-parent="#faqAccordion">
-
-            <div class="accordion-body text-muted">
-                {{ faq.answer }}
+            <div class="faq-answer">
+                {{ faq.answer|linebreaks }}
             </div>
 
         </div>
-    </div>
 
-    {% empty %}
-
-    <div class="text-center text-muted py-3">
-        No FAQs available at the moment.
-    </div>
-
-    {% endfor %}
-
-</div>
+        {% endfor %}
 
     </div>
+
 </section>
-<!-- FINAL CTA -->
-<section class="py-5" style="background: #f59e0b;">
-    <div class="container text-center">
 
-        <h2 class="fw-bold mb-3">
-            Need {{ service.name }}?
-        </h2>
+{% endif %}
 
-        <p class="mb-4 fs-5">
-            Get professional service and a free quote from UAE Care.
-        </p>
 
-        <div class="d-flex justify-content-center gap-3 flex-wrap">
+<!-- ==============================
+     QUOTE SECTION
+============================== -->
 
-            <a href="tel:{{ settings.phone }}"
-               class="btn btn-dark btn-lg">
-                📞 Call Now
-            </a>
+<section class="quote-section">
 
-            <a href="https://wa.me/{{ settings.whatsapp }}"
-               class="btn btn-success btn-lg">
-                💬 WhatsApp
-            </a>
+    <div class="quote-container">
 
-            <a href="/#contact"
-               class="btn btn-light btn-lg">
-                Request Free Quote
-            </a>
+        <div class="quote-text">
+
+            <h2>
+                Need {{ service.name }} in Dubai?
+            </h2>
+
+            <p>
+                Tell us what you need and our team can help you arrange
+                the right service for your property.
+            </p>
+
+            {% if settings and settings.phone %}
+            <div class="quote-contact">
+                Call us:
+                <a href="tel:{{ settings.phone }}">
+                    {{ settings.phone }}
+                </a>
+            </div>
+            {% endif %}
+
+        </div>
+
+
+        <div class="quote-form">
+
+            <h3>
+                Request a Free Quote
+            </h3>
+
+            <form method="post"
+                  action="{% url 'request_quote' %}">
+
+                {% csrf_token %}
+
+                <div class="form-group">
+
+                    <label for="name">
+                        Full Name
+                    </label>
+
+                    <input type="text"
+                           id="name"
+                           name="name"
+                           placeholder="Your name"
+                           required>
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label for="phone">
+                        Phone Number
+                    </label>
+
+                    <input type="tel"
+                           id="phone"
+                           name="phone"
+                           placeholder="Your phone number"
+                           required>
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label for="email">
+                        Email
+                    </label>
+
+                    <input type="email"
+                           id="email"
+                           name="email"
+                           placeholder="Your email"
+                           required>
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label for="service">
+                        Service
+                    </label>
+
+                    <input type="text"
+                           id="service"
+                           name="service"
+                           value="{{ service.name }}"
+                           readonly>
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label for="message">
+                        Message
+                    </label>
+
+                    <textarea id="message"
+                              name="message"
+                              placeholder="Tell us about your requirement"></textarea>
+
+                </div>
+
+
+                <button type="submit"
+                        class="submit-btn">
+                    Submit Request
+                </button>
+
+            </form>
 
         </div>
 
     </div>
+
 </section>
 
 
-<!-- FOOTER -->
-<footer class="bg-dark text-white py-4">
+<!-- ==============================
+     RELATED SERVICES
+============================== -->
 
-    <div class="container text-center">
+{% if services %}
 
-        <p class="mb-0">
-            © 2026 UAE Care. All Rights Reserved.
+<section class="related-section">
+
+    <div class="section-heading">
+
+        <span>More Services</span>
+
+        <h2>
+            Explore Our Other Services
+        </h2>
+
+        <p>
+            Discover more property maintenance solutions from UAE CARE.
         </p>
 
     </div>
 
-</footer>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
 
-<!-- MOBILE STICKY CTA -->
-<div class="mobile-sticky-cta">
+    <div class="related-grid">
 
-    <a href="tel:{{ settings.phone }}" class="call-btn">
-        📞 Call Now
-    </a>
+        {% for item in services %}
 
-    <a href="https://wa.me/{{ settings.whatsapp }}" class="whatsapp-btn">
-        💬 WhatsApp
-    </a>
+            {% if item.id != service.id %}
 
-</div>
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "Service",
-  "name": "{{ service.name }}",
-  "description": "{% if service.meta_description %}{{ service.meta_description }}{% else %}{{ service.description }}{% endif %}",
-  "provider": {
-    "@type": "LocalBusiness",
-    "name": "UAE Care",
-    "telephone": "{{ settings.phone }}",
-    "email": "{{ settings.email }}"
-  },
-  "areaServed": {
-    "@type": "Country",
-    "name": "United Arab Emirates"
-  }
-}
+            <div class="related-card">
+
+                <h3>
+                    {{ item.name }}
+                </h3>
+
+                <p>
+                    {% if item.meta_description %}
+                        {{ item.meta_description|truncatewords:20 }}
+                    {% else %}
+                        Professional {{ item.name }} services in Dubai.
+                    {% endif %}
+                </p>
+
+                <a href="{% url 'service_detail' item.slug %}">
+                    View Service →
+                </a>
+
+            </div>
+
+            {% endif %}
+
+        {% endfor %}
+
+    </div>
+
+</section>
+
+{% endif %}
+
+
+<!-- ==============================
+     FINAL CTA
+============================== -->
+
+<section style="
+    padding:70px 20px;
+    background:#d4af37;
+    text-align:center;
+">
+
+    <div style="
+        max-width:900px;
+        margin:auto;
+    ">
+
+        <h2 style="
+            margin:0 0 15px;
+            color:#101820;
+            font-size:38px;
+        ">
+            Ready to book {{ service.name }}?
+        </h2>
+
+        <p style="
+            margin:0 auto 25px;
+            max-width:650px;
+            color:#343434;
+            line-height:1.7;
+        ">
+            Contact UAE CARE today for professional home and property
+            maintenance services in Dubai.
+        </p>
+
+        <a href="{% url 'request_quote' %}"
+           style="
+                display:inline-block;
+                padding:14px 28px;
+                background:#101820;
+                color:#fff;
+                text-decoration:none;
+                border-radius:8px;
+                font-weight:800;
+           ">
+            Request a Free Quote
+        </a>
+
+    </div>
+
+</section>
+
+
+<script>
+
+    document.addEventListener("DOMContentLoaded", function () {
+
+        const faqQuestions =
+            document.querySelectorAll(".faq-question");
+
+        faqQuestions.forEach(function (question) {
+
+            question.addEventListener("click", function () {
+
+                const item =
+                    question.closest(".faq-item");
+
+                item.classList.toggle("active");
+
+            });
+
+        });
+
+    });
+
 </script>
 
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "BreadcrumbList",
-  "itemListElement": [
-    {
-      "@type": "ListItem",
-      "position": 1,
-      "name": "Home",
-      "item": "{{ request.scheme }}://{{ request.get_host }}/"
-    },
-    {
-      "@type": "ListItem",
-      "position": 2,
-      "name": "Services",
-      "item": "{{ request.scheme }}://{{ request.get_host }}/#services"
-    },
-    {
-      "@type": "ListItem",
-      "position": 3,
-      "name": "{{ service.name }}",
-      "item": "{{ request.build_absolute_uri }}"
-    }
-  ]
-}
-</script>
-
-</body>
-</html>
+{% endblock %}

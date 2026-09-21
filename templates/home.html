@@ -1,2055 +1,839 @@
+{% extends "base.html" %}
 {% load static %}
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+{% block title %}
+UAE CARE | Home Maintenance Services Dubai
+{% endblock %}
 
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+{% block meta_description %}
+Professional AC, plumbing, electrical, handyman, cleaning, renovation and property maintenance services across Dubai.
+{% endblock %}
 
-    <title>UAE Home Maintenance | Professional Technical Services</title>
+{% block extra_head %}
 
-    <meta name="description"
-          content="Professional home maintenance, AC, plumbing, electrical, handyman and renovation services in UAE.">
+<style>
 
-    <link rel="canonical" href="{{ request.build_absolute_uri }}">
+/* =========================
+   HOME PAGE STYLES
+========================= */
 
-    <!-- Open Graph -->
-    <meta property="og:title"
-          content="UAE Home Maintenance | Professional Technical Services">
-
-    <meta property="og:description"
-          content="Professional home maintenance, AC, plumbing, electrical, handyman and renovation services in UAE.">
-
-    <meta property="og:type" content="website">
-
-    <meta property="og:url"
-          content="{{ request.build_absolute_uri }}">
-
-    <meta property="og:site_name" content="UAE Care">
-
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css"
-          rel="stylesheet">
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: Arial, sans-serif;
-            color: #172033;
-            background: #ffffff;
-        }
-
-        /* NAVBAR */
-
-        .navbar {
-            background: #111827;
-            padding: 18px 0;
-        }
-
-        .navbar-brand {
-            font-size: 25px;
-            font-weight: 700;
-            color: #ffffff !important;
-        }
-
-        .navbar-brand span {
-            color: #f59e0b;
-        }
-
-        .nav-link {
-            color: #ffffff !important;
-            margin-left: 20px;
-            font-weight: 500;
-        }
-
-        .nav-link:hover {
-            color: #f59e0b !important;
-        }
-
-        .btn-quote {
-            background: #f59e0b;
-            color: #111827;
-            border-radius: 7px;
-            padding: 11px 20px;
-            font-weight: 700;
-            border: none;
-        }
-
-        .btn-quote:hover {
-            background: #d97706;
-            color: white;
-        }
-
-        /* HERO */
-
-        .hero {
+.hero-section {
     min-height: 680px;
     display: flex;
     align-items: center;
+    position: relative;
+    color: #fff;
 
     background:
         linear-gradient(
             90deg,
-            rgba(17, 24, 39, 0.92) 0%,
-            rgba(17, 24, 39, 0.72) 55%,
-            rgba(17, 24, 39, 0.35) 100%
+            rgba(4, 19, 40, 0.95) 0%,
+            rgba(4, 19, 40, 0.82) 45%,
+            rgba(4, 19, 40, 0.48) 100%
         ),
-        url("https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1800&q=85");
-
-    background-size: cover;
-    background-position: center;
+        url("https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?auto=format&fit=crop&w=2000&q=90")
+        center / cover;
 }
 
-        .hero-content {
-            color: white;
-            max-width: 800px;
-        }
-
-        .hero-badge {
-            display: inline-block;
-            background: rgba(245, 158, 11, 0.15);
-            border: 1px solid rgba(245, 158, 11, 0.5);
-            color: #fbbf24;
-            padding: 8px 16px;
-            border-radius: 30px;
-            margin-bottom: 20px;
-            font-weight: 600;
-        }
-.hero h1 {
-    font-size: 58px;
-    line-height: 1.08;
-    font-weight: 800;
-    margin-bottom: 24px;
+.hero-content {
+    max-width: 900px;
 }
 
-.hero h1 span {
-    display: block;
-    color: #f59e0b;
-}
-
-        
-
-        .hero p {
-            font-size: 19px;
-            line-height: 1.7;
-            color: #e5e7eb;
-            margin-bottom: 32px;
-        }
-
-        .hero-buttons {
-            display: flex;
-            gap: 15px;
-            flex-wrap: wrap;
-        }
-
-       .btn-primary-custom,
-.btn-secondary-custom,
-.btn-whatsapp-custom {
-    padding: 14px 23px;
-    border-radius: 7px;
-    text-decoration: none;
-    font-weight: 700;
+.hero-badge {
     display: inline-block;
-}
-
-.btn-primary-custom {
-    background: #f59e0b;
-    color: #111827;
-}
-
-.btn-primary-custom:hover {
-    background: #d97706;
-    color: white;
-}
-
-.btn-secondary-custom {
-    border: 1px solid white;
-    color: white;
-}
-
-.btn-secondary-custom:hover {
-    background: white;
-    color: #111827;
-}
-
-.btn-whatsapp-custom {
-    background: #16a34a;
-    color: white;
-}
-
-.btn-whatsapp-custom:hover {
-    background: #15803d;
-    color: white;
-}
-
-.hero-trust {
-    display: flex;
-    gap: 25px;
-    flex-wrap: wrap;
-    margin-top: 30px;
-    color: #e5e7eb;
+    padding: 10px 18px;
+    border: 1px solid rgba(244, 177, 42, .7);
+    border-radius: 30px;
+    color: #f4b12a;
+    background: rgba(244, 177, 42, .08);
     font-size: 14px;
+    font-weight: 700;
+    margin-bottom: 25px;
 }
 
-.hero-trust strong {
-    color: #f59e0b;
-    margin-right: 5px;
+.hero-section h1 {
+    font-size: clamp(45px, 6vw, 76px);
+    line-height: 1.02;
+    font-weight: 900;
+    margin-bottom: 25px;
+    letter-spacing: -2px;
 }
 
-        .btn-secondary-custom:hover {
-            background: white;
-            color: #111827;
-        }
-
-        /* MOBILE */
-
-        @media (max-width: 768px) {
-
-           .hero {
-    min-height: 620px;
-    background-position: center;
+.hero-highlight {
+    color: #f4b12a;
 }
 
-.hero h1 {
-    font-size: 40px;
-    line-height: 1.12;
-}
-
-.hero p {
-    font-size: 16px;
-    line-height: 1.6;
+.hero-section p {
+    max-width: 760px;
+    font-size: 19px;
+    line-height: 1.7;
+    color: #e5ebf2;
 }
 
 .hero-buttons {
-    flex-direction: column;
-    align-items: stretch;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 14px;
+    margin-top: 30px;
 }
 
-.hero-buttons a {
-    text-align: center;
+.hero-primary {
+    background: #f4a900;
+    color: #071a33;
+    padding: 15px 25px;
+    border-radius: 9px;
+    text-decoration: none;
+    font-weight: 800;
 }
 
-.hero-trust {
-    display: block;
+.hero-primary:hover {
+    background: #ffb91f;
+    color: #071a33;
 }
 
-.hero-trust div {
-    margin-bottom: 8px;
+.hero-secondary {
+    border: 1px solid rgba(255,255,255,.5);
+    color: #fff;
+    padding: 15px 25px;
+    border-radius: 9px;
+    text-decoration: none;
+    font-weight: 700;
 }
 
-            .nav-link {
-                margin-left: 0;
-                margin-top: 8px;
-            }
+.hero-secondary:hover {
+    background: #fff;
+    color: #071a33;
+}
 
-            .btn-quote {
-                margin-top: 10px;
-            }
-        }
 
-        .mobile-sticky-cta {
+/* SEARCH */
+
+.hero-search-wrapper {
+    position: relative;
+    max-width: 680px;
+    margin-top: 35px;
+}
+
+.hero-search {
+    background: #fff;
+    border-radius: 12px;
+    padding: 8px;
+    display: flex;
+    box-shadow: 0 15px 40px rgba(0,0,0,.25);
+}
+
+.hero-search input {
+    flex: 1;
+    border: 0;
+    outline: 0;
+    padding: 14px 16px;
+    font-size: 15px;
+}
+
+.hero-search button {
+    border: 0;
+    background: #071a33;
+    color: #fff;
+    padding: 0 25px;
+    border-radius: 8px;
+    font-weight: 700;
+}
+
+.search-results {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 65px;
+    background: #fff;
+    border-radius: 10px;
+    overflow: hidden;
     display: none;
+    z-index: 50;
+    box-shadow: 0 15px 40px rgba(0,0,0,.2);
 }
 
-@media (max-width: 768px) {
-    .mobile-sticky-cta {
-        position: fixed;
-        bottom: 0;
-        left: 0;
-        width: 100%;
-        display: flex;
-        z-index: 9999;
-        background: #111827;
-    }
-
-    .mobile-sticky-cta a {
-        width: 50%;
-        padding: 14px 10px;
-        text-align: center;
-        text-decoration: none;
-        font-weight: 700;
-    }
-
-    .call-btn {
-        background: #f59e0b;
-        color: #111827;
-    }
-
-    .whatsapp-btn {
-        background: #16a34a;
-        color: #ffffff;
-    }
-}
-.services-section {
-    padding: 45px 0;
-    background: #f8fafc;
+.search-result {
+    display: block;
+    padding: 14px 18px;
+    color: #071a33;
+    text-decoration: none;
+    border-bottom: 1px solid #eee;
 }
 
-.section-heading span {
-    color: #f59e0b;
-    font-weight: 700;
+.search-result:hover {
+    background: #f5f7fa;
+}
+
+
+/* COMMON */
+
+.home-section {
+    padding: 90px 0;
+}
+
+.section-label {
+    color: #d99b1d;
+    text-transform: uppercase;
+    font-size: 13px;
     letter-spacing: 1.5px;
-    font-size: 14px;
+    font-weight: 800;
 }
 
-.section-heading h2 {
-    font-size: 42px;
-    line-height: 1.2;
-    font-weight: 700;
-    margin-top: 12px;
-    color: #111827;
+.section-title {
+    color: #071a33;
+    font-size: clamp(32px, 4vw, 48px);
+    font-weight: 850;
+    margin-top: 8px;
+    margin-bottom: 15px;
 }
 
-.section-heading h2 strong {
-    color: #f59e0b;
+.section-text {
+    color: #687589;
+    line-height: 1.75;
+    max-width: 720px;
 }
 
-.section-heading p {
-    max-width: 700px;
-    margin: 18px auto 0;
-    color: #6b7280;
-    line-height: 1.7;
+
+/* SERVICES */
+
+.services-section {
+    background: #f6f8fb;
 }
 
 .service-card {
     height: 100%;
-    background: #ffffff;
-    border-radius: 14px;
-    padding: 30px;
-    border: 1px solid #e5e7eb;
-    transition: all 0.3s ease;
+    background: #fff;
+    border: 1px solid #e8edf2;
+    border-radius: 18px;
+    overflow: hidden;
+    transition: .25s ease;
 }
 
 .service-card:hover {
-    transform: translateY(-6px);
-    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.08);
-    border-color: #f59e0b;
+    transform: translateY(-7px);
+    box-shadow: 0 18px 40px rgba(7,26,51,.12);
 }
 
-.service-icon {
-    width: 70px;
-    height: 70px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background: #fff7ed;
-    border-radius: 12px;
-    margin-bottom: 20px;
+.service-image {
+    width: 100%;
+    height: 195px;
+    object-fit: cover;
 }
 
-.service-card h3 {
-    font-size: 22px;
-    font-weight: 700;
-    margin-bottom: 12px;
-    color: #111827;
+.service-body {
+    padding: 24px;
 }
 
-.service-card p {
-    color: #6b7280;
-    line-height: 1.7;
+.service-body h4 {
+    color: #071a33;
+    font-weight: 800;
+    font-size: 20px;
 }
 
-.service-card a {
-    color: #f59e0b;
+.service-body p {
+    color: #6c7888;
+    line-height: 1.65;
+}
+
+.service-price {
+    color: #d99b1d;
+    font-weight: 850;
+    font-size: 20px;
+}
+
+.service-link {
+    color: #071a33;
     text-decoration: none;
-    font-weight: 700;
+    font-weight: 750;
 }
 
-.service-card a:hover {
-    color: #d97706;
+.service-link:hover {
+    color: #d99b1d;
 }
 
-.all-services-btn {
-    display: inline-block;
-    background: #111827;
-    color: white;
-    padding: 13px 25px;
-    border-radius: 7px;
-    text-decoration: none;
-    font-weight: 700;
-}
 
-.all-services-btn:hover {
-    background: #f59e0b;
-    color: #111827;
-}
-@media (max-width: 768px) {
-
-    .services-section {
-        padding: 60px 0;
-    }
-
-    .section-heading h2 {
-        font-size: 32px;
-    }
-
-    .service-card {
-        padding: 25px;
-    }
-
-}
-
-.why-section {
-    padding: 45px 0;
-    background: #ffffff;
-}
-
-.section-label {
-    color: #f59e0b;
-    font-size: 14px;
-    font-weight: 700;
-    letter-spacing: 1.5px;
-}
-.why-section h2 {
-    font-size: 42px;
-    color: #111827;
-}
-
-.why-section h2 span {
-    color: #f59e0b;
-}
-
-.why-intro {
-    max-width: 700px;
-    line-height: 1.7;
-}
+/* WHY */
 
 .why-card {
     height: 100%;
-    padding: 32px 25px;
-    text-align: center;
-    background: #ffffff;
-    border: 1px solid #e5e7eb;
-    border-radius: 14px;
-    transition: all 0.3s ease;
+    padding: 30px;
+    background: #fff;
+    border: 1px solid #e7ecf1;
+    border-radius: 18px;
+    transition: .25s ease;
 }
 
 .why-card:hover {
-    transform: translateY(-6px);
-    border-color: #f59e0b;
-    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.08);
+    transform: translateY(-5px);
+    box-shadow: 0 15px 35px rgba(7,26,51,.08);
 }
 
 .why-icon {
-    width: 70px;
-    height: 70px;
-    margin: 0 auto 20px;
+    width: 58px;
+    height: 58px;
     display: flex;
     align-items: center;
     justify-content: center;
-    background: #fff7ed;
-    border-radius: 50%;
-    font-size: 32px;
+    background: #fff4d7;
+    border-radius: 15px;
+    font-size: 27px;
+    margin-bottom: 20px;
 }
 
-.why-card h5 {
-    font-weight: 700;
-    margin-bottom: 12px;
-    color: #111827;
-}
-
-.why-card p {
-    color: #6b7280;
-    line-height: 1.7;
-    margin-bottom: 0;
-}
-
-@media (max-width: 768px) {
-
-    .why-section {
-        padding: 60px 0;
-    }
-
-    .why-section h2 {
-        font-size: 32px;
-    }
-
-}
-.about-section {
-    padding: 45px 0;
-    background: #f8fafc;
-}
-
-.about-image-wrapper {
-    position: relative;
-}
-
-.about-image-wrapper img {
-    width: 100%;
-    height: 500px;
-    object-fit: cover;
-    border-radius: 18px;
-}
-
-.about-experience {
-    position: absolute;
-    bottom: 25px;
-    left: 25px;
-    background: #111827;
-    color: white;
-    padding: 18px 25px;
-    border-radius: 12px;
-    display: flex;
-    flex-direction: column;
-}
-
-.about-experience strong {
-    font-size: 30px;
-    color: #f59e0b;
-}
-
-.about-experience span {
-    font-size: 14px;
-}
-
-.about-title {
-    font-size: 42px;
-    line-height: 1.2;
-    font-weight: 700;
-    color: #111827;
-    margin-top: 15px;
-}
-
-.about-title span {
-    display: block;
-    color: #f59e0b;
-}
-
-.about-number {
-    color: #f59e0b;
+.why-card h4 {
+    color: #071a33;
     font-weight: 800;
 }
 
-.about-btn {
-    display: inline-block;
-    margin-top: 20px;
-    padding: 13px 24px;
-    background: #111827;
-    color: white;
-    text-decoration: none;
-    border-radius: 7px;
-    font-weight: 700;
+.why-card p {
+    color: #687589;
+    line-height: 1.65;
 }
 
-.about-btn:hover {
-    background: #f59e0b;
-    color: #111827;
+
+/* ABOUT */
+
+.about-section {
+    background: #f6f8fb;
 }
 
-@media (max-width: 768px) {
-
-    .about-section {
-        padding: 60px 0;
-    }
-
-    .about-image-wrapper img {
-        height: 350px;
-    }
-
-    .about-title {
-        font-size: 32px;
-    }
-
-}
-
-.projects-section {
-    padding: 45px 0;
-    background: #ffffff;
-}
-
-.projects-section .project-card {
-    border: 1px solid #e5e7eb;
-    border-radius: 14px;
-    overflow: hidden;
-    background: #ffffff;
-    height: 100%;
-    transition: all 0.3s ease;
-}
-
-.projects-section .project-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.08);
-}
-
-.projects-section .project-card img {
+.about-image {
     width: 100%;
-    height: 230px;
+    height: 520px;
     object-fit: cover;
+    border-radius: 22px;
 }
 
-.projects-section .project-body {
+.about-list {
+    padding: 0;
+    margin: 25px 0;
+    list-style: none;
+}
+
+.about-list li {
+    color: #344154;
+    font-weight: 650;
+    margin-bottom: 14px;
+}
+
+.about-list span {
+    color: #1eae68;
+    margin-right: 8px;
+}
+
+
+/* STATS */
+
+.stats-section {
+    background: #071a33;
+    color: #fff;
+}
+
+.stat-number {
+    color: #f4b12a;
+    font-size: 40px;
+    font-weight: 900;
+}
+
+.stat-label {
+    color: #c5d0dc;
+}
+
+
+/* PROJECTS */
+
+.project-card {
+    height: 340px;
+    border-radius: 18px;
+    overflow: hidden;
+    position: relative;
+}
+
+.project-card img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: .4s ease;
+}
+
+.project-card:hover img {
+    transform: scale(1.07);
+}
+
+.project-overlay {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
     padding: 25px;
+    color: #fff;
+    background: linear-gradient(
+        transparent,
+        rgba(0,0,0,.88)
+    );
 }
 
-.projects-section .project-body h5 {
-    font-weight: 700;
-    color: #111827;
+.project-overlay h4 {
+    font-weight: 800;
+    margin: 5px 0 0;
 }
 
-.projects-section .project-body p {
-    color: #6b7280;
-    line-height: 1.7;
+.project-overlay span {
+    color: #f4b12a;
+    font-size: 13px;
+    font-weight: 800;
 }
+
+
+/* TESTIMONIAL */
 
 .testimonials-section {
-    padding: 45px 0;
-    background: #f8fafc;
-}
-
-.testimonials-section h2 {
-    font-size: 42px;
-    color: #111827;
-}
-
-.testimonials-section h2 span {
-    color: #f59e0b;
+    background: #f6f8fb;
 }
 
 .testimonial-card {
     height: 100%;
-    background: #ffffff;
+    background: #fff;
+    border: 1px solid #e7ecf1;
+    border-radius: 18px;
     padding: 28px;
-    border: 1px solid #e5e7eb;
-    border-radius: 14px;
-    transition: all 0.3s ease;
 }
 
-.testimonial-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.08);
-}
-
-.testimonial-stars {
-    color: #f59e0b;
-    font-size: 20px;
+.stars {
+    color: #f4b12a;
+    letter-spacing: 2px;
     margin-bottom: 15px;
 }
 
 .testimonial-review {
-    color: #6b7280;
-    line-height: 1.7;
+    color: #596679;
+    line-height: 1.75;
 }
 
-.testimonial-user {
-    display: flex;
-    align-items: center;
-    margin-top: 25px;
+.testimonial-name {
+    color: #071a33;
+    font-weight: 800;
 }
 
-.testimonial-avatar {
-    width: 45px;
-    height: 45px;
-    border-radius: 50%;
-    background: #f59e0b;
-    color: #111827;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-weight: 700;
+
+/* AMC */
+
+.package-card {
+    height: 100%;
+    background: #fff;
+    border: 1px solid #e3e9ef;
+    border-radius: 20px;
+    padding: 30px;
+    position: relative;
 }
 
-.testimonial-user h6 {
-    margin: 0 0 3px 12px;
-    font-weight: 700;
+.package-popular {
+    position: absolute;
+    right: 18px;
+    top: 18px;
+    padding: 6px 12px;
+    border-radius: 20px;
+    background: #f4b12a;
+    color: #071a33;
+    font-size: 11px;
+    font-weight: 850;
 }
 
-.testimonial-user small {
-    margin-left: 12px;
-    color: #6b7280;
+.package-card h4 {
+    color: #071a33;
+    font-weight: 850;
 }
 
-@media (max-width: 768px) {
-
-    .testimonials-section {
-        padding: 45px 0;
-    }
-
-    .testimonials-section h2 {
-        font-size: 32px;
-    }
-
+.package-price {
+    color: #d99b1d;
+    font-size: 29px;
+    font-weight: 900;
 }
 
-.blog-section {
-    padding: 45px 0;
-    background: #ffffff;
+.package-features {
+    list-style: none;
+    padding: 0;
+    margin-top: 22px;
 }
 
-.blog-section h2 {
-    font-size: 42px;
-    color: #111827;
+.package-features li {
+    color: #687589;
+    margin-bottom: 11px;
 }
 
-.blog-section h2 span {
-    color: #f59e0b;
+.package-features li::before {
+    content: "✓";
+    color: #1eae68;
+    font-weight: 900;
+    margin-right: 9px;
 }
+
+
+/* AREAS */
+
+.areas-section {
+    background: #f6f8fb;
+}
+
+.area-card {
+    display: block;
+    padding: 18px 20px;
+    background: #fff;
+    border: 1px solid #e4e9ef;
+    border-radius: 14px;
+    color: #071a33;
+    text-decoration: none;
+    font-weight: 750;
+    transition: .2s;
+}
+
+.area-card:hover {
+    color: #071a33;
+    border-color: #f4b12a;
+    transform: translateY(-3px);
+}
+
+
+/* BLOG */
 
 .blog-card {
     height: 100%;
-    background: #ffffff;
-    border: 1px solid #e5e7eb;
-    border-radius: 14px;
+    background: #fff;
+    border: 1px solid #e5eaf0;
+    border-radius: 18px;
     overflow: hidden;
-    transition: all 0.3s ease;
-}
-
-.blog-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.08);
 }
 
 .blog-card img {
     width: 100%;
-    height: 220px;
+    height: 210px;
     object-fit: cover;
 }
 
 .blog-body {
-    padding: 25px;
+    padding: 24px;
 }
 
-.blog-body small {
-    color: #6b7280;
-}
-
-.blog-body h5 {
-    margin-top: 10px;
-    font-weight: 700;
-    color: #111827;
+.blog-body h4 {
+    color: #071a33;
+    font-weight: 800;
 }
 
 .blog-body p {
-    color: #6b7280;
-    line-height: 1.7;
+    color: #687589;
+    line-height: 1.65;
 }
 
-.blog-body a {
-    color: #f59e0b;
-    text-decoration: none;
-    font-weight: 700;
-}
 
-.blog-body a:hover {
-    color: #d97706;
-}
-
-@media (max-width: 768px) {
-
-    .blog-section {
-        padding: 45px 0;
-    }
-
-    .blog-section h2 {
-        font-size: 32px;
-    }
-
-}
-
-.service-areas-section {
-    padding: 45px 0;
-    background: #f8fafc;
-}
-
-.service-areas-section h2 {
-    font-size: 42px;
-    color: #111827;
-}
-
-.service-areas-section h2 span {
-    color: #f59e0b;
-}
-
-.area-card {
-    height: 100%;
-    padding: 30px;
-    background: #ffffff;
-    border: 1px solid #e5e7eb;
-    border-radius: 14px;
-    transition: all 0.3s ease;
-}
-
-.area-card:hover {
-    transform: translateY(-5px);
-    border-color: #f59e0b;
-    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.08);
-}
-
-.area-icon {
-    width: 60px;
-    height: 60px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background: #fff7ed;
-    border-radius: 12px;
-    font-size: 28px;
-    margin-bottom: 20px;
-}
-
-.area-card h5 {
-    font-weight: 700;
-    color: #111827;
-    margin-bottom: 12px;
-}
-
-.area-card p {
-    color: #6b7280;
-    line-height: 1.7;
-}
-
-.area-card a {
-    color: #f59e0b;
-    text-decoration: none;
-    font-weight: 700;
-}
-
-.area-card a:hover {
-    color: #d97706;
-}
-
-@media (max-width: 768px) {
-
-    .service-areas-section {
-        padding: 45px 0;
-    }
-
-    .service-areas-section h2 {
-        font-size: 32px;
-    }
-
-}
-
-.packages-section {
-    padding: 45px 0;
-    background: #ffffff;
-}
-
-.packages-section h2 {
-    font-size: 42px;
-    color: #111827;
-}
-
-.packages-section h2 span {
-    color: #f59e0b;
-}
-
-.package-card {
-    height: 100%;
-    padding: 32px;
-    background: #ffffff;
-    border: 1px solid #e5e7eb;
-    border-radius: 14px;
-    transition: all 0.3s ease;
-}
-
-.package-card:hover {
-    transform: translateY(-6px);
-    border-color: #f59e0b;
-    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.08);
-}
-
-.package-card h4 {
-    font-weight: 700;
-    color: #111827;
-    margin-bottom: 15px;
-}
-
-.package-description {
-    color: #6b7280;
-    line-height: 1.7;
-}
-
-.package-price {
-    margin-top: 20px;
-    font-size: 30px;
-    font-weight: 800;
-    color: #f59e0b;
-}
-
-.package-price span {
-    font-size: 14px;
-    font-weight: 700;
-}
-
-.custom-price {
-    font-size: 24px;
-}
-
-.package-features {
-    color: #6b7280;
-    line-height: 1.8;
-}
-
-.package-features p {
-    margin-bottom: 5px;
-}
-
-.package-btn {
-    display: inline-block;
-    margin-top: 20px;
-    padding: 13px 22px;
-    background: #111827;
-    color: #ffffff;
-    text-decoration: none;
-    border-radius: 7px;
-    font-weight: 700;
-}
-
-.package-btn:hover {
-    background: #f59e0b;
-    color: #111827;
-}
-
-@media (max-width: 768px) {
-
-    .packages-section {
-        padding: 45px 0;
-    }
-
-    .packages-section h2 {
-        font-size: 32px;
-    }
-
-}
+/* FAQ */
 
 .faq-section {
-    padding: 45px 0;
-    background: #f8fafc;
-}
-
-.faq-section h2 {
-    font-size: 42px;
-    color: #111827;
-}
-
-.faq-section h2 span {
-    color: #f59e0b;
-}
-
-.faq-wrapper {
-    max-width: 850px;
-    margin: 0 auto;
+    background: #f6f8fb;
 }
 
 .faq-item {
-    background: #ffffff;
-    border: 1px solid #e5e7eb;
-    border-radius: 10px;
+    background: #fff;
+    border: 1px solid #e4e9ef;
+    border-radius: 12px;
     margin-bottom: 12px;
     overflow: hidden;
 }
 
-.faq-question {
-    width: 100%;
-    border: none;
-    background: #ffffff;
-    padding: 20px 22px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    text-align: left;
-    font-weight: 700;
-    color: #111827;
-}
-
-.faq-question:hover {
-    color: #f59e0b;
-}
-
-.faq-icon {
-    font-size: 24px;
-    color: #f59e0b;
-    font-weight: 400;
+.faq-item summary {
+    padding: 20px;
+    cursor: pointer;
+    color: #071a33;
+    font-weight: 750;
 }
 
 .faq-answer {
-    padding: 0 22px 20px;
-    color: #6b7280;
+    padding: 0 20px 20px;
+    color: #687589;
     line-height: 1.7;
 }
 
-@media (max-width: 768px) {
 
-    .faq-section {
-        padding: 45px 0;
-    }
+/* QUOTE */
 
-    .faq-section h2 {
-        font-size: 32px;
-    }
-
-    .faq-question {
-        padding: 18px;
-    }
-
+.quote-section {
+    background: linear-gradient(
+        120deg,
+        #071a33,
+        #0d294b
+    );
+    color: #fff;
 }
 
-.contact-section {
-    padding: 45px 0;
-    background: #ffffff;
+.quote-section h2 {
+    font-size: clamp(32px, 4vw, 48px);
+    font-weight: 850;
 }
 
-.contact-title {
-    font-size: 42px;
-    line-height: 1.2;
-    font-weight: 700;
-    color: #111827;
-    margin-top: 15px;
+.quote-section p {
+    color: #c9d4e1;
 }
 
-.contact-title span {
-    display: block;
-    color: #f59e0b;
+.quote-box {
+    background: #fff;
+    border-radius: 20px;
+    padding: 30px;
+    color: #253247;
 }
 
-.contact-info {
-    margin-top: 30px;
-}
-
-.contact-item {
-    display: flex;
-    align-items: center;
-    gap: 15px;
-    margin-bottom: 20px;
-}
-
-.contact-icon {
-    width: 50px;
-    height: 50px;
-    flex-shrink: 0;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background: #fff7ed;
-    border-radius: 10px;
-    font-size: 22px;
-}
-
-.contact-item small {
-    display: block;
-    color: #6b7280;
-    margin-bottom: 3px;
-}
-
-.contact-item a,
-.contact-item span {
-    color: #111827;
-    text-decoration: none;
-    font-weight: 600;
-}
-
-.contact-item a:hover {
-    color: #f59e0b;
-}
-
-.contact-form-card {
-    padding: 32px;
-    background: #f8fafc;
-    border: 1px solid #e5e7eb;
-    border-radius: 14px;
-}
-
-.contact-form-card h4 {
-    font-weight: 700;
-    color: #111827;
-    margin-bottom: 8px;
-}
-
-.contact-form-card .form-control,
-.contact-form-card .form-select {
+.quote-box .form-control,
+.quote-box .form-select {
     padding: 13px 15px;
-    border: 1px solid #d1d5db;
-    border-radius: 7px;
+    border-radius: 9px;
 }
 
-.contact-form-card .form-control:focus,
-.contact-form-card .form-select:focus {
-    border-color: #f59e0b;
-    box-shadow: 0 0 0 0.2rem rgba(245, 158, 11, 0.15);
-}
 
-.contact-submit-btn {
-    width: 100%;
-    padding: 14px;
-    border: none;
-    border-radius: 7px;
-    background: #f59e0b;
-    color: #111827;
-    font-weight: 700;
-}
+/* RESPONSIVE */
 
-.contact-submit-btn:hover {
-    background: #d97706;
-    color: #ffffff;
-}
+@media(max-width: 768px) {
 
-@media (max-width: 768px) {
-
-    .contact-section {
-        padding: 45px 0;
+    .hero-section {
+        min-height: 630px;
     }
 
-    .contact-title {
-        font-size: 32px;
+    .hero-section h1 {
+        font-size: 44px;
+        letter-spacing: -1px;
     }
 
-    .contact-form-card {
-        padding: 25px;
+    .hero-section p {
+        font-size: 16px;
     }
 
-}
-
-.contact-section {
-    padding: 45px 0;
-    background: #ffffff;
-}
-
-.contact-title {
-    font-size: 42px;
-    line-height: 1.2;
-    font-weight: 700;
-    color: #111827;
-    margin-top: 15px;
-}
-
-.contact-title span {
-    display: block;
-    color: #f59e0b;
-}
-
-.contact-info {
-    margin-top: 30px;
-}
-
-.contact-item {
-    display: flex;
-    align-items: center;
-    gap: 15px;
-    margin-bottom: 20px;
-}
-
-.contact-icon {
-    width: 50px;
-    height: 50px;
-    flex-shrink: 0;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background: #fff7ed;
-    border-radius: 10px;
-    font-size: 22px;
-}
-
-.contact-item small {
-    display: block;
-    color: #6b7280;
-    margin-bottom: 3px;
-}
-
-.contact-item a,
-.contact-item span {
-    color: #111827;
-    text-decoration: none;
-    font-weight: 600;
-}
-
-.contact-item a:hover {
-    color: #f59e0b;
-}
-
-.contact-form-card {
-    padding: 32px;
-    background: #f8fafc;
-    border: 1px solid #e5e7eb;
-    border-radius: 14px;
-}
-
-.contact-form-card h4 {
-    font-weight: 700;
-    color: #111827;
-    margin-bottom: 8px;
-}
-
-.contact-form-card .form-control,
-.contact-form-card .form-select {
-    padding: 13px 15px;
-    border: 1px solid #d1d5db;
-    border-radius: 7px;
-}
-
-.contact-form-card .form-control:focus,
-.contact-form-card .form-select:focus {
-    border-color: #f59e0b;
-    box-shadow: 0 0 0 0.2rem rgba(245, 158, 11, 0.15);
-}
-
-.contact-submit-btn {
-    width: 100%;
-    padding: 14px;
-    border: none;
-    border-radius: 7px;
-    background: #f59e0b;
-    color: #111827;
-    font-weight: 700;
-}
-
-.contact-submit-btn:hover {
-    background: #d97706;
-    color: #ffffff;
-}
-
-@media (max-width: 768px) {
-
-    .contact-section {
-        padding: 45px 0;
+    .hero-search {
+        display: block;
     }
 
-    .contact-title {
-        font-size: 32px;
+    .hero-search input {
+        width: 100%;
     }
 
-    .contact-form-card {
-        padding: 25px;
+    .hero-search button {
+        width: 100%;
+        padding: 13px;
+        margin-top: 5px;
+    }
+
+    .home-section {
+        padding: 60px 0;
+    }
+
+    .about-image {
+        height: 350px;
+    }
+
+    .project-card {
+        height: 280px;
     }
 
 }
 
-.site-footer {
-    padding: 60px 0 0;
-    background: #111827;
-    color: #d1d5db;
-}
+</style>
 
-.footer-logo {
-    color: #ffffff;
-    font-size: 28px;
-    font-weight: 800;
-    margin-bottom: 18px;
-}
-
-.footer-logo span {
-    color: #f59e0b;
-}
-
-.site-footer p {
-    line-height: 1.7;
-}
-
-.site-footer h6 {
-    color: #ffffff;
-    font-size: 16px;
-    font-weight: 700;
-    margin-bottom: 20px;
-}
-
-.site-footer ul {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-}
-
-.site-footer ul li {
-    margin-bottom: 10px;
-}
-
-.site-footer a {
-    color: #d1d5db;
-    text-decoration: none;
-}
-
-.site-footer a:hover {
-    color: #f59e0b;
-}
-
-.footer-social {
-    display: flex;
-    gap: 10px;
-    margin-top: 20px;
-}
-
-.footer-social a {
-    width: 42px;
-    height: 42px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background: #1f2937;
-    border-radius: 8px;
-    font-size: 19px;
-}
-
-.footer-social a:hover {
-    background: #f59e0b;
-}
-
-.footer-contact p {
-    margin-bottom: 12px;
-}
-
-.footer-quote-btn {
-    display: inline-block;
-    margin-top: 10px;
-    padding: 12px 20px;
-    background: #f59e0b;
-    color: #111827 !important;
-    border-radius: 7px;
-    font-weight: 700;
-}
-
-.footer-quote-btn:hover {
-    background: #d97706;
-    color: #ffffff !important;
-}
-
-.footer-bottom {
-    margin-top: 50px;
-    padding: 20px 0;
-    border-top: 1px solid #374151;
-    display: flex;
-    justify-content: space-between;
-    gap: 20px;
-    flex-wrap: wrap;
-    font-size: 14px;
-}
-
-.footer-bottom p {
-    margin: 0;
-}
-
-.footer-bottom div {
-    display: flex;
-    gap: 20px;
-}
-
-@media (max-width: 768px) {
-
-    .site-footer {
-        padding-top: 45px;
-    }
-
-    .footer-bottom {
-        text-align: center;
-        justify-content: center;
-    }
-
-    .footer-bottom div {
-        justify-content: center;
-        flex-wrap: wrap;
-    }
-
-}
-.navbar-brand {
-    font-size: 25px;
-    color: #ffffff !important;
-    font-weight: 700;
-}
-
-.navbar-brand span {
-    color: #f59e0b !important;
-}
-
-.navbar .nav-link {
-    color: #374151;
-    font-weight: 600;
-    text-decoration: none;
-    margin-left: 8px;
-}
-
-.navbar .nav-link:hover {
-    color: #f59e0b;
-}
-
-.navbar-quote-btn {
-    display: inline-block;
-    padding: 10px 18px;
-    background: #f59e0b;
-    color: #111827 !important;
-    border-radius: 7px;
-    text-decoration: none;
-    font-weight: 700;
-}
-
-.navbar-quote-btn:hover {
-    background: #d97706;
-    color: #fff !important;
-}
-    </style>
-
-    <script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "LocalBusiness",
-  "name": "UAE Care",
-  "url": "{{ request.scheme }}://{{ request.get_host }}/",
-  "telephone": "{{ settings.phone }}",
-  "email": "{{ settings.email }}",
-  "address": {
-    "@type": "PostalAddress",
-    "streetAddress": "{{ settings.address }}"
-  }
-}
-</script>
-
-<!-- Google Analytics -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-VJQLR26RZ4"></script>
-<script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
-    gtag('js', new Date());
-
-    gtag('config', 'G-VJQLR26RZ4');
-</script>
-
-</head>
-
-<body>
-
-<!-- NAVBAR -->
-
-<nav class="navbar navbar-expand-lg">
-    <div class="container">
-
-        <a class="navbar-brand" href="#home">
-            UAE<span>Care</span>
-        </a>
-
-        <button class="navbar-toggler bg-light"
-                type="button"
-                data-bs-toggle="collapse"
-                data-bs-target="#mainNavbar">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-
-        <div class="collapse navbar-collapse" id="mainNavbar">
-
-            <ul class="navbar-nav ms-auto align-items-lg-center">
-
-                <li class="nav-item">
-    <a class="nav-link" href="{% url 'home' %}">Home</a>
-</li>
-
-<li class="nav-item">
-    <a class="nav-link" href="#services">Services</a>
-</li>
-
-<li class="nav-item">
-    <a class="nav-link" href="{% url 'about' %}">About</a>
-</li>
-
-<li class="nav-item">
-    <a class="nav-link" href="{% url 'projects' %}">Projects</a>
-</li>
-
-<li class="nav-item">
-    <a class="nav-link" href="{% url 'contact' %}">Contact</a>
-</li>
-                <li class="nav-item ms-lg-3">
-                    <a href="{% url 'request_quote' %}" class="btn btn-quote">
-    Get a Free Quote
-</a>
-                </li>
-
-            </ul>
-
-        </div>
-    </div>
-</nav>
+{% endblock %}
 
 
-<!-- HERO -->
+{% block content %}
 
-<section id="home" class="hero">
+
+<!-- =========================
+     HERO
+========================= -->
+
+<section class="hero-section">
 
     <div class="container">
 
         <div class="hero-content">
 
             <div class="hero-badge">
-                ✓ Trusted Home Maintenance Experts in Dubai
+                ✓ Trusted Home Maintenance Experts
             </div>
 
             <h1>
-                Reliable Home Maintenance
-                <span>Services in UAE</span>
+                Everything Your Property
+                <span class="hero-highlight">
+                    Needs, Under One Roof.
+                </span>
             </h1>
 
             <p>
                 Professional AC, plumbing, electrical, handyman,
-                cleaning and renovation services for villas,
-                apartments and offices.
+                cleaning, renovation and property maintenance
+                services for homes, villas, apartments and
+                businesses across the UAE.
             </p>
 
             <div class="hero-buttons">
 
                 <a href="{% url 'request_quote' %}"
-                   class="btn-primary-custom">
-                    Get a Free Quote
+                   class="hero-primary">
+                    Get Free Quote
                 </a>
 
+                {% if settings %}
+
                 <a href="tel:{{ settings.phone }}"
-                   class="btn-secondary-custom">
+                   class="hero-secondary">
                     📞 Call Now
                 </a>
 
                 <a href="https://wa.me/{{ settings.whatsapp }}"
-                   class="btn-whatsapp-custom">
+                   target="_blank"
+                   class="hero-secondary">
                     💬 WhatsApp
                 </a>
 
-            </div>
-
-            <div class="hero-trust">
-
-                <div>
-                    <strong>✓</strong>
-                    Professional Team
-                </div>
-
-                <div>
-                    <strong>✓</strong>
-                    Fast Response
-                </div>
-
-                <div>
-                    <strong>✓</strong>
-                    Transparent Pricing
-                </div>
+                {% endif %}
 
             </div>
 
-        </div>
 
-    </div>
+            <!-- SEARCH -->
 
-</section>
-<!-- SERVICES SECTION -->
+            <div class="hero-search-wrapper">
 
-<section id="services" class="services-section">
+                <form class="hero-search"
+                      onsubmit="return false;">
 
-    <div class="container">
+                    <input
+                        type="text"
+                        id="serviceSearch"
+                        placeholder="Search for a service...">
 
-        <div class="section-heading text-center">
+                    <button type="button"
+                            onclick="showServiceResults()">
+                        Search
+                    </button>
 
-            <span>OUR SERVICES</span>
+                </form>
 
-            <h2>
-                Complete Home Maintenance
-                <br>
-                <strong>Services Under One Roof</strong>
-            </h2>
 
-            <p>
-                From routine maintenance to complete renovation,
-                our professional team is ready to take care of your property.
-            </p>
+                <div id="serviceResults"
+                     class="search-results">
 
-        </div>
+                    {% for service in services %}
 
+                    <a href="{% url 'service_detail' service.slug %}"
+                       class="search-result"
+                       data-name="{{ service.name|lower }}">
 
-  <div class="row g-4 mt-4">
+                        <strong>
+                            {{ service.name }}
+                        </strong>
 
-    {% for service in services %}
+                        {% if service.price %}
 
-    <div class="col-lg-4 col-md-6">
-
-        <div class="service-card">
-
-            <div class="service-icon">
-    {% if service.image %}
-        <img src="{{ service.image }}"
-             alt="{{ service.name }}"
-             style="width: 60px; height: 60px; object-fit: cover; border-radius: 10px;">
-    {% else %}
-        🔧
-    {% endif %}
-</div>
-
-            <h3>{{ service.name }}</h3>
-
-            <p>
-                {{ service.description }}
-            </p>
-            
-            {% if service.price %}
-    <p class="fw-bold text-warning mb-2">
-        AED {{ service.price }}
-    </p>
-{% endif %}
-
-            <a href="{% url 'service_detail' service.slug %}">
-    Explore Service →
-</a>
-
-        </div>
-
-    </div>
-
-    {% empty %}
-
-    <p>No services available.</p>
-
-    {% endfor %}
-
-</div>
-
-
-        <div class="text-center mt-5">
-
-            <a href="#services" class="all-services-btn">
-    View All Services
-</a>
-
-        </div>
-
-    </div>
-
-</section>
-
-<!-- Why Choose Us -->
-<!-- Why Choose Us -->
-
-<section class="why-section">
-
-    <div class="container">
-
-        <div class="text-center mb-5">
-
-            <span class="section-label">
-                WHY CHOOSE US
-            </span>
-
-            <h2 class="fw-bold mt-3">
-                Reliable Service. <span>Professional Results.</span>
-            </h2>
-
-            <p class="text-muted mx-auto why-intro">
-                Professional maintenance solutions delivered with
-                quality, reliability and customer satisfaction in mind.
-            </p>
-
-        </div>
-
-        <div class="row g-4">
-
-            <div class="col-lg-3 col-md-6">
-
-                <div class="why-card">
-
-                    <div class="why-icon">
-                        👨‍🔧
-                    </div>
-
-                    <h5>
-                        Experienced Team
-                    </h5>
-
-                    <p>
-                        Skilled professionals with practical experience
-                        across different maintenance services.
-                    </p>
-
-                </div>
-
-            </div>
-
-            <div class="col-lg-3 col-md-6">
-
-                <div class="why-card">
-
-                    <div class="why-icon">
-                        ⚡
-                    </div>
-
-                    <h5>
-                        Fast Response
-                    </h5>
-
-                    <p>
-                        Quick response and efficient service for your
-                        maintenance requirements.
-                    </p>
-
-                </div>
-
-            </div>
-
-            <div class="col-lg-3 col-md-6">
-
-                <div class="why-card">
-
-                    <div class="why-icon">
-                        🛡️
-                    </div>
-
-                    <h5>
-                        Reliable Service
-                    </h5>
-
-                    <p>
-                        Quality-focused workmanship you can depend on
-                        for your property.
-                    </p>
-
-                </div>
-
-            </div>
-
-            <div class="col-lg-3 col-md-6">
-
-                <div class="why-card">
-
-                    <div class="why-icon">
-                        💰
-                    </div>
-
-                    <h5>
-                        Transparent Pricing
-                    </h5>
-
-                    <p>
-                        Clear and competitive pricing with no unnecessary
-                        surprises.
-                    </p>
-
-                </div>
-
-            </div>
-
-        </div>
-
-    </div>
-
-</section>
-<!-- About Us -->
-<!-- About Us -->
-
-<section id="about" class="about-section">
-
-    <div class="container">
-
-        <div class="row align-items-center g-5">
-
-            <div class="col-lg-6">
-
-                <div class="about-image-wrapper">
-
-                    <img src="https://images.unsplash.com/photo-1581578731548-c64695cc6952?auto=format&fit=crop&w=900&q=80"
-                         class="img-fluid"
-                         alt="Professional home maintenance service">
-
-                    <div class="about-experience">
-                        <strong>10+</strong>
-                        <span>Years Experience</span>
-                    </div>
-
-                </div>
-
-            </div>
-
-
-            <div class="col-lg-6">
-
-                <span class="section-label">
-                    ABOUT US
-                </span>
-
-                <h2 class="about-title">
-                    Professional Home Maintenance
-                    <span>Services You Can Trust</span>
-                </h2>
-
-                <p class="text-muted mt-3">
-                    We provide reliable and professional home maintenance
-                    solutions for villas, apartments, offices and commercial
-                    properties across Dubai.
-                </p>
-
-                <p class="text-muted">
-                    Our experienced team focuses on quality workmanship,
-                    timely service and customer satisfaction for every project.
-                </p>
-
-
-                <div class="row mt-4">
-
-                    <div class="col-6 mb-4">
-                        <h4 class="about-number">5000+</h4>
-                        <p class="mb-0">Projects Completed</p>
-                    </div>
-
-                    <div class="col-6 mb-4">
-                        <h4 class="about-number">10+</h4>
-                        <p class="mb-0">Years Experience</p>
-                    </div>
-
-                    <div class="col-6">
-                        <h4 class="about-number">24/7</h4>
-                        <p class="mb-0">Customer Support</p>
-                    </div>
-
-                    <div class="col-6">
-                        <h4 class="about-number">100%</h4>
-                        <p class="mb-0">Customer Focus</p>
-                    </div>
-
-                </div>
-
-
-                <a href="{% url 'about' %}"
-                   class="about-btn">
-                    Learn More About Us →
-                </a>
-
-            </div>
-
-        </div>
-
-    </div>
-
-</section>
-
-<!-- Projects / Portfolio -->
-
-<section id="projects" class="projects-section">
-
-    <div class="container">
-
-        <div class="text-center mb-5">
-
-            <span class="badge bg-warning text-dark px-3 py-2">
-                OUR PROJECTS
-            </span>
-
-            <h2 class="fw-bold mt-3">
-                Our Recent Projects
-            </h2>
-
-            <p class="text-muted">
-                Explore some of our completed maintenance and renovation projects.
-            </p>
-
-        </div>
-
-
-        <div class="row g-4">
-
-            {% for project in projects %}
-
-            <div class="col-lg-4 col-md-6">
-
-                <div class="project-card">
-
-                    {% if project.image %}
-
-                    <img src="{{ project.image }}"
-                         alt="{{ project.title }}">
-
-                    {% endif %}
-
-                    <div class="project-body">
-
-                        <span class="badge bg-warning text-dark mb-2">
-                            {{ project.category }}
+                        <span class="float-end">
+                            AED {{ service.price }}
                         </span>
 
-                        <h5>
-                            {{ project.title }}
-                        </h5>
+                        {% endif %}
 
-                        <p>
-                            {{ project.description }}
-                        </p>
+                    </a>
 
-                    </div>
+                    {% endfor %}
 
                 </div>
 
             </div>
 
-            {% empty %}
+        </div>
 
-            <div class="col-12 text-center">
+    </div>
 
-                <p class="text-muted">
-                    Our projects will be updated soon.
+</section>
+
+
+<!-- =========================
+     POPULAR SERVICES
+========================= -->
+
+<section class="home-section services-section">
+
+    <div class="container">
+
+        <div class="d-flex
+                    justify-content-between
+                    align-items-end
+                    flex-wrap
+                    gap-3
+                    mb-5">
+
+            <div>
+
+                <span class="section-label">
+                    Our Services
+                </span>
+
+                <h2 class="section-title">
+                    Popular Home Services
+                </h2>
+
+                <p class="section-text">
+                    Reliable technical and maintenance solutions
+                    for residential and commercial properties.
                 </p>
 
             </div>
 
-            {% endfor %}
-
-        </div>
-
-
-        <div class="text-center mt-5">
-
-            <a href="{% url 'projects' %}"
-               class="all-services-btn">
-                View All Projects →
+            <a href="{% url 'services' %}"
+               class="btn-main">
+                View All Services
             </a>
 
         </div>
 
-    </div>
-
-</section>
-
-<!-- Testimonials -->
-<!-- Testimonials -->
-
-<section class="testimonials-section">
-
-    <div class="container">
-
-        <div class="text-center mb-5">
-
-            <span class="section-label">
-                TESTIMONIALS
-            </span>
-
-            <h2 class="fw-bold mt-3">
-                What Our <span>Customers Say</span>
-            </h2>
-
-            <p class="text-muted">
-                Trusted by homeowners, tenants and businesses.
-            </p>
-
-        </div>
-
 
         <div class="row g-4">
 
-            {% for testimonial in testimonials %}
+            {% for service in services|slice:":6" %}
 
-            <div class="col-lg-4 col-md-6">
+            <div class="col-md-6 col-lg-4">
 
-                <div class="testimonial-card">
+                <div class="service-card">
 
-                    <div class="testimonial-stars">
+                    {% if service.image %}
 
-                        {% for i in "12345" %}
+                    <img src="{{ service.image }}"
+                         class="service-image"
+                         alt="{{ service.name }}">
 
-                            {% if forloop.counter <= testimonial.rating %}
-                                ★
-                            {% else %}
-                                ☆
-                            {% endif %}
+                    {% else %}
 
-                        {% endfor %}
-
-                    </div>
-
-
-                    <p class="testimonial-review">
-                        "{{ testimonial.review }}"
-                    </p>
-
-
-                    <div class="testimonial-user">
-
-                        <div class="testimonial-avatar">
-                            {{ testimonial.name|first|upper }}
-                        </div>
-
-                        <div>
-
-                            <h6>
-                                {{ testimonial.name }}
-                            </h6>
-
-                            <small>
-                                UAE Customer
-                            </small>
-
-                        </div>
-
-                    </div>
-
-                </div>
-
-            </div>
-
-            {% empty %}
-
-            <div class="col-12 text-center">
-
-                <p class="text-muted">
-                    Customer reviews will be updated soon.
-                </p>
-
-            </div>
-
-            {% endfor %}
-
-        </div>
-
-    </div>
-
-</section>
-
-<!-- BLOG / GUIDES -->
-<!-- BLOG / GUIDES -->
-
-<section class="blog-section">
-
-    <div class="container">
-
-        <div class="text-center mb-5">
-
-            <span class="section-label">
-                BLOG & GUIDES
-            </span>
-
-            <h2 class="fw-bold mt-3">
-                Helpful <span>Home Maintenance Guides</span>
-            </h2>
-
-            <p class="text-muted">
-                Useful tips and expert guidance for maintaining your
-                home and property.
-            </p>
-
-        </div>
-
-
-        <div class="row g-4">
-
-            {% for blog in blogs %}
-
-            <div class="col-lg-4 col-md-6">
-
-                <div class="blog-card">
-
-                    {% if blog.image %}
-
-                    <img src="{{ blog.image }}"
-                         alt="{{ blog.title }}">
+                    <img
+                        src="https://images.unsplash.com/photo-1581578731548-c64695cc6952?auto=format&fit=crop&w=900&q=85"
+                        class="service-image"
+                        alt="{{ service.name }}">
 
                     {% endif %}
 
 
-                    <div class="blog-body">
+                    <div class="service-body">
 
-                        <small>
-                            {{ blog.created_at|date:"d M Y" }}
-                        </small>
-
-                        <h5>
-                            {{ blog.title }}
-                        </h5>
+                        <h4>
+                            {{ service.name }}
+                        </h4>
 
                         <p>
-                            {{ blog.excerpt }}
+                            {{ service.description|truncatewords:20 }}
                         </p>
 
-                        <a href="{% url 'blog_detail' blog.slug %}">
-                            Read More →
+                        {% if service.price %}
+
+                        <div class="service-price mb-3">
+                            From AED {{ service.price }}
+                        </div>
+
+                        {% endif %}
+
+                        <a href="{% url 'service_detail' service.slug %}"
+                           class="service-link">
+                            View Service →
                         </a>
 
                     </div>
@@ -2063,7 +847,7 @@
             <div class="col-12 text-center">
 
                 <p class="text-muted">
-                    New guides will be published soon.
+                    Services will be available soon.
                 </p>
 
             </div>
@@ -2076,26 +860,28 @@
 
 </section>
 
-<!-- AMC / Maintenance Packages -->
-<!-- Maintenance Packages / AMC -->
 
-<section class="packages-section">
+<!-- =========================
+     WHY UAE CARE
+========================= -->
+
+<section class="home-section">
 
     <div class="container">
 
         <div class="text-center mb-5">
 
             <span class="section-label">
-                AMC & MAINTENANCE
+                Why UAE CARE
             </span>
 
-            <h2 class="fw-bold mt-3">
-                Maintenance <span>Packages</span>
+            <h2 class="section-title">
+                Maintenance Made Simple
             </h2>
 
-            <p class="text-muted">
-                Flexible maintenance plans designed to keep your
-                property safe, comfortable and well maintained.
+            <p class="section-text mx-auto">
+                One trusted partner for everyday repairs,
+                technical maintenance and property improvement.
             </p>
 
         </div>
@@ -2103,50 +889,505 @@
 
         <div class="row g-4">
 
-            {% for package in packages %}
+            <div class="col-md-6 col-lg-3">
 
-            <div class="col-lg-4 col-md-6">
+                <div class="why-card">
+
+                    <div class="why-icon">
+                        🛠️
+                    </div>
+
+                    <h4>
+                        Skilled Technicians
+                    </h4>
+
+                    <p>
+                        Professional technicians for a wide range
+                        of technical and maintenance requirements.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div class="col-md-6 col-lg-3">
+
+                <div class="why-card">
+
+                    <div class="why-icon">
+                        ⚡
+                    </div>
+
+                    <h4>
+                        Fast Response
+                    </h4>
+
+                    <p>
+                        Quick assistance for urgent repairs and
+                        everyday property maintenance.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div class="col-md-6 col-lg-3">
+
+                <div class="why-card">
+
+                    <div class="why-icon">
+                        💰
+                    </div>
+
+                    <h4>
+                        Clear Pricing
+                    </h4>
+
+                    <p>
+                        Transparent service information and
+                        straightforward pricing.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div class="col-md-6 col-lg-3">
+
+                <div class="why-card">
+
+                    <div class="why-icon">
+                        🏠
+                    </div>
+
+                    <h4>
+                        One Roof Solution
+                    </h4>
+
+                    <p>
+                        Multiple property services from one
+                        reliable maintenance partner.
+                    </p>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =========================
+     ABOUT
+========================= -->
+
+<section class="home-section about-section">
+
+    <div class="container">
+
+        <div class="row
+                    align-items-center
+                    g-5">
+
+            <div class="col-lg-6">
+
+                <img
+                    src="https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?auto=format&fit=crop&w=1200&q=85"
+                    class="about-image"
+                    alt="UAE CARE property maintenance">
+
+            </div>
+
+
+            <div class="col-lg-6">
+
+                <span class="section-label">
+                    About UAE CARE
+                </span>
+
+                <h2 class="section-title">
+                    Your Property Deserves Reliable Care
+                </h2>
+
+                <p class="section-text">
+                    UAE CARE provides professional property
+                    maintenance and technical services designed
+                    for homes, villas, apartments and commercial
+                    properties.
+                </p>
+
+                <p class="section-text">
+                    From routine maintenance to urgent repairs
+                    and property improvement projects, our goal
+                    is to make property care simpler and more
+                    convenient.
+                </p>
+
+
+                <ul class="about-list">
+
+                    <li>
+                        <span>✓</span>
+                        Residential & Commercial Services
+                    </li>
+
+                    <li>
+                        <span>✓</span>
+                        AC, Plumbing & Electrical
+                    </li>
+
+                    <li>
+                        <span>✓</span>
+                        Handyman & General Maintenance
+                    </li>
+
+                    <li>
+                        <span>✓</span>
+                        Renovation & Property Improvement
+                    </li>
+
+                </ul>
+
+
+                <a href="{% url 'about' %}"
+                   class="btn-main">
+                    Learn More About Us
+                </a>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =========================
+     STATS
+========================= -->
+
+<section class="home-section stats-section">
+
+    <div class="container">
+
+        <div class="row text-center g-4">
+
+            <div class="col-6 col-lg-3">
+
+                <div class="stat-number">
+                    24/7
+                </div>
+
+                <div class="stat-label">
+                    Service Support
+                </div>
+
+            </div>
+
+
+            <div class="col-6 col-lg-3">
+
+                <div class="stat-number">
+                    10+
+                </div>
+
+                <div class="stat-label">
+                    Service Categories
+                </div>
+
+            </div>
+
+
+            <div class="col-6 col-lg-3">
+
+                <div class="stat-number">
+                    100%
+                </div>
+
+                <div class="stat-label">
+                    Property Focused
+                </div>
+
+            </div>
+
+
+            <div class="col-6 col-lg-3">
+
+                <div class="stat-number">
+                    UAE
+                </div>
+
+                <div class="stat-label">
+                    Service Coverage
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =========================
+     PROJECTS
+========================= -->
+
+<section class="home-section">
+
+    <div class="container">
+
+        <div class="d-flex
+                    justify-content-between
+                    align-items-end
+                    flex-wrap
+                    gap-3
+                    mb-5">
+
+            <div>
+
+                <span class="section-label">
+                    Our Work
+                </span>
+
+                <h2 class="section-title">
+                    Recent Projects
+                </h2>
+
+                <p class="section-text">
+                    Explore some of the property maintenance
+                    and improvement work managed by UAE CARE.
+                </p>
+
+            </div>
+
+            <a href="{% url 'projects' %}"
+               class="btn-main">
+                View Projects
+            </a>
+
+        </div>
+
+
+        <div class="row g-4">
+
+            {% for project in projects|slice:":3" %}
+
+            <div class="col-md-4">
+
+                <div class="project-card">
+
+                    {% if project.image %}
+
+                    <img src="{{ project.image }}"
+                         alt="{{ project.title }}">
+
+                    {% else %}
+
+                    <img
+                        src="https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?auto=format&fit=crop&w=1000&q=85"
+                        alt="{{ project.title }}">
+
+                    {% endif %}
+
+
+                    <div class="project-overlay">
+
+                        <span>
+                            {{ project.category }}
+                        </span>
+
+                        <h4>
+                            {{ project.title }}
+                        </h4>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+            {% empty %}
+
+            <div class="col-12 text-center">
+
+                <p class="text-muted">
+                    Projects will be added soon.
+                </p>
+
+            </div>
+
+            {% endfor %}
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =========================
+     TESTIMONIALS
+========================= -->
+
+<section class="home-section testimonials-section">
+
+    <div class="container">
+
+        <div class="text-center mb-5">
+
+            <span class="section-label">
+                Customer Reviews
+            </span>
+
+            <h2 class="section-title">
+                What Our Customers Say
+            </h2>
+
+        </div>
+
+
+        <div class="row g-4">
+
+            {% for testimonial in testimonials|slice:":3" %}
+
+            <div class="col-md-4">
+
+                <div class="testimonial-card">
+
+                    <div class="stars">
+
+                        {% for i in "12345" %}
+
+                        {% if forloop.counter <= testimonial.rating %}
+                            ★
+                        {% else %}
+                            ☆
+                        {% endif %}
+
+                        {% endfor %}
+
+                    </div>
+
+                    <p class="testimonial-review">
+                        "{{ testimonial.review }}"
+                    </p>
+
+                    <div class="testimonial-name">
+                        {{ testimonial.name }}
+                    </div>
+
+                </div>
+
+            </div>
+
+            {% empty %}
+
+            <div class="col-12 text-center">
+
+                <p class="text-muted">
+                    Customer reviews will appear here.
+                </p>
+
+            </div>
+
+            {% endfor %}
+
+        </div>
+
+
+        <div class="text-center mt-5">
+
+            <a href="{% url 'reviews' %}"
+               class="btn-main">
+                View All Reviews
+            </a>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =========================
+     AMC
+========================= -->
+
+<section class="home-section">
+
+    <div class="container">
+
+        <div class="text-center mb-5">
+
+            <span class="section-label">
+                Maintenance Plans
+            </span>
+
+            <h2 class="section-title">
+                AMC Packages
+            </h2>
+
+            <p class="section-text mx-auto">
+                Planned maintenance solutions designed to help
+                protect your property throughout the year.
+            </p>
+
+        </div>
+
+
+        <div class="row g-4 justify-content-center">
+
+            {% for package in packages|slice:":3" %}
+
+            <div class="col-md-6 col-lg-4">
 
                 <div class="package-card">
+
+                    {% if forloop.counter == 2 %}
+
+                    <div class="package-popular">
+                        POPULAR
+                    </div>
+
+                    {% endif %}
 
                     <h4>
                         {{ package.name }}
                     </h4>
 
-                    <p class="package-description">
-                        {{ package.description }}
-                    </p>
-
-
                     {% if package.price %}
 
                     <div class="package-price">
-                        <span>AED</span>
-                        {{ package.price }}
-                    </div>
-
-                    {% else %}
-
-                    <div class="package-price custom-price">
-                        Custom Quote
+                        AED {{ package.price }}
                     </div>
 
                     {% endif %}
 
-
-                    <h6 class="fw-bold mt-4">
-                        Package Includes:
-                    </h6>
-
-                    <div class="package-features">
-                        {{ package.features|linebreaks }}
-                    </div>
+                    <p class="text-muted mt-3">
+                        {{ package.description }}
+                    </p>
 
 
-                    <a href="{% url 'request_quote' %}"
-                       class="package-btn">
-                        Request AMC →
-                    </a>
+                    <ul class="package-features">
+
+                        {% for feature in package.features.splitlines %}
+
+                        <li>
+                            {{ feature }}
+                        </li>
+
+                        {% endfor %}
+
+                    </ul>
 
                 </div>
 
@@ -2157,7 +1398,77 @@
             <div class="col-12 text-center">
 
                 <p class="text-muted">
-                    Maintenance packages will be updated soon.
+                    Maintenance packages will be available soon.
+                </p>
+
+            </div>
+
+            {% endfor %}
+
+        </div>
+
+
+        <div class="text-center mt-5">
+
+            <a href="{% url 'maintenance_packages' %}"
+               class="btn-main">
+                Explore AMC Packages
+            </a>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =========================
+     SERVICE AREAS
+========================= -->
+
+<section class="home-section areas-section">
+
+    <div class="container">
+
+        <div class="text-center mb-5">
+
+            <span class="section-label">
+                Service Areas
+            </span>
+
+            <h2 class="section-title">
+                Areas We Serve
+            </h2>
+
+            <p class="section-text mx-auto">
+                Professional property maintenance services
+                across key areas.
+            </p>
+
+        </div>
+
+
+        <div class="row g-3">
+
+            {% for area in service_areas|slice:":12" %}
+
+            <div class="col-6 col-md-4 col-lg-3">
+
+                <a href="{% url 'service_area_detail' area.slug %}"
+                   class="area-card">
+
+                    📍 {{ area.name }}
+
+                </a>
+
+            </div>
+
+            {% empty %}
+
+            <div class="col-12 text-center">
+
+                <p class="text-muted">
+                    Service areas will be added soon.
                 </p>
 
             </div>
@@ -2170,57 +1481,82 @@
 
 </section>
 
-<!-- Service Areas -->
-<!-- Service Areas -->
 
-<section class="service-areas-section">
+<!-- =========================
+     BLOG
+========================= -->
+
+<section class="home-section">
 
     <div class="container">
 
-        <div class="text-center mb-5">
+        <div class="d-flex
+                    justify-content-between
+                    align-items-end
+                    flex-wrap
+                    gap-3
+                    mb-5">
 
-            <span class="section-label">
-                SERVICE AREAS
-            </span>
+            <div>
 
-            <h2 class="fw-bold mt-3">
-                Areas We <span>Serve</span>
-            </h2>
+                <span class="section-label">
+                    Guides & Advice
+                </span>
 
-            <p class="text-muted">
-                Professional home maintenance services across
-                Dubai and surrounding areas.
-            </p>
+                <h2 class="section-title">
+                    Latest From Our Blog
+                </h2>
+
+            </div>
+
+            <a href="{% url 'blog' %}"
+               class="btn-main">
+                View All Articles
+            </a>
 
         </div>
 
 
         <div class="row g-4">
 
-            {% for area in service_areas %}
+            {% for blog in blogs|slice:":3" %}
 
-            <div class="col-lg-4 col-md-6">
+            <div class="col-md-4">
 
-                <div class="area-card">
+                <article class="blog-card">
 
-                    <div class="area-icon">
-                        📍
+                    {% if blog.image %}
+
+                    <img src="{{ blog.image }}"
+                         alt="{{ blog.title }}">
+
+                    {% else %}
+
+                    <img
+                        src="https://images.unsplash.com/photo-1581578731548-c64695cc6952?auto=format&fit=crop&w=1000&q=85"
+                        alt="{{ blog.title }}">
+
+                    {% endif %}
+
+
+                    <div class="blog-body">
+
+                        <h4>
+                            {{ blog.title }}
+                        </h4>
+
+                        <p>
+                            {{ blog.excerpt|truncatewords:22 }}
+                        </p>
+
+                        <a href="{% url 'blog_detail' blog.slug %}"
+                           class="service-link">
+                            Read Article →
+                        </a>
+
                     </div>
 
-                    <h5>
-                        {{ area.name }}
-                    </h5>
-
-                    <p>
-                        Professional home maintenance services
-                        available in {{ area.name }}.
-                    </p>
-
-                    <a href="{% url 'service_area_detail' area.slug %}">
-                        View Services →
-                    </a>
-
-                </div>
+                </article>
 
             </div>
 
@@ -2229,7 +1565,7 @@
             <div class="col-12 text-center">
 
                 <p class="text-muted">
-                    Service areas will be updated soon.
+                    Blog articles will be added soon.
                 </p>
 
             </div>
@@ -2241,279 +1577,194 @@
     </div>
 
 </section>
-<!-- FAQs -->
-<!-- FAQ -->
 
-<section class="faq-section">
+
+<!-- =========================
+     FAQ
+========================= -->
+
+<section class="home-section faq-section">
 
     <div class="container">
 
-        <div class="text-center mb-5">
+        <div class="row g-5">
 
-            <span class="section-label">
-                FAQ
-            </span>
+            <div class="col-lg-5">
 
-            <h2 class="fw-bold mt-3">
-                Frequently Asked <span>Questions</span>
-            </h2>
+                <span class="section-label">
+                    FAQs
+                </span>
 
-            <p class="text-muted">
-                Find answers to common questions about our
-                home maintenance services.
-            </p>
+                <h2 class="section-title">
+                    Frequently Asked Questions
+                </h2>
 
-        </div>
+                <p class="section-text">
+                    Find answers to common questions about our
+                    home maintenance and technical services.
+                </p>
 
+                <a href="{% url 'faqs' %}"
+                   class="btn-main mt-3">
+                    View All FAQs
+                </a>
 
-        <div class="faq-wrapper">
-
-            {% for faq in faqs %}
-
-            <div class="faq-item">
-
-                <button class="faq-question"
-                        type="button"
-                        data-bs-toggle="collapse"
-                        data-bs-target="#faq{{ faq.id }}"
-                        aria-expanded="false">
-
-                    <span>{{ faq.question }}</span>
-
-                    <span class="faq-icon">+</span>
-
-                </button>
+            </div>
 
 
-                <div id="faq{{ faq.id }}"
-                     class="collapse">
+            <div class="col-lg-7">
+
+                {% for faq in faqs|slice:":6" %}
+
+                <details class="faq-item">
+
+                    <summary>
+                        {{ faq.question }}
+                    </summary>
 
                     <div class="faq-answer">
                         {{ faq.answer }}
                     </div>
 
-                </div>
+                </details>
 
-            </div>
-
-            {% empty %}
-
-            <div class="text-center">
+                {% empty %}
 
                 <p class="text-muted">
-                    Frequently asked questions will be updated soon.
+                    FAQs will be added soon.
                 </p>
 
-            </div>
+                {% endfor %}
 
-            {% endfor %}
+            </div>
 
         </div>
 
     </div>
 
 </section>
-<!-- Contact / Free Quote -->
-<!-- Contact / Free Quote -->
 
-<section id="contact" class="contact-section">
+
+<!-- =========================
+     QUOTE SECTION
+========================= -->
+
+<section class="home-section quote-section">
 
     <div class="container">
 
-        <div class="row align-items-center g-5">
+        <div class="row g-5 align-items-center">
 
-            <!-- Contact Information -->
-            <div class="col-lg-6">
+            <div class="col-lg-5">
 
-                <span class="section-label">
-                    GET IN TOUCH
+                <span class="section-label"
+                      style="color:#f4b12a;">
+                    Get Started
                 </span>
 
-                <h2 class="contact-title">
-                    Need Professional
-                    <span>Home Maintenance?</span>
+                <h2>
+                    Need Maintenance?
+                    Let's Talk.
                 </h2>
 
-                <p class="text-muted mt-3">
-                    Contact our team today for reliable maintenance,
-                    repair and renovation services across Dubai.
+                <p>
+                    Tell us what your property needs and our
+                    team will get back to you with the right
+                    solution.
                 </p>
 
-                <div class="contact-info">
 
-                    {% if settings %}
+                {% if settings %}
 
-                    <!-- Phone -->
-                    <div class="contact-item">
+                <div class="mt-4">
 
-                        <div class="contact-icon">
-                            📞
-                        </div>
+                    <a href="tel:{{ settings.phone }}"
+                       class="btn btn-light me-2 mb-2">
+                        📞 {{ settings.phone }}
+                    </a>
 
-                        <div>
-                            <small>Call Us</small>
-
-                            <a href="tel:{{ settings.phone }}">
-                                {{ settings.phone }}
-                            </a>
-                        </div>
-
-                    </div>
-
-
-                    <!-- WhatsApp -->
-                    <div class="contact-item">
-
-                        <div class="contact-icon">
-                            💬
-                        </div>
-
-                        <div>
-                            <small>WhatsApp</small>
-
-                            <a href="https://wa.me/{{ settings.whatsapp }}">
-                                Chat with us
-                            </a>
-                        </div>
-
-                    </div>
-
-
-                    <!-- Email -->
-                    <div class="contact-item">
-
-                        <div class="contact-icon">
-                            ✉️
-                        </div>
-
-                        <div>
-                            <small>Email</small>
-
-                            <a href="mailto:{{ settings.email }}">
-                                {{ settings.email }}
-                            </a>
-                        </div>
-
-                    </div>
-
-
-                    <!-- Address -->
-                    <div class="contact-item">
-
-                        <div class="contact-icon">
-                            📍
-                        </div>
-
-                        <div>
-                            <small>Address</small>
-
-                            <span>
-                                {{ settings.address }}
-                            </span>
-                        </div>
-
-                    </div>
-
-
-                    <!-- Opening Hours -->
-                    <div class="contact-item">
-
-                        <div class="contact-icon">
-                            🕐
-                        </div>
-
-                        <div>
-                            <small>Opening Hours</small>
-
-                            <span>
-                                {{ settings.opening_hours }}
-                            </span>
-                        </div>
-
-                    </div>
-
-                    {% endif %}
+                    <a href="https://wa.me/{{ settings.whatsapp }}"
+                       target="_blank"
+                       class="whatsapp-btn mb-2">
+                        💬 WhatsApp
+                    </a>
 
                 </div>
+
+                {% endif %}
 
             </div>
 
 
-            <!-- Quote Form -->
-            <div class="col-lg-6">
+            <div class="col-lg-7">
 
-                <div class="contact-form-card">
+                <div class="quote-box">
 
-                    <h4>
+                    <h3 class="fw-bold mb-4"
+                        style="color:#071a33;">
                         Request a Free Quote
-                    </h4>
-
-                    <p class="text-muted">
-                        Tell us what you need and our team will
-                        get back to you shortly.
-                    </p>
+                    </h3>
 
 
-                    {% if messages %}
-
-                        {% for message in messages %}
-
-                            <div class="alert alert-success">
-                                {{ message }}
-                            </div>
-
-                        {% endfor %}
-
-                    {% endif %}
-
-
-                    <form method="POST" action="">
+                    <form method="POST">
 
                         {% csrf_token %}
 
                         <div class="row g-3">
 
-                            <!-- Name -->
                             <div class="col-md-6">
+
+                                <label class="form-label">
+                                    Name
+                                </label>
 
                                 <input
                                     type="text"
                                     name="name"
                                     class="form-control"
-                                    placeholder="Your Name"
+                                    placeholder="Your name"
                                     required>
 
                             </div>
 
 
-                            <!-- Phone -->
                             <div class="col-md-6">
+
+                                <label class="form-label">
+                                    Phone
+                                </label>
 
                                 <input
                                     type="tel"
                                     name="phone"
                                     class="form-control"
-                                    placeholder="Phone Number"
+                                    placeholder="+971..."
                                     required>
 
                             </div>
 
 
-                            <!-- Email -->
                             <div class="col-12">
+
+                                <label class="form-label">
+                                    Email
+                                </label>
 
                                 <input
                                     type="email"
                                     name="email"
                                     class="form-control"
-                                    placeholder="Email Address"
+                                    placeholder="you@example.com"
                                     required>
 
                             </div>
 
 
-                            <!-- Service -->
                             <div class="col-12">
+
+                                <label class="form-label">
+                                    Service
+                                </label>
 
                                 <select
                                     name="service"
@@ -2521,42 +1772,49 @@
                                     required>
 
                                     <option value="">
-                                        Select Service
+                                        Select a service
                                     </option>
 
                                     {% for service in services %}
 
-                                        <option value="{{ service.name }}">
-                                            {{ service.name }}
-                                        </option>
+                                    <option value="{{ service.name }}">
+                                        {{ service.name }}
+                                    </option>
 
                                     {% endfor %}
+
+                                    <option value="Other">
+                                        Other
+                                    </option>
 
                                 </select>
 
                             </div>
 
 
-                            <!-- Message -->
                             <div class="col-12">
+
+                                <label class="form-label">
+                                    Message
+                                </label>
 
                                 <textarea
                                     name="message"
-                                    class="form-control"
                                     rows="4"
-                                    placeholder="Tell us about your requirement"></textarea>
+                                    class="form-control"
+                                    placeholder="Tell us about your requirement..."
+                                    required></textarea>
 
                             </div>
 
 
-                            <!-- Submit -->
                             <div class="col-12">
 
                                 <button
                                     type="submit"
-                                    class="contact-submit-btn">
+                                    class="btn-main w-100">
 
-                                    Get Free Quote →
+                                    Submit Quote Request
 
                                 </button>
 
@@ -2575,270 +1833,98 @@
     </div>
 
 </section>
-<!-- Footer -->
-<!-- Footer -->
 
-<footer class="site-footer">
 
-    <div class="container">
+{% endblock %}
 
-        <div class="row g-5">
 
-            <!-- Company -->
-            <div class="col-lg-4">
+{% block extra_js %}
 
-                <h4 class="footer-logo">
-                    UAE <span>Care</span>
-                </h4>
+<script>
 
-                <p>
-                    Professional home maintenance and technical
-                    services for villas, apartments, offices and
-                    commercial properties across Dubai.
-                </p>
+const serviceSearch =
+    document.getElementById("serviceSearch");
 
-                <div class="footer-social">
+const serviceResults =
+    document.getElementById("serviceResults");
 
-                    <a href="https://wa.me/{{ settings.whatsapp }}"
-                       target="_blank"
-                       aria-label="WhatsApp">
-                        💬
-                    </a>
 
-                    <a href="tel:{{ settings.phone }}"
-                       aria-label="Call">
-                        📞
-                    </a>
+if (serviceSearch) {
 
-                    <a href="mailto:{{ settings.email }}"
-                       aria-label="Email">
-                        ✉️
-                    </a>
+    serviceSearch.addEventListener("input", function () {
 
-                </div>
+        const query =
+            this.value.toLowerCase().trim();
 
-            </div>
+        const results =
+            document.querySelectorAll(".search-result");
 
+        let visible = 0;
 
-            <!-- Quick Links -->
-            <div class="col-lg-2 col-md-6">
 
-                <h6>Quick Links</h6>
+        if (query === "") {
 
-                <ul>
+            serviceResults.style.display = "none";
+            return;
 
-                    <li>
-                        <a href="{% url 'home' %}">
-                            Home
-                        </a>
-                    </li>
+        }
 
-                    <li>
-                        <a href="{% url 'about' %}">
-                            About Us
-                        </a>
-                    </li>
 
-                    <li>
-                        <a href="{% url 'projects' %}">
-                            Projects
-                        </a>
-                    </li>
+        results.forEach(function (item) {
 
-                    <li>
-                        <a href="{% url 'reviews' %}">
-                            Reviews
-                        </a>
-                    </li>
+            const name =
+                item.dataset.name;
 
-                    <li>
-                        <a href="{% url 'blog' %}">
-                            Blog
-                        </a>
-                    </li>
+            if (name.includes(query)) {
 
-                </ul>
+                item.style.display = "block";
+                visible++;
 
-            </div>
+            } else {
 
+                item.style.display = "none";
 
-            <!-- Services -->
-            <div class="col-lg-3 col-md-6">
+            }
 
-                <h6>Our Services</h6>
+        });
 
-                <ul>
 
-                    {% for service in services|slice:":5" %}
+        serviceResults.style.display =
+            visible > 0 ? "block" : "none";
 
-                    <li>
-                        <a href="{% url 'service_detail' service.slug %}">
-                            {{ service.name }}
-                        </a>
-                    </li>
+    });
 
-                    {% endfor %}
 
-                </ul>
+    document.addEventListener("click", function (event) {
 
-            </div>
+        if (
+            !serviceSearch.contains(event.target) &&
+            !serviceResults.contains(event.target)
+        ) {
 
+            serviceResults.style.display = "none";
 
-            <!-- Contact -->
-            <div class="col-lg-3">
+        }
 
-                <h6>Contact Us</h6>
+    });
 
-                {% if settings %}
-
-                <div class="footer-contact">
-
-                    <p>
-                        📞
-                        <a href="tel:{{ settings.phone }}">
-                            {{ settings.phone }}
-                        </a>
-                    </p>
-
-                    <p>
-                        💬
-                        <a href="https://wa.me/{{ settings.whatsapp }}">
-                            WhatsApp
-                        </a>
-                    </p>
-
-                    <p>
-                        ✉️
-                        <a href="mailto:{{ settings.email }}">
-                            {{ settings.email }}
-                        </a>
-                    </p>
-
-                    <p>
-                        📍
-                        {{ settings.address }}
-                    </p>
-
-                </div>
-
-                {% endif %}
-
-                <a href="{% url 'request_quote' %}"
-                   class="footer-quote-btn">
-                    Get a Free Quote →
-                </a>
-
-            </div>
-
-        </div>
-
-
-        <div class="footer-bottom">
-
-            <p>
-                © {% now "Y" %} UAE Care.
-                All Rights Reserved.
-            </p>
-
-            <div>
-
-                <a href="#">
-                    Privacy Policy
-                </a>
-
-                <a href="#">
-                    Terms & Conditions
-                </a>
-
-            </div>
-
-        </div>
-
-    </div>
-
-</footer>
-
-
-<!-- Mobile Sticky Call & WhatsApp -->
-<div class="d-md-none"
-     style="
-        position: fixed;
-        bottom: 0;
-        left: 0;
-        width: 100%;
-        z-index: 9999;
-        display: flex;
-     ">
-
-    <a href="tel:{{ settings.phone }}"
-       class="btn btn-warning rounded-0 w-50 py-3 fw-bold">
-        📞 Call Now
-    </a>
-
-    <a href="https://wa.me/{{ settings.whatsapp }}"
-   class="btn btn-success">
-    💬 WhatsApp
-</a>
-
-</div>
-
-
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
-
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "LocalBusiness",
-  "name": "UAE Care",
-  "description": "Professional home maintenance and technical services in Dubai and across the UAE.",
-  "telephone": "{{ settings.phone }}",
-  "email": "{{ settings.email }}",
-  "address": {
-    "@type": "PostalAddress",
-    "streetAddress": "{{ settings.address }}",
-    "addressCountry": "AE"
-  },
-  "url": "{{ request.scheme }}://{{ request.get_host }}",
-  "areaServed": [
-    {% for area in service_areas %}
-    {
-      "@type": "Place",
-      "name": "{{ area.name }}"
-    }{% if not forloop.last %},{% endif %}
-    {% endfor %}
-  ]
 }
+
+
+function showServiceResults() {
+
+    if (serviceSearch) {
+
+        serviceSearch.focus();
+
+        serviceSearch.dispatchEvent(
+            new Event("input")
+        );
+
+    }
+
+}
+
 </script>
 
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "FAQPage",
-  "mainEntity": [
-    {% for faq in faqs %}
-    {
-      "@type": "Question",
-      "name": "{{ faq.question|escapejs }}",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "{{ faq.answer|escapejs }}"
-      }
-    }{% if not forloop.last %},{% endif %}
-    {% endfor %}
-  ]
-}
-</script>
-
-<!-- Mobile Sticky CTA -->
-<div class="mobile-sticky-cta">
-    <a href="tel:{{ settings.phone }}" class="call-btn">
-        📞 Call Now
-    </a>
-
-    <a href="https://wa.me/{{ settings.whatsapp }}" class="whatsapp-btn">
-        💬 WhatsApp
-    </a>
-</div>
-
-</body>
-</html>
+{% endblock %}

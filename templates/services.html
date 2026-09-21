@@ -1,0 +1,638 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}
+UAE CARE | Home Maintenance Services Dubai
+{% endblock %}
+
+{% block meta_description %}
+Professional AC, plumbing, electrical, handyman, renovation and property maintenance services across Dubai.
+{% endblock %}
+
+{% block extra_head %}
+<style>
+.services-hero {
+    min-height: 430px;
+    display: flex;
+    align-items: center;
+    position: relative;
+    background:
+        linear-gradient(90deg, rgba(5,12,20,.88), rgba(5,12,20,.55)),
+        url("https://images.unsplash.com/photo-1581578731548-c64695cc6952?auto=format&fit=crop&w=1800&q=85")
+        center/cover no-repeat;
+}
+
+.services-hero-content {
+    max-width: 850px;
+    color: #fff;
+}
+
+.services-hero h1 {
+    font-size: clamp(38px, 5vw, 64px);
+    font-weight: 800;
+    line-height: 1.05;
+    margin-bottom: 20px;
+}
+
+.services-hero p {
+    font-size: 18px;
+    line-height: 1.7;
+    color: rgba(255,255,255,.85);
+    max-width: 700px;
+}
+
+.section-label {
+    color: #c99a45;
+    font-size: 13px;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+}
+
+.section-title {
+    font-size: clamp(30px, 4vw, 46px);
+    font-weight: 800;
+    color: #101820;
+}
+
+.service-search-wrap {
+    margin-top: -45px;
+    position: relative;
+    z-index: 5;
+}
+
+.service-search-box {
+    background: #fff;
+    border-radius: 18px;
+    padding: 20px;
+    box-shadow: 0 15px 45px rgba(0,0,0,.12);
+}
+
+.service-search-box input {
+    border: 0;
+    outline: none;
+    width: 100%;
+    font-size: 17px;
+    padding: 12px 15px;
+}
+
+.filter-btn {
+    border: 1px solid #ddd;
+    background: #fff;
+    color: #222;
+    padding: 10px 18px;
+    border-radius: 30px;
+    font-weight: 600;
+    transition: .25s;
+}
+
+.filter-btn:hover,
+.filter-btn.active {
+    background: #101820;
+    color: #fff;
+    border-color: #101820;
+}
+
+.service-card {
+    height: 100%;
+    background: #fff;
+    border: 1px solid #eee;
+    border-radius: 18px;
+    overflow: hidden;
+    transition: .3s;
+    box-shadow: 0 8px 25px rgba(0,0,0,.05);
+}
+
+.service-card:hover {
+    transform: translateY(-7px);
+    box-shadow: 0 18px 40px rgba(0,0,0,.12);
+}
+
+.service-image {
+    height: 220px;
+    overflow: hidden;
+    background: #f2f2f2;
+}
+
+.service-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: .4s;
+}
+
+.service-card:hover .service-image img {
+    transform: scale(1.06);
+}
+
+.service-content {
+    padding: 25px;
+}
+
+.service-content h3 {
+    font-size: 21px;
+    font-weight: 750;
+    margin-bottom: 10px;
+}
+
+.service-content p {
+    color: #666;
+    line-height: 1.7;
+}
+
+.service-price {
+    color: #c28d36;
+    font-size: 20px;
+    font-weight: 800;
+}
+
+.service-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    color: #101820;
+    font-weight: 700;
+    text-decoration: none;
+}
+
+.service-link:hover {
+    color: #c28d36;
+}
+
+.services-cta {
+    background: #101820;
+    color: #fff;
+    border-radius: 25px;
+    padding: 55px;
+}
+
+.services-cta h2 {
+    font-size: clamp(28px, 4vw, 42px);
+    font-weight: 800;
+}
+
+.services-cta p {
+    color: rgba(255,255,255,.75);
+    line-height: 1.7;
+}
+
+.btn-main {
+    background: #c99a45;
+    color: #fff;
+    border: 0;
+    padding: 14px 25px;
+    border-radius: 8px;
+    font-weight: 700;
+    text-decoration: none;
+    display: inline-block;
+}
+
+.btn-main:hover {
+    background: #b48638;
+    color: #fff;
+}
+
+.btn-outline-light-custom {
+    border: 1px solid rgba(255,255,255,.5);
+    color: #fff;
+    padding: 13px 24px;
+    border-radius: 8px;
+    font-weight: 700;
+    text-decoration: none;
+    display: inline-block;
+}
+
+.btn-outline-light-custom:hover {
+    background: #fff;
+    color: #101820;
+}
+
+.no-results {
+    display: none;
+    text-align: center;
+    padding: 60px 20px;
+}
+
+@media (max-width: 768px) {
+    .services-hero {
+        min-height: 380px;
+    }
+
+    .services-hero h1 {
+        font-size: 42px;
+    }
+
+    .services-cta {
+        padding: 35px 25px;
+    }
+
+    .service-image {
+        height: 200px;
+    }
+}
+</style>
+{% endblock %}
+
+
+{% block content %}
+
+<!-- HERO -->
+<section class="services-hero">
+    <div class="container">
+        <div class="services-hero-content">
+
+            <div class="section-label mb-3">
+                UAE CARE SERVICES
+            </div>
+
+            <h1>
+                Complete Home Maintenance Services
+            </h1>
+
+            <p>
+                Reliable AC, plumbing, electrical, handyman, cleaning,
+                renovation and property maintenance services across Dubai.
+            </p>
+
+            <div class="mt-4">
+                <a href="{% url 'request_quote' %}" class="btn-main me-2">
+                    Request a Quote
+                </a>
+
+                {% if settings %}
+                <a href="tel:{{ settings.phone }}" class="btn-outline-light-custom">
+                    Call Now
+                </a>
+                {% endif %}
+            </div>
+
+        </div>
+    </div>
+</section>
+
+
+<!-- SEARCH -->
+<section class="service-search-wrap">
+    <div class="container">
+
+        <div class="service-search-box">
+
+            <div class="row align-items-center">
+
+                <div class="col-lg-8">
+                    <input
+                        type="text"
+                        id="serviceSearch"
+                        placeholder="Search for a service..."
+                    >
+                </div>
+
+                <div class="col-lg-4 text-lg-end mt-3 mt-lg-0">
+                    <strong id="serviceCount">
+                        {{ services|length }} services available
+                    </strong>
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+</section>
+
+
+<!-- SERVICES -->
+<section class="py-5">
+    <div class="container py-5">
+
+        <div class="text-center mb-4">
+            <div class="section-label mb-2">
+                WHAT WE DO
+            </div>
+
+            <h2 class="section-title">
+                Our Services
+            </h2>
+
+            <p class="text-muted mx-auto" style="max-width:700px;">
+                From urgent repairs to complete property maintenance,
+                UAE CARE provides professional solutions for homes,
+                apartments, villas and offices.
+            </p>
+        </div>
+
+
+        <!-- FILTERS -->
+        <div class="d-flex flex-wrap justify-content-center gap-2 mb-5">
+
+            <button class="filter-btn active" data-filter="all">
+                All Services
+            </button>
+
+            <button class="filter-btn" data-filter="ac">
+                AC & Cooling
+            </button>
+
+            <button class="filter-btn" data-filter="plumbing">
+                Plumbing
+            </button>
+
+            <button class="filter-btn" data-filter="electrical">
+                Electrical
+            </button>
+
+            <button class="filter-btn" data-filter="handyman">
+                Handyman
+            </button>
+
+            <button class="filter-btn" data-filter="renovation">
+                Renovation
+            </button>
+
+        </div>
+
+
+        <!-- SERVICE GRID -->
+        <div class="row g-4" id="serviceGrid">
+
+            {% for service in services %}
+
+            <div
+                class="col-md-6 col-lg-4 service-item"
+                data-name="{{ service.name|lower }}"
+            >
+
+                <div class="service-card">
+
+                    <div class="service-image">
+
+                        {% if service.image %}
+                        <img
+                            src="{{ service.image }}"
+                            alt="{{ service.name }}"
+                            loading="lazy"
+                        >
+                        {% else %}
+                        <img
+                            src="https://images.unsplash.com/photo-1581578731548-c64695cc6952?auto=format&fit=crop&w=900&q=80"
+                            alt="{{ service.name }}"
+                            loading="lazy"
+                        >
+                        {% endif %}
+
+                    </div>
+
+
+                    <div class="service-content">
+
+                        <h3>
+                            {{ service.name }}
+                        </h3>
+
+                        <p>
+                            {{ service.description|truncatewords:25 }}
+                        </p>
+
+
+                        {% if service.price %}
+                        <div class="service-price mb-3">
+                            From AED {{ service.price }}
+                        </div>
+                        {% endif %}
+
+
+                        <a
+                            href="{% url 'service_detail' service.slug %}"
+                            class="service-link"
+                        >
+                            View Service →
+                        </a>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+            {% empty %}
+
+            <div class="col-12 text-center py-5">
+                <h4>No services available.</h4>
+                <p class="text-muted">
+                    Please check back soon.
+                </p>
+            </div>
+
+            {% endfor %}
+
+        </div>
+
+
+        <!-- NO RESULTS -->
+        <div class="no-results" id="noResults">
+
+            <h4>
+                No services found
+            </h4>
+
+            <p class="text-muted">
+                Try another service name.
+            </p>
+
+        </div>
+
+    </div>
+</section>
+
+
+<!-- CTA -->
+<section class="pb-5">
+    <div class="container">
+
+        <div class="services-cta">
+
+            <div class="row align-items-center">
+
+                <div class="col-lg-8">
+
+                    <div class="section-label mb-2">
+                        NEED HELP?
+                    </div>
+
+                    <h2>
+                        Need a Reliable Maintenance Team?
+                    </h2>
+
+                    <p class="mb-0">
+                        Tell us what you need and our team will help
+                        you find the right service for your property.
+                    </p>
+
+                </div>
+
+                <div class="col-lg-4 text-lg-end mt-4 mt-lg-0">
+
+                    <a
+                        href="{% url 'request_quote' %}"
+                        class="btn-main me-2"
+                    >
+                        Get Free Quote
+                    </a>
+
+                    {% if settings %}
+                    <a
+                        href="https://wa.me/{{ settings.whatsapp }}"
+                        class="btn-outline-light-custom"
+                        target="_blank"
+                    >
+                        WhatsApp
+                    </a>
+                    {% endif %}
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+</section>
+
+{% endblock %}
+
+
+{% block extra_js %}
+
+<script>
+
+const searchInput = document.getElementById("serviceSearch");
+const serviceItems = document.querySelectorAll(".service-item");
+const noResults = document.getElementById("noResults");
+const serviceCount = document.getElementById("serviceCount");
+const filterButtons = document.querySelectorAll(".filter-btn");
+
+
+function filterServices() {
+
+    const searchValue = searchInput.value.toLowerCase().trim();
+
+    let visibleCount = 0;
+
+    serviceItems.forEach(item => {
+
+        const name = item.dataset.name;
+
+        const matchesSearch =
+            name.includes(searchValue);
+
+        if (matchesSearch) {
+
+            item.style.display = "";
+
+            visibleCount++;
+
+        } else {
+
+            item.style.display = "none";
+
+        }
+
+    });
+
+    serviceCount.textContent =
+        visibleCount + " services available";
+
+    noResults.style.display =
+        visibleCount === 0 ? "block" : "none";
+}
+
+
+searchInput.addEventListener("input", filterServices);
+
+
+filterButtons.forEach(button => {
+
+    button.addEventListener("click", function() {
+
+        filterButtons.forEach(btn =>
+            btn.classList.remove("active")
+        );
+
+        this.classList.add("active");
+
+        const filter = this.dataset.filter;
+
+        serviceItems.forEach(item => {
+
+            const name = item.dataset.name;
+
+            let show = true;
+
+            if (filter !== "all") {
+
+                if (filter === "ac") {
+                    show =
+                        name.includes("ac") ||
+                        name.includes("air") ||
+                        name.includes("cool");
+                }
+
+                if (filter === "plumbing") {
+                    show = name.includes("plumb");
+                }
+
+                if (filter === "electrical") {
+                    show =
+                        name.includes("electric") ||
+                        name.includes("electrical");
+                }
+
+                if (filter === "handyman") {
+                    show = name.includes("handyman");
+                }
+
+                if (filter === "renovation") {
+                    show =
+                        name.includes("renovat") ||
+                        name.includes("kitchen") ||
+                        name.includes("bathroom") ||
+                        name.includes("tiling") ||
+                        name.includes("painting") ||
+                        name.includes("carpentry");
+                }
+
+            }
+
+            item.style.display = show ? "" : "none";
+
+        });
+
+        updateCount();
+
+    });
+
+});
+
+
+function updateCount() {
+
+    let count = 0;
+
+    serviceItems.forEach(item => {
+
+        if (item.style.display !== "none") {
+            count++;
+        }
+
+    });
+
+    serviceCount.textContent =
+        count + " services available";
+
+    noResults.style.display =
+        count === 0 ? "block" : "none";
+}
+
+</script>
+
+{% endblock %}
