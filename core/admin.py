@@ -71,10 +71,49 @@ class ServiceAdmin(admin.ModelAdmin):
     )
 
 class QuoteRequestAdmin(admin.ModelAdmin):
-    list_display = ('name', 'phone', 'email', 'service', 'created_at')
-    list_filter = ('created_at', 'service')
-    search_fields = ('name', 'phone', 'email', 'service')
-    readonly_fields = ('created_at',)
+
+    list_display = (
+        'name',
+        'service',
+        'phone',
+        'estimated_aed',
+        'urgency',
+        'status',
+        'dispatch_status',
+        'technician',
+        'created_at',
+    )
+
+    list_filter = (
+        'urgency',
+        'status',
+        'dispatch_status',
+        'created_at',
+    )
+
+    search_fields = (
+        'name',
+        'phone',
+        'email',
+        'service',
+        'technician',
+    )
+
+    list_editable = (
+        'estimated_aed',
+        'urgency',
+        'status',
+        'dispatch_status',
+        'technician',
+    )
+
+    readonly_fields = (
+        'created_at',
+    )
+
+    ordering = (
+        '-created_at',
+    )
 
 
 class SiteSettingsAdmin(admin.ModelAdmin):

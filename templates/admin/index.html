@@ -1390,13 +1390,13 @@
 
         </div>
 
-        <div class="uc-kpi-number">
-            <small>AED</small> 0
-        </div>
+       <div class="uc-kpi-number">
+    <small>AED</small> {{ pipeline_value|floatformat:0 }}
+</div>
 
-        <div class="uc-kpi-note">
-            Avg job estimate: AED 0
-        </div>
+<div class="uc-kpi-note">
+    Open lead pipeline value
+</div>
 
     </div>
 
@@ -1416,8 +1416,8 @@
         </div>
 
         <div class="uc-kpi-number">
-            0 <small>Technicians</small>
-        </div>
+    {{ active_dispatches }} <small>Technicians</small>
+</div>
 
         <div class="uc-kpi-note">
             On-site in &lt; 25 mins
@@ -1441,8 +1441,8 @@
         </div>
 
         <div class="uc-kpi-number">
-            0 <small>Callouts</small>
-        </div>
+    {{ emergency_calls }} <small>Callouts</small>
+</div>
 
         <div class="uc-kpi-note">
             High-priority urgent breakdown
@@ -1598,12 +1598,17 @@
                     </td>
 
                     <td>
-                        AED —
-                    </td>
+    <strong>
+        AED {{ quote.estimated_aed|floatformat:0 }}
+    </strong>
+    <div style="margin-top:4px;color:#667085;font-size:9px;">
+        {{ quote.urgency|title }}
+    </div>
+</td>
 
-                    <td>
-                        🟢 New
-                    </td>
+<td>
+    🟢 {{ quote.dispatch_status|title }}
+</td>
 
                     <td>
                         {{ quote.created_at|date:"d M Y" }}

@@ -21,11 +21,66 @@ class Service(models.Model):
 
 
 class QuoteRequest(models.Model):
+
+    URGENCY_CHOICES = [
+        ('normal', 'Normal'),
+        ('urgent', 'Urgent'),
+        ('emergency', 'Emergency 24/7'),
+    ]
+
+    STATUS_CHOICES = [
+        ('new', 'New'),
+        ('contacted', 'Contacted'),
+        ('quoted', 'Quoted'),
+        ('confirmed', 'Confirmed'),
+        ('completed', 'Completed'),
+        ('cancelled', 'Cancelled'),
+    ]
+
+    DISPATCH_CHOICES = [
+        ('not_assigned', 'Not Assigned'),
+        ('assigned', 'Technician Assigned'),
+        ('dispatched', 'Dispatched'),
+        ('on_site', 'On Site'),
+        ('completed', 'Completed'),
+    ]
+
     name = models.CharField(max_length=100)
     phone = models.CharField(max_length=20)
     email = models.EmailField()
     service = models.CharField(max_length=200)
     message = models.TextField(blank=True)
+
+    # CRM
+    estimated_aed = models.DecimalField(
+        max_digits=10,
+        decimal_places=2,
+        default=0
+    )
+
+    urgency = models.CharField(
+        max_length=20,
+        choices=URGENCY_CHOICES,
+        default='normal'
+    )
+
+    status = models.CharField(
+        max_length=20,
+        choices=STATUS_CHOICES,
+        default='new'
+    )
+
+    dispatch_status = models.CharField(
+        max_length=20,
+        choices=DISPATCH_CHOICES,
+        default='not_assigned'
+    )
+
+    technician = models.CharField(
+        max_length=100,
+        blank=True
+    )
+
     created_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
@@ -42,6 +97,7 @@ class SiteSettings(models.Model):
     def __str__(self):
         return "Website Settings"
 
+
 class Project(models.Model):
     title = models.CharField(max_length=200)
     description = models.TextField()
@@ -52,6 +108,7 @@ class Project(models.Model):
     def __str__(self):
         return self.title
 
+
 class Testimonial(models.Model):
     name = models.CharField(max_length=100)
     review = models.TextField()
@@ -60,6 +117,7 @@ class Testimonial(models.Model):
 
     def __str__(self):
         return self.name
+
 
 class MaintenancePackage(models.Model):
     name = models.CharField(max_length=100)
@@ -78,9 +136,14 @@ class MaintenancePackage(models.Model):
     def __str__(self):
         return self.name
 
+
 class ServiceArea(models.Model):
     name = models.CharField(max_length=150)
-    slug = models.SlugField(unique=True, blank=True, null=True)
+    slug = models.SlugField(
+        unique=True,
+        blank=True,
+        null=True
+    )
 
     meta_title = models.CharField(max_length=200, blank=True)
     meta_description = models.CharField(max_length=300, blank=True)
@@ -90,6 +153,7 @@ class ServiceArea(models.Model):
 
     def __str__(self):
         return self.name
+
 
 class FAQ(models.Model):
     service = models.ForeignKey(
@@ -105,6 +169,7 @@ class FAQ(models.Model):
 
     def __str__(self):
         return self.question
+
 
 class Blog(models.Model):
     title = models.CharField(max_length=200)

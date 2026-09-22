@@ -1,4 +1,6 @@
 from django.contrib.admin import AdminSite
+from django.db.models import Sum
+
 from .models import (
     Service,
     QuoteRequest,
@@ -18,8 +20,30 @@ class UAECareAdminSite(AdminSite):
 
         extra_context = extra_context or {}
 
+        # Total leads
+        total_leads = QuoteRequest.objects.count()
+
+        # Pipeline value = all open leads' estimated value
+        pipeline_value = (
+            QuoteRequest.objects
+            .exclude(status__in=["completed", "cancelled"])
+            .aggregate(total=Sum("estimated_aed"))["total"] or 0
+        )
+
+        # Currently dispatched / on-site jobs
+        active_dispatches = QuoteRequest.objects.filter(
+            dispatch_status__in=["dispatched", "on_site"]
+        ).count()
+
+        # Active emergency 24/7 calls
+        emergency_calls = QuoteRequest.objects.filter(
+            urgency="emergency"
+        ).exclude(
+            status__in=["completed", "cancelled"]
+        ).count()
+
         extra_context.update({
-            "quote_count": QuoteRequest.objects.count(),
+            "quote_count": total_leads,
 
             "service_count": Service.objects.filter(
                 is_active=True
@@ -38,6 +62,11 @@ class UAECareAdminSite(AdminSite):
             )[:5],
 
             "settings": SiteSettings.objects.first(),
+
+            # CRM KPI values
+            "pipeline_value": pipeline_value,
+            "active_dispatches": active_dispatches,
+            "emergency_calls": emergency_calls,
         })
 
         return super().index(
