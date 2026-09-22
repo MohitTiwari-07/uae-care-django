@@ -158,7 +158,7 @@ def request_quote(request):
             )
 
             # Email notification
-               send_mail(
+            send_mail(
                 subject=f'New Quote Request - {service}',
                 message=f"""
 New Quote Request
