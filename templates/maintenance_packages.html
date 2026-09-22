@@ -442,21 +442,43 @@ Explore UAE CARE annual maintenance and property maintenance packages for homes,
                     </p>
 
 
-                    {% if package.price %}
+                   {% if package.price %}
 
-                    <div class="package-price">
-                        AED {{ package.price }}
-                        <span>/ package</span>
-                    </div>
+<div class="package-price">
+    AED {{ package.price }}
+    <span>/ package</span>
+</div>
 
-                    {% else %}
+{% if package.discount_percent > 0 %}
 
-                    <div class="package-price">
-                        Custom
-                        <span>pricing</span>
-                    </div>
+<div class="mt-2">
 
-                    {% endif %}
+    <span
+        style="
+            display:inline-block;
+            background:#f7f1e7;
+            color:#c99a45;
+            font-size:13px;
+            font-weight:800;
+            padding:6px 10px;
+            border-radius:20px;
+        "
+    >
+        Save {{ package.discount_percent }}%
+    </span>
+
+</div>
+
+{% endif %}
+
+{% else %}
+
+<div class="package-price">
+    Custom
+    <span>pricing</span>
+</div>
+
+{% endif %}
 
 
                     <ul class="package-features">

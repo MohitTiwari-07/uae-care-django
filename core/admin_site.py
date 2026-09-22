@@ -7,6 +7,7 @@ from .models import (
     Project,
     Blog,
     SiteSettings,
+    MaintenancePackage,
 )
 
 
@@ -62,6 +63,9 @@ class UAECareAdminSite(AdminSite):
             )[:5],
 
             "settings": SiteSettings.objects.first(),
+            "maintenance_package": MaintenancePackage.objects.filter(
+    is_active=True
+).first(),
 
             # CRM KPI values
             "pipeline_value": pipeline_value,

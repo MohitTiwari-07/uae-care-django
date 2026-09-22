@@ -16,7 +16,10 @@ from .models import (
 
 
 class ServiceAdmin(admin.ModelAdmin):
-    prepopulated_fields = {'slug': ('name',)}
+
+    prepopulated_fields = {
+        'slug': ('name',)
+    }
 
     list_display = (
         'name',
@@ -70,6 +73,7 @@ class ServiceAdmin(admin.ModelAdmin):
         ),
     )
 
+
 class QuoteRequestAdmin(admin.ModelAdmin):
 
     list_display = (
@@ -117,54 +121,167 @@ class QuoteRequestAdmin(admin.ModelAdmin):
 
 
 class SiteSettingsAdmin(admin.ModelAdmin):
-    list_display = ('phone', 'whatsapp', 'email', 'address')
+
+    list_display = (
+        'phone',
+        'whatsapp',
+        'email',
+        'address',
+    )
 
 
 class ProjectAdmin(admin.ModelAdmin):
-    list_display = ('title', 'category', 'is_active')
-    list_filter = ('category', 'is_active')
-    search_fields = ('title', 'description', 'category')
+
+    list_display = (
+        'title',
+        'category',
+        'is_active',
+    )
+
+    list_filter = (
+        'category',
+        'is_active',
+    )
+
+    search_fields = (
+        'title',
+        'description',
+        'category',
+    )
 
 
 class TestimonialAdmin(admin.ModelAdmin):
-    list_display = ('name', 'rating', 'is_active')
-    list_filter = ('rating', 'is_active')
-    search_fields = ('name', 'review')
+
+    list_display = (
+        'name',
+        'rating',
+        'is_active',
+    )
+
+    list_filter = (
+        'rating',
+        'is_active',
+    )
+
+    search_fields = (
+        'name',
+        'review',
+    )
 
 
 class MaintenancePackageAdmin(admin.ModelAdmin):
-    list_display = ('name', 'price', 'is_active')
-    list_filter = ('is_active',)
-    search_fields = ('name', 'description')
+
+    list_display = (
+        'name',
+        'price',
+        'discount_percent',
+        'is_active',
+    )
+
+    list_filter = (
+        'is_active',
+    )
+
+    search_fields = (
+        'name',
+        'description',
+    )
+
+    list_editable = (
+        'price',
+        'discount_percent',
+        'is_active',
+    )
+
+    ordering = (
+        'name',
+    )
 
 
 class ServiceAreaAdmin(admin.ModelAdmin):
-    prepopulated_fields = {'slug': ('name',)}
-    list_display = ('name', 'slug', 'is_active')
-    list_filter = ('is_active',)
-    search_fields = ('name', 'description')
+
+    prepopulated_fields = {
+        'slug': ('name',)
+    }
+
+    list_display = (
+        'name',
+        'slug',
+        'is_active',
+    )
+
+    list_filter = (
+        'is_active',
+    )
+
+    search_fields = (
+        'name',
+        'description',
+    )
 
 
 class FAQAdmin(admin.ModelAdmin):
-    list_display = ('question', 'service', 'is_active')
-    list_filter = ('service', 'is_active')
-    search_fields = ('question', 'answer')
+
+    list_display = (
+        'question',
+        'service',
+        'is_active',
+    )
+
+    list_filter = (
+        'service',
+        'is_active',
+    )
+
+    search_fields = (
+        'question',
+        'answer',
+    )
 
 
 class BlogAdmin(admin.ModelAdmin):
-    prepopulated_fields = {'slug': ('title',)}
-    list_display = ('title', 'created_at', 'is_active')
-    list_filter = ('is_active', 'created_at')
-    search_fields = ('title', 'excerpt', 'content')
+
+    prepopulated_fields = {
+        'slug': ('title',)
+    }
+
+    list_display = (
+        'title',
+        'created_at',
+        'is_active',
+    )
+
+    list_filter = (
+        'is_active',
+        'created_at',
+    )
+
+    search_fields = (
+        'title',
+        'excerpt',
+        'content',
+    )
 
 
 # Register models with UAE Care custom admin site
+
 uae_admin_site.register(Service, ServiceAdmin)
+
 uae_admin_site.register(QuoteRequest, QuoteRequestAdmin)
+
 uae_admin_site.register(SiteSettings, SiteSettingsAdmin)
+
 uae_admin_site.register(Project, ProjectAdmin)
+
 uae_admin_site.register(Testimonial, TestimonialAdmin)
-uae_admin_site.register(MaintenancePackage, MaintenancePackageAdmin)
+
+uae_admin_site.register(
+    MaintenancePackage,
+    MaintenancePackageAdmin
+)
+
 uae_admin_site.register(ServiceArea, ServiceAreaAdmin)
+
 uae_admin_site.register(FAQ, FAQAdmin)
+
 uae_admin_site.register(Blog, BlogAdmin)

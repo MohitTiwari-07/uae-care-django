@@ -1110,7 +1110,11 @@
             AMC Packages
         </a>
 
-        <span class="uc-save">Save 15%</span>
+        {% if maintenance_package %}
+    <span class="uc-save">
+        Save {{ maintenance_package.discount_percent }}%
+    </span>
+{% endif %}
 
         <a href="/projects/" target="_blank">
             Projects
