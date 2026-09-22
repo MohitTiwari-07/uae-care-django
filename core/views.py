@@ -133,8 +133,8 @@ def contact(request):
 
 
 def request_quote(request):
-    settings = SiteSettings.objects.first()
     services = Service.objects.filter(is_active=True)
+    settings = SiteSettings.objects.first()
 
     if request.method == 'POST':
         name = request.POST.get('name', '').strip()
@@ -143,24 +143,17 @@ def request_quote(request):
         service = request.POST.get('service', '').strip()
         message = request.POST.get('message', '').strip()
 
-        if not name or not phone or not email or not service:
-            messages.error(
-                request,
-                'Please fill in all required fields.'
-            )
-        else:
-            QuoteRequest.objects.create(
-                name=name,
-                phone=phone,
-                email=email,
-                service=service,
-                message=message
-            )
+        QuoteRequest.objects.create(
+            name=name,
+            phone=phone,
+            email=email,
+            service=service,
+            message=message
+        )
 
-            # Email notification
-            send_mail(
-                subject=f'New Quote Request - {service}',
-                message=f"""
+        send_mail(
+            subject=f'New Quote Request - {service}',
+            message=f"""
 New Quote Request
 
 Name: {name}
@@ -171,23 +164,22 @@ Service: {service}
 Message:
 {message}
 """,
-                from_email=None,
-                recipient_list=[settings.email],
-                fail_silently=True,
-            )
+            from_email=None,
+            recipient_list=[settings.email],
+            fail_silently=True,
+        )
 
-            messages.success(
-                request,
-                'Thank you! Your quote request has been submitted successfully.'
-            )
+        messages.success(
+            request,
+            'Thank you! Your quote request has been submitted successfully.'
+        )
 
-            return redirect('request_quote')
+        return redirect('request_quote')
 
     return render(request, 'request_quote.html', {
         'settings': settings,
         'services': services
     })
-
 
 def service_detail(request, slug):
     service = Service.objects.get(slug=slug)
