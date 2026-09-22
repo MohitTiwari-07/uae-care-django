@@ -35,7 +35,7 @@ def home(request):
             service=service,
             message=message
         )
-        # send_quote_email(quote)
+        send_quote_email(quote)
 
         settings = SiteSettings.objects.first()
 
@@ -153,7 +153,7 @@ def request_quote(request):
             service=service,
             message=message
         )
-        # send_quote_email(quote)
+        send_quote_email(quote)
 
 #         send_mail(
 #             subject=f'New Quote Request - {service}',
@@ -330,6 +330,40 @@ def send_quote_email(quote):
                 <p><strong>Message:</strong> {quote.message}</p>
             """
         })
+
+    except Exception as e:
+        print("Resend email error:", e)
+
+def send_quote_email(quote):
+    try:
+        if not settings.RESEND_API_KEY:
+            print("RESEND_API_KEY not configured")
+            return
+
+        resend.api_key = settings.RESEND_API_KEY
+
+        site_settings = SiteSettings.objects.first()
+
+        if not site_settings or not site_settings.email:
+            print("Recipient email not configured")
+            return
+
+        resend.Emails.send({
+            "from": "UAE Care <onboarding@resend.dev>",
+            "to": [site_settings.email],
+            "subject": f"New Quote Request - {quote.service}",
+            "html": f"""
+                <h2>New Quote Request</h2>
+
+                <p><strong>Name:</strong> {quote.name}</p>
+                <p><strong>Phone:</strong> {quote.phone}</p>
+                <p><strong>Email:</strong> {quote.email}</p>
+                <p><strong>Service:</strong> {quote.service}</p>
+                <p><strong>Message:</strong> {quote.message}</p>
+            """
+        })
+
+        print("Quote email sent successfully")
 
     except Exception as e:
         print("Resend email error:", e)
