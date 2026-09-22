@@ -158,7 +158,7 @@ def request_quote(request):
             )
 
             # Email notification
-            send_mail(
+               send_mail(
                 subject=f'New Quote Request - {service}',
                 message=f"""
 New Quote Request
@@ -173,7 +173,7 @@ Message:
 """,
                 from_email=None,
                 recipient_list=[settings.email],
-                fail_silently=False,
+                fail_silently=True,
             )
 
             messages.success(
