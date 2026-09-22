@@ -409,16 +409,18 @@
 }
 
 .uc-logout {
-    color: #dc2626 !important;
-    text-decoration: none !important;
-
-    border: 1px solid #fecaca;
+    border: 1px solid #fecdca;
+    background: #fff;
+    color: #d92d20;
     border-radius: 8px;
+    padding: 10px 15px;
+    font-weight: 700;
+    cursor: pointer;
+    font-size: 13px;
+}
 
-    padding: 8px 12px;
-
-    font-size: 10px;
-    font-weight: 800;
+.uc-logout:hover {
+    background: #fef3f2;
 }
 
 
@@ -1325,12 +1327,12 @@
             ⟳ Sync & Refresh Data
         </button>
 
-        <a
-            class="uc-logout"
-            href="/admin/logout/"
-        >
-            ↪ Logout
-        </a>
+       <form method="post" action="/admin/logout/" style="display:inline;">
+    {% csrf_token %}
+    <button type="submit" class="uc-logout">
+        ↪ Logout
+    </button>
+</form>
 
     </div>
 
