@@ -3,6 +3,7 @@ from django.conf import settings
 from django.contrib import messages
 from django.http import HttpResponse
 
+from decimal import Decimal
 import json
 import urllib.request
 
@@ -33,22 +34,54 @@ def home(request):
         service = request.POST.get('service', '').strip()
         message = request.POST.get('message', '').strip()
 
-        # Save lead first
+        # -------------------------------------------------
+        # Get service price from Admin
+        # -------------------------------------------------
+
+        service_obj = Service.objects.filter(
+            name=service,
+            is_active=True
+        ).first()
+
+        estimated_aed = (
+            service_obj.price
+            if service_obj and service_obj.price is not None
+            else Decimal("0")
+        )
+
+        # -------------------------------------------------
+        # Save lead
+        # -------------------------------------------------
+
         quote = QuoteRequest.objects.create(
             name=name,
             phone=phone,
             email=email,
             service=service,
-            message=message
+            message=message,
+            estimated_aed=estimated_aed
         )
 
+        # -------------------------------------------------
         # Send email
+        # -------------------------------------------------
+
         send_quote_email(quote)
+
+        # -------------------------------------------------
+        # Success message
+        # -------------------------------------------------
 
         messages.success(
             request,
             'Thank you! Your quote request has been submitted successfully.'
         )
+
+        return redirect('home')
+
+    # -----------------------------------------------------
+    # Homepage data
+    # -----------------------------------------------------
 
     services = Service.objects.filter(is_active=True)
     site_settings = SiteSettings.objects.first()
@@ -166,7 +199,10 @@ def contact(request):
 
 def request_quote(request):
 
-    services = Service.objects.filter(is_active=True)
+    services = Service.objects.filter(
+        is_active=True
+    ).order_by('name')
+
     site_settings = SiteSettings.objects.first()
 
     if request.method == 'POST':
@@ -177,17 +213,43 @@ def request_quote(request):
         service = request.POST.get('service', '').strip()
         message = request.POST.get('message', '').strip()
 
-        # Save lead first
+        # -------------------------------------------------
+        # Get service price from Admin
+        # -------------------------------------------------
+
+        service_obj = Service.objects.filter(
+            name=service,
+            is_active=True
+        ).first()
+
+        estimated_aed = (
+            service_obj.price
+            if service_obj and service_obj.price is not None
+            else Decimal("0")
+        )
+
+        # -------------------------------------------------
+        # Save quote request
+        # -------------------------------------------------
+
         quote = QuoteRequest.objects.create(
             name=name,
             phone=phone,
             email=email,
             service=service,
-            message=message
+            message=message,
+            estimated_aed=estimated_aed
         )
 
+        # -------------------------------------------------
         # Send email
+        # -------------------------------------------------
+
         send_quote_email(quote)
+
+        # -------------------------------------------------
+        # Success message
+        # -------------------------------------------------
 
         messages.success(
             request,
@@ -420,7 +482,10 @@ def send_quote_email(quote):
 
     try:
 
+        # -------------------------------------------------
         # Get Resend API key
+        # -------------------------------------------------
+
         api_key = getattr(
             settings,
             'RESEND_API_KEY',
@@ -435,8 +500,10 @@ def send_quote_email(quote):
 
             return
 
-
+        # -------------------------------------------------
         # Get recipient email from admin settings
+        # -------------------------------------------------
+
         site_settings = SiteSettings.objects.first()
 
         if not site_settings:
@@ -446,7 +513,6 @@ def send_quote_email(quote):
             )
 
             return
-
 
         recipient = site_settings.email
 
@@ -458,10 +524,15 @@ def send_quote_email(quote):
 
             return
 
-
+        # -------------------------------------------------
         # Email data
+        # -------------------------------------------------
+
         data = {
 
+            # IMPORTANT:
+            # Replace this after your Resend domain
+            # is verified.
             "from": "UAE Care <onboarding@resend.dev>",
 
             "to": [
@@ -509,6 +580,11 @@ def send_quote_email(quote):
                     </p>
 
                     <p>
+                        <strong>Estimated AED:</strong>
+                        AED {quote.estimated_aed}
+                    </p>
+
+                    <p>
                         <strong>Message:</strong>
                     </p>
 
@@ -526,8 +602,10 @@ def send_quote_email(quote):
             """
         }
 
-
+        # -------------------------------------------------
         # Resend API request
+        # -------------------------------------------------
+
         api_request = urllib.request.Request(
 
             "https://api.resend.com/emails",
@@ -549,8 +627,10 @@ def send_quote_email(quote):
             method="POST"
         )
 
-
+        # -------------------------------------------------
         # Send email
+        # -------------------------------------------------
+
         with urllib.request.urlopen(
             api_request,
             timeout=8
@@ -565,10 +645,9 @@ def send_quote_email(quote):
                 result
             )
 
-
     except Exception as e:
 
-        # VERY IMPORTANT:
+        # IMPORTANT:
         # Email failure must never
         # break the quote form.
 
