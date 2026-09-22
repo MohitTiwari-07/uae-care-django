@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-import resend
+# import resend
 
 from django.conf import settings
 from django.shortcuts import render, get_object_or_404
@@ -299,6 +299,69 @@ def google_verification(request):
         content = file.read()
 
     return HttpResponse(content, content_type="text/html")
+
+
+import json
+import urllib.request
+import urllib.error
+
+
+def send_quote_email(quote):
+    """
+    Send quote email through Resend.
+    Email failure will NEVER break the quote form.
+    """
+
+    try:
+        api_key = getattr(settings, 'RESEND_API_KEY', None)
+
+        if not api_key:
+            print("RESEND_API_KEY is missing")
+            return
+
+        site_settings = SiteSettings.objects.first()
+
+        if not site_settings or not site_settings.email:
+            print("SiteSettings email is missing")
+            return
+
+        data = {
+            "from": "UAE Care <onboarding@resend.dev>",
+            "to": [site_settings.email],
+            "subject": f"New Quote Request - {quote.service}",
+            "html": f"""
+                <h2>New Quote Request</h2>
+
+                <p><strong>Name:</strong> {quote.name}</p>
+                <p><strong>Phone:</strong> {quote.phone}</p>
+                <p><strong>Email:</strong> {quote.email}</p>
+                <p><strong>Service:</strong> {quote.service}</p>
+                <p><strong>Message:</strong> {quote.message}</p>
+            """
+        }
+
+        request = urllib.request.Request(
+            "https://api.resend.com/emails",
+            data=json.dumps(data).encode("utf-8"),
+            headers={
+                "Authorization": f"Bearer {api_key}",
+                "Content-Type": "application/json",
+            },
+            method="POST"
+        )
+
+        with urllib.request.urlopen(request, timeout=8) as response:
+            result = response.read().decode("utf-8")
+            print("Resend email response:", result)
+
+    except Exception as e:
+        print("RESEND EMAIL ERROR:", str(e))
+        # IMPORTANT:
+        # Never raise the error.
+        # Quote is already saved in database.
+        return
+
+    
 def custom_404(request, exception):
     return render(request, '404.html', status=404)
 
