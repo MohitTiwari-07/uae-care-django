@@ -36,23 +36,23 @@ def home(request):
 
         settings = SiteSettings.objects.first()
 
-        send_mail(
-            subject=f'New Quote Request - {service}',
-            message=f"""
-New Quote Request
+#         send_mail(
+#             subject=f'New Quote Request - {service}',
+#             message=f"""
+# New Quote Request
 
-Name: {name}
-Phone: {phone}
-Email: {email}
-Service: {service}
+# Name: {name}
+# Phone: {phone}
+# Email: {email}
+# Service: {service}
 
-Message:
-{message}
-""",
-            from_email=None,
-            recipient_list=[settings.email],
-            fail_silently=False,
-        )
+# Message:
+# {message}
+# """,
+#             from_email=None,
+#             recipient_list=[settings.email],
+#             fail_silently=False,
+#         )
 
         messages.success(
             request,
@@ -151,23 +151,23 @@ def request_quote(request):
             message=message
         )
 
-        send_mail(
-            subject=f'New Quote Request - {service}',
-            message=f"""
-New Quote Request
+#         send_mail(
+#             subject=f'New Quote Request - {service}',
+#             message=f"""
+# New Quote Request
 
-Name: {name}
-Phone: {phone}
-Email: {email}
-Service: {service}
+# Name: {name}
+# Phone: {phone}
+# Email: {email}
+# Service: {service}
 
-Message:
-{message}
-""",
-            from_email=None,
-            recipient_list=[settings.email],
-            fail_silently=True,
-        )
+# Message:
+# {message}
+# """,
+#             from_email=None,
+#             recipient_list=[settings.email],
+#             fail_silently=True,
+#         )
 
         messages.success(
             request,
