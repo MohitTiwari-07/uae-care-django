@@ -35,7 +35,7 @@ def home(request):
             service=service,
             message=message
         )
-        send_quote_email(quote)
+        # send_quote_email(quote)
 
         settings = SiteSettings.objects.first()
 
@@ -153,7 +153,7 @@ def request_quote(request):
             service=service,
             message=message
         )
-        send_quote_email(quote)
+        # send_quote_email(quote)
 
 #         send_mail(
 #             subject=f'New Quote Request - {service}',
