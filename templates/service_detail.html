@@ -1022,11 +1022,16 @@ Professional {{ service.name }} services in Dubai by UAE CARE. Get a free quote 
                         Service
                     </label>
 
-                    <input type="text"
-                           id="service"
-                           name="service"
-                           value="{{ service.name }}"
-                           readonly>
+                  <input type="text"
+       id="service"
+       name="service"
+       value="{{ service.name }}"
+       readonly>
+
+<input type="hidden"
+       name="service_slug"
+       value="{{ service.slug }}">
+                           
 
                 </div>
 

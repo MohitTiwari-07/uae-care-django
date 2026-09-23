@@ -211,16 +211,26 @@ def request_quote(request):
         phone = request.POST.get('phone', '').strip()
         email = request.POST.get('email', '').strip()
         service = request.POST.get('service', '').strip()
+        service_slug = request.POST.get('service_slug', '').strip()
         message = request.POST.get('message', '').strip()
 
         # -------------------------------------------------
         # Get service price from Admin
         # -------------------------------------------------
 
-        service_obj = Service.objects.filter(
-            name=service,
-            is_active=True
-        ).first()
+        service_obj = None
+
+        if service_slug:
+          service_obj = Service.objects.filter(
+        slug=service_slug,
+        is_active=True
+    ).first()
+
+        if not service_obj:
+         service_obj = Service.objects.filter(
+        name=service,
+        is_active=True
+    ).first()
 
         estimated_aed = (
             service_obj.price

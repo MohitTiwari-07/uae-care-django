@@ -128,34 +128,21 @@
                                         Service Required *
                                     </label>
 
-                                    <select
-                                        name="service"
-                                        class="form-select form-select-lg"
-                                        required
-                                    >
+                                   <select
+    name="service"
+    class="form-select form-select-lg"
+    required
+>
+    <option value="">
+        Select a service
+    </option>
 
-                                        <option value="">
-                                            Select a service
-                                        </option>
-
-                                        <option>AC Services</option>
-                                        <option>AC Repair</option>
-                                        <option>AC Installation</option>
-                                        <option>AC Maintenance</option>
-                                        <option>Plumbing</option>
-                                        <option>Electrical</option>
-                                        <option>Handyman</option>
-                                        <option>Painting</option>
-                                        <option>Carpentry</option>
-                                        <option>Waterproofing</option>
-                                        <option>Tiling</option>
-                                        <option>False Ceiling</option>
-                                        <option>Renovation</option>
-                                        <option>General Maintenance</option>
-                                        <option>AMC / Maintenance Package</option>
-                                        <option>Other</option>
-
-                                    </select>
+    {% for service in services %}
+        <option value="{{ service.name }}">
+            {{ service.name }}
+        </option>
+    {% endfor %}
+</select>
 
                                 </div>
 

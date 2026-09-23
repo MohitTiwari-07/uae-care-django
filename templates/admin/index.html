@@ -1093,9 +1093,13 @@
 
     <div class="uc-nav">
 
-        <a href="/" target="_blank">Home</a>
+        <!-- Home -->
+        <a href="{% url 'uae_admin:index' %}">
+            Home
+        </a>
 
 
+        <!-- Services -->
         <button
             type="button"
             class="uc-nav-services"
@@ -1106,49 +1110,64 @@
         </button>
 
 
-        <a href="/maintenance-packages/" target="_blank">
+        <!-- AMC Packages -->
+        <a href="{% url 'uae_admin:core_maintenancepackage_changelist' %}">
             AMC Packages
         </a>
 
-        {% if maintenance_package %}
-    <span class="uc-save">
-        Save {{ maintenance_package.discount_percent }}%
-    </span>
-{% endif %}
 
-        <a href="/projects/" target="_blank">
+        <!-- Dynamic Discount -->
+        {% if maintenance_package %}
+            <span class="uc-save">
+                Save {{ maintenance_package.discount_percent }}%
+            </span>
+        {% endif %}
+
+
+        <!-- Projects -->
+        <a href="{% url 'uae_admin:core_project_changelist' %}">
             Projects
         </a>
 
-        <a href="/service-areas/" target="_blank">
+
+        <!-- Service Areas -->
+        <a href="{% url 'uae_admin:core_servicearea_changelist' %}">
             Service Areas
         </a>
 
-        <a href="/reviews/" target="_blank">
+
+        <!-- Reviews -->
+        <a href="{% url 'uae_admin:core_testimonial_changelist' %}">
             Reviews
         </a>
 
-        <a href="/blog/" target="_blank">
+
+        <!-- Blog -->
+        <a href="{% url 'uae_admin:core_blog_changelist' %}">
             Blog
         </a>
 
-        <a href="/contact/" target="_blank">
+
+        <!-- Contact / Website Settings -->
+        <a href="{% url 'uae_admin:core_sitesettings_changelist' %}">
             Contact
         </a>
 
+
+        <!-- WhatsApp -->
         {% if settings %}
-        <a
-            class="uc-wa"
-            href="https://wa.me/{{ settings.whatsapp }}"
-            target="_blank"
-        >
-            💬 WhatsApp Direct
-        </a>
+            <a
+                class="uc-wa"
+                href="https://wa.me/{{ settings.whatsapp }}"
+                target="_blank"
+            >
+                💬 WhatsApp Direct
+            </a>
         {% endif %}
 
     </div>
 
-
+</div>
     <!-- SERVICES MENU -->
 
     <div id="servicesMenu" class="uc-services-menu">
@@ -1286,7 +1305,7 @@
 
     </div>
 
-</div>
+
 
 
 <!-- ======================================================
@@ -1953,43 +1972,10 @@
 
 function toggleServicesMenu() {
 
-    const menu = document.getElementById("servicesMenu");
+    window.location.href =
+        "{% url 'uae_admin:core_service_changelist' %}";
 
-    const arrow = document.getElementById("serviceArrow");
-
-    menu.classList.toggle("show");
-
-    if (menu.classList.contains("show")) {
-        arrow.innerHTML = "⌃";
-    } else {
-        arrow.innerHTML = "⌄";
-    }
 }
-
-
-document.addEventListener("click", function(event) {
-
-    const menu = document.getElementById("servicesMenu");
-
-    const button = document.querySelector(".uc-nav-services");
-
-    if (
-        menu &&
-        !menu.contains(event.target) &&
-        button &&
-        !button.contains(event.target)
-    ) {
-        menu.classList.remove("show");
-
-        const arrow =
-            document.getElementById("serviceArrow");
-
-        if (arrow) {
-            arrow.innerHTML = "⌄";
-        }
-    }
-
-});
 
 </script>
 
