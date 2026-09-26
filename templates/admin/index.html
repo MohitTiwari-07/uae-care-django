@@ -1555,18 +1555,52 @@
 
         </div>
 
-        <select class="uc-status">
+        <form method="get" style="margin: 0;">
 
-            <option>
-                Status: All Statuses ({{ quote_count }})
-            </option>
+    <select
+        name="status"
+        class="uc-status"
+        onchange="this.form.submit()"
+    >
 
-            <option>New</option>
-            <option>Contacted</option>
-            <option>In Progress</option>
-            <option>Completed</option>
+        <option
+            value="all"
+            {% if selected_status == "all" %}selected{% endif %}
+        >
+            Status: All Statuses ({{ quote_count }})
+        </option>
 
-        </select>
+        <option
+            value="new"
+            {% if selected_status == "new" %}selected{% endif %}
+        >
+            New
+        </option>
+
+        <option
+            value="contacted"
+            {% if selected_status == "contacted" %}selected{% endif %}
+        >
+            Contacted
+        </option>
+
+        <option
+            value="progress"
+            {% if selected_status == "progress" %}selected{% endif %}
+        >
+            In Progress
+        </option>
+
+        <option
+            value="completed"
+            {% if selected_status == "completed" %}selected{% endif %}
+        >
+            Completed
+        </option>
+
+    </select>
+
+</form>
 
     </div>
 
@@ -1582,6 +1616,7 @@
                     <th>Service</th>
                     <th>Property</th>
                     <th>Phone</th>
+                    <th>Description</th>
                     <th>Urgency & Estimated AED</th>
                     <th>Dispatch Status</th>
                     <th>Date</th>
@@ -1617,10 +1652,27 @@
                     </td>
 
                     <td>
-                        {{ quote.phone }}
-                    </td>
+    {{ quote.phone }}
+</td>
 
-                    <td>
+<td style="max-width:260px;">
+    {% if quote.message %}
+        <div style="
+            color:#475467;
+            font-size:10px;
+            line-height:1.5;
+            white-space:normal;
+        ">
+            {{ quote.message }}
+        </div>
+    {% else %}
+        <span style="color:#98A2B3;font-size:10px;">
+            No description
+        </span>
+    {% endif %}
+</td>
+
+<td>
     <strong>
         AED {{ quote.estimated_aed|floatformat:0 }}
     </strong>
@@ -1643,7 +1695,7 @@
 
                 <tr>
                     <td
-                        colspan="7"
+                        colspan="8"
                         class="uc-empty"
                     >
                         No customer leads yet.
@@ -1895,6 +1947,27 @@
 {% if settings %}
 
 <div class="uc-floating-urgent">
+
+    <button
+        type="button"
+        onclick="this.parentElement.style.display='none';"
+        style="
+            position:absolute;
+            top:6px;
+            right:8px;
+            border:0;
+            background:transparent;
+            color:#98A2B3;
+            font-size:20px;
+            font-weight:700;
+            cursor:pointer;
+            padding:2px 6px;
+            line-height:1;
+        "
+        aria-label="Close"
+    >
+        ×
+    </button>
 
     <div class="uc-floating-title">
 

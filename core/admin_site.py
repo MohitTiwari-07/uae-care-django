@@ -19,6 +19,25 @@ class UAECareAdminSite(AdminSite):
 
     def index(self, request, extra_context=None):
 
+        # Lead status filter
+        selected_status = request.GET.get("status", "all")
+
+        quotes = QuoteRequest.objects.order_by("-created_at")
+
+        if selected_status == "new":
+            quotes = quotes.filter(status="new")
+
+        elif selected_status == "contacted":
+            quotes = quotes.filter(status="contacted")
+
+        elif selected_status == "progress":
+            quotes = quotes.filter(
+                status__in=["quoted", "confirmed"]
+            )
+
+        elif selected_status == "completed":
+            quotes = quotes.filter(status="completed")
+
         extra_context = extra_context or {}
 
         # Total leads
@@ -28,7 +47,9 @@ class UAECareAdminSite(AdminSite):
         pipeline_value = (
             QuoteRequest.objects
             .exclude(status__in=["completed", "cancelled"])
-            .aggregate(total=Sum("estimated_aed"))["total"] or 0
+            .aggregate(
+                total=Sum("estimated_aed")
+            )["total"] or 0
         )
 
         # Currently dispatched / on-site jobs
@@ -44,6 +65,7 @@ class UAECareAdminSite(AdminSite):
         ).count()
 
         extra_context.update({
+
             "quote_count": total_leads,
 
             "service_count": Service.objects.filter(
@@ -58,18 +80,23 @@ class UAECareAdminSite(AdminSite):
                 is_active=True
             ).count(),
 
-            "recent_quotes": QuoteRequest.objects.order_by(
-                "-created_at"
-            )[:5],
+            # Filtered leads
+            "recent_quotes": quotes,
+
+            # Selected filter
+            "selected_status": selected_status,
 
             "settings": SiteSettings.objects.first(),
+
             "maintenance_package": MaintenancePackage.objects.filter(
-    is_active=True
-).first(),
+                is_active=True
+            ).first(),
 
             # CRM KPI values
             "pipeline_value": pipeline_value,
+
             "active_dispatches": active_dispatches,
+
             "emergency_calls": emergency_calls,
         })
 
